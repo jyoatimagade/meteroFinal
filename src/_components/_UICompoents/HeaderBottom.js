@@ -49,13 +49,14 @@ const HeaderBottom = (props) => {
   const _getSelectdJob = (e) => {
     // debugger;
     setGetResult(e.label);
-    setGetResult(e.value);
+    // setGetResult(e.value);
 
     // console.log("get job id result 111", e);
     let data = { jobId: e.value };
-    try {
-      dispatch(meteroTable_Action(data));
-    } catch (error) {}
+    setgetJobID(e.value);
+    // try {
+    //   dispatch(meteroTable_Action(data));
+    // } catch (error) {}
 
     // console.log(getJob.SELECTJOBData[0].Description);
     
@@ -82,11 +83,12 @@ const HeaderBottom = (props) => {
   const _ToggleSearch = (data) => {
     debugger;
     // alert("YOU clicked !!!")
-    setGetResult(data);
-    // console.log(data);
+    let searchData = { jobId: getJobID };
+    // setGetResult(searchData);
+    // console.log(searchData);
     // let data={jobId:e.value }
     try {
-      dispatch(meteroTable_Action(data));
+      dispatch(meteroTable_Action(searchData));
     } catch (error) {}
     // if(getJob.isSuccess === true){
     //   // alert("111")
@@ -112,11 +114,11 @@ const HeaderBottom = (props) => {
             <div className="col-md-10">
               <div className=" job-search-div d-flex justify-content-end">
                 <form className=" header-Search d-flex justify-content-end">
-                  {/* {ToggleSearchOn ? ( */}
-                  {/* <div className="col-md-8 select-job header-caption">
+                  {getresult ? (
+                  <div className="col-md-8 select-job header-caption">
                     <h2>{getresult}</h2>
-                  </div> */}
-                  {/* ) : ( */}
+                  </div>
+                   ) : ( /*}*/
                   <div className="col-md-8 select-job">
                     <Select
                       options={dropDownArray}
@@ -125,7 +127,7 @@ const HeaderBottom = (props) => {
                       // onChange={opt => console.log(opt.label, opt.value)}
                     />
                   </div>
-                  {/* )} */}
+                   )}
 
                   <button
                     className="btn btn-primary text-white"
