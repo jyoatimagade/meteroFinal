@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { notesIcon } from "../../_config/images";
-import axios from "axios";
+// import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {
   Header,
