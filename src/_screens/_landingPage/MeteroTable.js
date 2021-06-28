@@ -282,8 +282,9 @@ const MeteroTable = (props) => {
             </Modal.Header>
             <Modal.Body>
           
-            
-                   
+            {
+              notesModalData ? (
+                   <>
                 <h4 className=" default-color py-2">Equipment No: {notesModalData.Equipment}</h4>
               <div class="row d-flex justify-content-start py-1">
                 <div class="col-md-5">
@@ -310,11 +311,10 @@ const MeteroTable = (props) => {
                   <textarea type="text" className="form-control" ></textarea>
                 </div>
               </div>
-              
-            
-                    
-             
-                   
+                  
+             </>
+              ) : null
+            }
             </Modal.Body>
             <Modal.Footer>
               <div className="d-flex justify-content-start">
