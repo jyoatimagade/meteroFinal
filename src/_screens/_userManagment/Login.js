@@ -32,7 +32,7 @@ const Login = (props) => {
   // useEffect(() => {
 
   //   if (loginData.loginData !== null || loginData !== undefined && loginData.loginData.isSuccess == true) {
-  //     console.log('Login suceesful',loginData )
+  //     alert('Login suceesful',loginData )
   //   } else {
   //     dispatch(resetLoginAPI_Action());
 
@@ -41,26 +41,27 @@ const Login = (props) => {
   // }, [loginData.loginData]);
 
   // if (loginData.logindata && loginData.logindata[0].UserValidated!==undefined && loginData.logindata[0].UserValidated!=="true") {
-  if ( loginData.logindata &&  loginData.logindata[0].UserValidated !== true) {
-    console.log("loginData.logindata.data ", loginData[0]);
+  // if ( loginData.logindata &&  loginData.logindata[0].UserValidated !== true) {
+  //   console.log("loginData.logindata.data ", loginData[0]);
 
-    if (
-      // loginData.logindata &&
-      // loginData.logindata[0].UserValidated !== undefined &&
-      // loginData.logindata[0].UserValidated !== true
-      loginData.logindata[0].UserValidated === "true" &&
-      loginData.logindata[0].SessionID > 0
-    ) {
-      history.push("/Metero");
+  //   if (
+  //     // loginData.logindata &&
+  //     // loginData.logindata[0].UserValidated !== undefined &&
+  //     // loginData.logindata[0].UserValidated !== true
+  //     loginData.logindata[0].UserValidated === "true" &&
+  //     loginData.logindata[0].SessionID > 0
+  //   ) {
+  //     history.push("/Metero");
       
-    } else {
-      // alert('Try again');
-      console.log("try again"); 
-    }
-  } else {
-    // alert('Try again2');
-    console.log("try again2");
-  }
+  //   } else {
+  //     // alert('Try again');
+  //     console.log("try again"); 
+  //   }
+  // } else {
+  //   // alert('Try again2');
+  //   console.log("try again2");
+  // }
+
   const __onTextChange = (e) => {
     setFormData({
       ...formData,
@@ -79,6 +80,15 @@ const Login = (props) => {
   const _submitForm = (e) => {
     e.preventDefault();
     __apiCall();
+    if (loginData.logindata &&  loginData.logindata.UserValidated !== true) {
+          alert('Login suceesful',loginData )
+         
+        } else {
+          dispatch(resetLoginAPI_Action());
+    
+          alert('try again')
+        }
+  
   };
   const _loginErrorModal = () => {};
   const _loginValidationModal = () => {};

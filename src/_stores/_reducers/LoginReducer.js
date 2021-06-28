@@ -16,7 +16,7 @@ export default function (state = INITIAL_STATE, action) {
             };
         case types.LOGIN_RECEIVE:
 
-            // console.log("add reducer", action.payload);
+            console.log("add reducer", action.payload);
            
             return {
                 ...state,
