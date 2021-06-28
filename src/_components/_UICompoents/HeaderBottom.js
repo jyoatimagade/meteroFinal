@@ -90,12 +90,12 @@ const HeaderBottom = (props) => {
     try {
       dispatch(meteroTable_Action(searchData));
     } catch (error) {}
-    // if(getJob.isSuccess === true){
-    //   // alert("111")
-    //   setToggleSearchOn(!ToggleSearchOn);
-    // }else{
-    //   setToggleSearchOn(!ToggleSearchOn);
-    // }
+    if(getJob.isSuccess === true){
+      // alert("111")
+      setToggleSearchOn(true);
+    }else{
+      setToggleSearchOn(false);
+    }
   };
 
   return (
@@ -114,11 +114,12 @@ const HeaderBottom = (props) => {
             <div className="col-md-10">
               <div className=" job-search-div d-flex justify-content-end">
                 <form className=" header-Search d-flex justify-content-end">
-                  {getresult ? (
+                  {ToggleSearchOn ? (
                   <div className="col-md-8 select-job header-caption">
                     <h2>{getresult}</h2>
                   </div>
-                   ) : ( /*}*/
+                   ) : ( 
+                     <>
                   <div className="col-md-8 select-job">
                     <Select
                       options={dropDownArray}
@@ -127,7 +128,6 @@ const HeaderBottom = (props) => {
                       // onChange={opt => console.log(opt.label, opt.value)}
                     />
                   </div>
-                   )}
 
                   <button
                     className="btn btn-primary text-white"
@@ -141,6 +141,8 @@ const HeaderBottom = (props) => {
                     {" "}
                     Select Job{" "}
                   </button>
+                  </>
+                  )}
                 </form>
               </div>
             </div>
