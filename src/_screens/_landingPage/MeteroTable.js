@@ -284,14 +284,14 @@ const MeteroTable = (props) => {
           
             
                    
-                <h4 className=" default-color py-2">Equipment No: {notesModalData.Equipment}</h4>
+                <h4 className=" default-color py-2">Equipment No: {}</h4>
               <div class="row d-flex justify-content-start py-1">
                 <div class="col-md-5">
                   <label for="email"> Last Recorded Hours</label>
                 </div>
 
                 <div class="col-md-7">
-                  <input type="text" className="form-control" value={notesModalData.NewHr} disabled />
+                  <input type="text" className="form-control"  disabled />
                 </div>
               </div>
               <div class="row d-flex justify-content-start py-1">
@@ -299,7 +299,7 @@ const MeteroTable = (props) => {
                   <label for="text"> Last Recorded Odo</label>
                 </div>
                 <div class="col-md-7">
-                  <input type="text" className="form-control" value={notesModalData.NewOdo} />
+                  <input type="text" className="form-control"  />
                 </div>
               </div>
               <div class="row d-flex justify-content-start py-1">

@@ -1,14 +1,32 @@
 import React, { useEffect, useState, useCallback } from "react";
 import {} from "../../_config/images";
 import { useDispatch, useSelector } from "react-redux";
-
+import { SplashScreen } from "../index";
 import { selectJob_Action, meteroTable_Action } from "../../_stores/_actions";
 import Searchable from "react-searchable-dropdown";
 import SelectSearch from "react-select-search";
 import Select from "react-select";
 import { useSelect } from "react-select-search";
 
+
+const LightTheme = {
+  pageBackground: "white",
+  titleColor: "#dc658b",
+  tagLineColor: "black",
+};
+
+const DarkTheme = {
+  pageBackground: "#282c36",
+  titleColor: "lightpink",
+  tagLineColor: "lavender",
+};
+
+const themes = {
+  light: LightTheme,
+  dark: DarkTheme,
+};
 const HeaderBottom = (props) => {
+  const [theme, setTheme] = useState("light");
   // Selectors
   const getJob = useSelector((state) => state.getJob);
   const selectJobData = useSelector((state) => state.meteroTable);
@@ -105,6 +123,7 @@ const HeaderBottom = (props) => {
           <div className="row">
             <div className="col-md-2">
               <div className="theme-toggle">
+              {/* <SplashScreen theme={theme} setTheme={setTheme} /> */}
                 {/* <Toggle onClick={changeTheme}>
                               {icon}
                           </Toggle> 
