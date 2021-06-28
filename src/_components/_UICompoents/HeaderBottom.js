@@ -1,32 +1,14 @@
 import React, { useEffect, useState, useCallback } from "react";
 import {} from "../../_config/images";
 import { useDispatch, useSelector } from "react-redux";
-import { SplashScreen } from "../index";
+
 import { selectJob_Action, meteroTable_Action } from "../../_stores/_actions";
 import Searchable from "react-searchable-dropdown";
 import SelectSearch from "react-select-search";
 import Select from "react-select";
 import { useSelect } from "react-select-search";
 
-
-const LightTheme = {
-  pageBackground: "white",
-  titleColor: "#dc658b",
-  tagLineColor: "black",
-};
-
-const DarkTheme = {
-  pageBackground: "#282c36",
-  titleColor: "lightpink",
-  tagLineColor: "lavender",
-};
-
-const themes = {
-  light: LightTheme,
-  dark: DarkTheme,
-};
 const HeaderBottom = (props) => {
-  const [theme, setTheme] = useState("light");
   // Selectors
   const getJob = useSelector((state) => state.getJob);
   const selectJobData = useSelector((state) => state.meteroTable);
@@ -108,12 +90,12 @@ const HeaderBottom = (props) => {
     try {
       dispatch(meteroTable_Action(searchData));
     } catch (error) {}
-    // if(getJob.isSuccess === true){
-    //   // alert("111")
-    //   setToggleSearchOn(!ToggleSearchOn);
-    // }else{
-    //   setToggleSearchOn(!ToggleSearchOn);
-    // }
+    if(getJob.isSuccess === true){
+      // alert("111")
+      setToggleSearchOn(true);
+    }else{
+      setToggleSearchOn(false);
+    }
   };
 
   return (
@@ -123,7 +105,6 @@ const HeaderBottom = (props) => {
           <div className="row">
             <div className="col-md-2">
               <div className="theme-toggle">
-              {/* <SplashScreen theme={theme} setTheme={setTheme} /> */}
                 {/* <Toggle onClick={changeTheme}>
                               {icon}
                           </Toggle> 
@@ -133,11 +114,12 @@ const HeaderBottom = (props) => {
             <div className="col-md-10">
               <div className=" job-search-div d-flex justify-content-end">
                 <form className=" header-Search d-flex justify-content-end">
-                  {getresult ? (
+                  {ToggleSearchOn ? (
                   <div className="col-md-8 select-job header-caption">
                     <h2>{getresult}</h2>
                   </div>
-                   ) : ( /*}*/
+                   ) : ( 
+                     <>
                   <div className="col-md-8 select-job">
                     <Select
                       options={dropDownArray}
@@ -146,7 +128,6 @@ const HeaderBottom = (props) => {
                       // onChange={opt => console.log(opt.label, opt.value)}
                     />
                   </div>
-                   )}
 
                   <button
                     className="btn btn-primary text-white"
@@ -160,6 +141,8 @@ const HeaderBottom = (props) => {
                     {" "}
                     Select Job{" "}
                   </button>
+                  </>
+                  )}
                 </form>
               </div>
             </div>
