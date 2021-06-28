@@ -81,8 +81,12 @@ const HeaderBottom = (props) => {
   // }, [selectJobData.METEROTABLEdata]);
 
   const _ToggleSearch = (data) => {
-    debugger;
+    // debugger;
     // alert("YOU clicked !!!")
+    if(ToggleSearchOn){
+      setToggleSearchOn(false);
+      return;
+    }
     let searchData = { jobId: getJobID };
     // setGetResult(searchData);
     // console.log(searchData);
@@ -128,6 +132,8 @@ const HeaderBottom = (props) => {
                       // onChange={opt => console.log(opt.label, opt.value)}
                     />
                   </div>
+                  </>
+                  )}
 
                   <button
                     className="btn btn-primary text-white"
@@ -138,11 +144,8 @@ const HeaderBottom = (props) => {
                       _ToggleSearch();
                     }}
                   >
-                    {" "}
-                    Select Job{" "}
+                    {ToggleSearchOn ? 'Change' : 'Select'} Job
                   </button>
-                  </>
-                  )}
                 </form>
               </div>
             </div>
