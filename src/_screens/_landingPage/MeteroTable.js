@@ -25,15 +25,16 @@ const MeteroTable = (props) => {
   const [totalItems, setTotalItems] = useState(0);
 
   const [offset, setOffset] = useState(0);
-  const [perPage, setPerpage] = useState(10);
+  const [perPage, setPerpage] = useState(5);
   const [currentPage, setCurrentpage] = useState(1);
 
   const [searchcurrentPage, setSearchcurrentPage] = useState(1);
   const [search, setSearch] = useState("");
   const [data, setData] = useState([]);
-  const [pageRange, setPageRange] = useState([0, 11]);
+  const [pageRange, setPageRange] = useState([0, 5]);
   const [notesModal, setnotesModal] = useState(false);
   const [notesModalData, setnotesModalData] = useState();
+  const [dataListIsOfRemaining, setDataListIsOfRemaining] = useState(false);
 
   // console.log("select MeteroTable value", meteroTableList);
   const dispatch = useDispatch();
@@ -104,11 +105,12 @@ const MeteroTable = (props) => {
   const handlePageClick = (e) => {
     // window.scrollTo(0, 0);
     const selectedPage = e.selected + 1;
-    const offset = e.selected * perPage + 1;
+    let perPageCount = e.perPage ? e.perPage: perPage;
+    const offset = e.selected * perPageCount + 1;
     console.log(selectedPage);
     setCurrentpage(selectedPage);
     setOffset(offset);
-    setPageRange([offset, selectedPage * perPage + 1]);
+    setPageRange([offset, selectedPage * perPageCount + 1]);
   };
   const _addNotesModalShow = () => {
     setnotesModal(true);
@@ -116,6 +118,14 @@ const MeteroTable = (props) => {
   const _addNotesModalHide = () => {
     setnotesModal(false);
   };
+  const showRemainingData = (showRemaining) => {
+    setDataListIsOfRemaining(showRemaining);
+    if(!showRemaining){
+      setData(meteroTableList.meteroTableData);
+    } else {
+      setData(meteroTableList.meteroTableData.filter(item=> item.Saved_MeterO !== "true"));
+    }
+  }
 
   return (
     <div className="tab-div">
@@ -157,30 +167,33 @@ const MeteroTable = (props) => {
             </div>
             <div className="show-equip-div">
               <label>
-                Showing Equipments: {meteroTableList.meteroTableData.length}
+                Showing Equipments: {data.length}
               </label>
             </div>
             <div className="page-item-div">
               <label>Page Item</label>
-              <select>
-                <option>5</option>
-                <option>10</option>
-                <option>20</option>
+              <select onChange={(e)=>{
+                  setPerpage(parseInt(e.target.value));
+                  handlePageClick({selected:currentPage-1, perPage:parseInt(e.target.value)});
+                }}>
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="20">20</option>
               </select>
             </div>
-            <div className="">
-              <label>Remaining / All</label>
+            <div className="data-list-type" style={{cursor:'pointer'}}>
+              <span className={dataListIsOfRemaining?'active':null} onClick={()=>{showRemainingData(true)}}>Remaining</span> / <span  className={dataListIsOfRemaining?null:'active'} onClick={()=>{showRemainingData(false)}}>All</span>
             </div>
           </div>
           <table className="table table-striped">
             <Header headers={headers} />
             <tbody>
-              {meteroTableList.meteroTableData &&
-                meteroTableList.meteroTableData
+              {data &&
+                data
                   .slice(pageRange[0], pageRange[1])
                   .map((item, key) => {
                     return (
-                      <tr className="card-itme mb-32" key={key}>
+                      <tr className={`card-itme mb-32 ${item.Saved_MeterO === 'true' ? 'saved-entry' : ''}`} key={key}>
                         <td>
                           {" "}
                           <img
