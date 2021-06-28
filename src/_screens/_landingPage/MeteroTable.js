@@ -193,7 +193,7 @@ const MeteroTable = (props) => {
                   .slice(pageRange[0], pageRange[1])
                   .map((item, key) => {
                     return (
-                      <tr className="card-itme mb-32" key={key}>
+                      <tr className={`card-itme mb-32 ${item.Saved_MeterO === 'true' ? 'saved-entry' : ''}`} key={key}>
                         <td>
                           {" "}
                           <img
