@@ -68,39 +68,35 @@ const MeteroTable = (props) => {
     { dataField: "submitBtn", text: "" },
   ];
 
-  useMemo(() => {
-    let selectedIdData = meteroTableList.meteroTableData;
+  // useMemo(() => {
 
-    if (search) {
-      selectedIdData = selectedIdData.filter(
-        (meteroTableData) =>
-          meteroTableList.meteroTableData.Equipment.toLowerCase().includes(
-            search.toLowerCase()
-          ) ||
-          meteroTableList.meteroTableData.SerialNo.toLowerCase().includes(
-            search.toLowerCase()
-          )
-      );
-      console.log("search data", selectedIdData);
-    }
+  //   if (search) {
+  //     let filteredDataList = meteroTableList.meteroTableData.filter(
+  //       (item) =>
+  //         item.Equipment.toLowerCase().includes(search.toLowerCase()) ||
+  //         item.SerialNo.toLowerCase().includes(search.toLowerCase())
+  //     );
+  //     console.log("search data", filteredDataList);
+  //     setData(filteredDataList);
+  //   }
 
-    // setTotalItems(computedComments.length);
+  //   // setTotalItems(computedComments.length);
 
-    // //Sorting comments
-    // if (sorting.field) {
-    //     const reversed = sorting.order === "asc" ? 1 : -1;
-    //     computedComments = computedComments.sort(
-    //         (a, b) =>
-    //             reversed * a[sorting.field].localeCompare(b[sorting.field])
-    //     );
-    // }
+  //   // //Sorting comments
+  //   // if (sorting.field) {
+  //   //     const reversed = sorting.order === "asc" ? 1 : -1;
+  //   //     computedComments = computedComments.sort(
+  //   //         (a, b) =>
+  //   //             reversed * a[sorting.field].localeCompare(b[sorting.field])
+  //   //     );
+  //   // }
 
-    //Current Page slice
-    // return selectedIdData.slice(
-    //     (currentPage - 1) * ITEMS_PER_PAGE,
-    //     (currentPage - 1) * ITEMS_PER_PAGE + ITEMS_PER_PAGE
-    // );
-  }, [meteroTableList.meteroTableData, currentPage, search]);
+  //   //Current Page slice
+  //   // return selectedIdData.slice(
+  //   //     (currentPage - 1) * ITEMS_PER_PAGE,
+  //   //     (currentPage - 1) * ITEMS_PER_PAGE + ITEMS_PER_PAGE
+  //   // );
+  // }, [meteroTableList.meteroTableData, currentPage, search]);
 
   const handlePageClick = (e) => {
     // window.scrollTo(0, 0);
@@ -124,6 +120,21 @@ const MeteroTable = (props) => {
       setData(meteroTableList.meteroTableData);
     } else {
       setData(meteroTableList.meteroTableData.filter(item=> item.Saved_MeterO !== "true"));
+    }
+  }
+  const searchDataList = (searchTerm)=>{
+    if(searchTerm){
+      let filteredDataList = meteroTableList.meteroTableData.filter(
+        (item) =>
+          (item.Equipment && item.Equipment.toLowerCase().includes(searchTerm.toLowerCase())) ||
+          (item.SerialNo && item.SerialNo.toLowerCase().includes(searchTerm.toLowerCase())) ||
+          (item.Description && item.Description.toLowerCase().includes(searchTerm.toLowerCase())) ||
+          (item.LicenseNumber && item.LicenseNumber.toLowerCase().includes(searchTerm.toLowerCase()))
+      );
+      // console.log("search data", filteredDataList);
+      setData(filteredDataList);
+    } else{
+      setData(meteroTableList.meteroTableData);
     }
   }
 
@@ -155,8 +166,7 @@ const MeteroTable = (props) => {
             <div className="search-div">
               <Search
                 onSearch={(value) => {
-                  setSearch(value);
-                  setSearchcurrentPage(1);
+                  searchDataList(value);
                 }}
               />
             </div>
