@@ -5,6 +5,11 @@ body{
     font-family: 'Roboto', sans-serif;
     /* background-color: #000; */
   }
+
+  dl, ol, ul {
+    margin-top: 0;
+    margin-bottom: 0;
+}
   
   /* common cSs */
   .form-control{
@@ -205,15 +210,80 @@ body{
   .css-1hb7zxy-IndicatorsContainer{display: none !important;}
   /* eNd  mEtero-tAb ------------------- */
   
+  /* pAgination ------------------- */
+  .pagination-div .table>:not(caption)>*>* {
+    padding: .2rem .1rem;}
+  .pagination-active a{
+    color:green !important
+  }
+  .pagination-div{
+   
+    margin: .5rem;
+  }
+  .pagination .table>:not(caption)>*>* {
+    padding: .5rem .2rem;
+    background-color: var(--bs-table-bg);
+    border-bottom-width: 1px;
+    box-shadow: none;
+}
+.page-item:not(:first-child) .page-link {
+  margin-left: -3px;
+}
+.page-item {
+  padding: .1rem !important;
   
-  /* lOgin Modal */
+}
+.page-link {
+  padding: .3rem .7rem;
+  border: none;
+  color: #000;
+  border-right: 1px solid #000;  
+  
+}
+.page-item.active .page-link {
+  z-index: 3;
+  color: blue;
+  background-color: transparent;
+  border-color: #000;
+  border: none;
+}
+
+/* .page-item:nth-child(1) .page-link {
+  border: none;
+  display: none;
+}*/
+
+.page-item:last-child .page-link {
+  border-radius: 0;
+  border: none;
+}
+
+  /* eNd  pAgination ------------------- */
+  
+  
+  /* Modal */
+  .modal-header{
+    border-bottom: none;
+  }
+  .modal-footer{
+    border-top: none;  
+    justify-content: space-around;  
+  }
+  .notesModal textarea.form-control{
+    min-height: 7rem;
+  }
   .modal-close{  
     right: 8px;
     top: -2px;
     color: #000;
     text-decoration: none;
   }
-  
+  .modal-body {   
+    padding: .2rem 1rem;
+}
+.modal-content {
+  border-radius: .2rem;
+}
   .modal-close img{
     width: 9px;
   }
@@ -222,6 +292,9 @@ body{
   }
   .modal-90w .modal-body{
     padding: 17rem 0;
+  }
+  .notesModal{
+    padding: 10rem 0;
   }
   /* .react-responsive-modal-modal {
     width: 800px;
@@ -262,6 +335,9 @@ body{
   }
   
   /* meterO tEble */
+  .notesIcon{
+    cursor: pointer;
+  }
    .btn.btn-default.btn-secondary.dropdown-toggle {
     border-radius: 0 !important;
     text-transform: uppercase !important;
