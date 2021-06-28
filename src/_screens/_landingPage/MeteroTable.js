@@ -34,6 +34,7 @@ const MeteroTable = (props) => {
   const [pageRange, setPageRange] = useState([0, 5]);
   const [notesModal, setnotesModal] = useState(false);
   const [notesModalData, setnotesModalData] = useState();
+  const [dataListIsOfRemaining, setDataListIsOfRemaining] = useState(false);
 
   // console.log("select MeteroTable value", meteroTableList);
   const dispatch = useDispatch();
@@ -117,6 +118,14 @@ const MeteroTable = (props) => {
   const _addNotesModalHide = () => {
     setnotesModal(false);
   };
+  const showRemainingData = (showRemaining) => {
+    setDataListIsOfRemaining(showRemaining);
+    if(!showRemaining){
+      setData(meteroTableList.meteroTableData);
+    } else {
+      setData(meteroTableList.meteroTableData.filter(item=> item.Saved_MeterO !== "true"));
+    }
+  }
 
   return (
     <div className="tab-div">
@@ -158,7 +167,7 @@ const MeteroTable = (props) => {
             </div>
             <div className="show-equip-div">
               <label>
-                Showing Equipments: {meteroTableList.meteroTableData.length}
+                Showing Equipments: {data.length}
               </label>
             </div>
             <div className="page-item-div">
@@ -172,8 +181,8 @@ const MeteroTable = (props) => {
                 <option value="20">20</option>
               </select>
             </div>
-            <div className="">
-              <label>Remaining / All</label>
+            <div className="data-list-type" style={{cursor:'pointer'}}>
+              <span className={dataListIsOfRemaining?'active':null} onClick={()=>{showRemainingData(true)}}>Remaining</span> / <span  className={dataListIsOfRemaining?null:'active'} onClick={()=>{showRemainingData(false)}}>All</span>
             </div>
           </div>
           <table className="table table-striped">
