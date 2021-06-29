@@ -268,14 +268,14 @@ const MeteroTable = (props) => {
                       <td>
                         <input
                           type="text"
-                          // value={item.NewHr}
+                          value={item.NewHr}
                           className="form-control"
                         />
                       </td>
                       <td>
                         <input
                           type="text"
-                          // value={item.NewOdo}
+                          value={item.NewOdo}
                           className="form-control"
                         />
                       </td>
