@@ -157,12 +157,24 @@ const MeteroTable = (props) => {
     }
   };
 
-  const setNoChange =(event,item)=>{
-    console.log(event.target.checked, item);
+  const setNoChange =(event,itemToUpdate)=>{
+    console.log(event.target.checked, itemToUpdate);
+      data.forEach(item=>{
+        if(item.Equipment === itemToUpdate.Equipment){
+          if(event.target.checked){
+            item.NewHr = "0";
+            item.NewOdo = item.OdoReading;
+          } else {
+            item.NewHr = "";
+            item.NewOdo = "";
+          }
+        }
+      })
+      setData([...data]);
   }
 
   const saveData = (item) => {
-    // console.log(item);
+    console.log(item);
   }
 
   const updateInputValues = (value,equipment,inputField) => {
