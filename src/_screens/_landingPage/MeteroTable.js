@@ -231,7 +231,7 @@ const MeteroTable = (props) => {
             </div>
           </div>
          
-         <div class="table-div">
+         <div className="table-div">
           <table className="table table-striped">
             <Header headers={headers} />
             <tbody>
@@ -367,12 +367,12 @@ const MeteroTable = (props) => {
                   <h4 className=" default-color py-2">
                     Equipment No: {notesModalData.Equipment}
                   </h4>
-                  <div class="row d-flex justify-content-start py-1">
-                    <div class="col-md-5">
+                  <div className="row d-flex justify-content-start py-1">
+                    <div className="col-md-5">
                       <label for="email"> Last Recorded Hours</label>
                     </div>
 
-                    <div class="col-md-7">
+                    <div className="col-md-7">
                       <input
                         type="text"
                         className="form-control"
@@ -381,11 +381,11 @@ const MeteroTable = (props) => {
                       />
                     </div>
                   </div>
-                  <div class="row d-flex justify-content-start py-1">
-                    <div class="col-md-5">
+                  <div className="row d-flex justify-content-start py-1">
+                    <div className="col-md-5">
                       <label for="text"> Last Recorded Odo</label>
                     </div>
-                    <div class="col-md-7">
+                    <div className="col-md-7">
                       <input
                         type="text"
                         className="form-control"
@@ -393,11 +393,11 @@ const MeteroTable = (props) => {
                       />
                     </div>
                   </div>
-                  <div class="row d-flex justify-content-start py-1">
-                    <div class="col-md-5">
+                  <div className="row d-flex justify-content-start py-1">
+                    <div className="col-md-5">
                       <label for="text">Enter Notes Below</label>
                     </div>
-                    <div class="col-md-7">
+                    <div className="col-md-7">
                       <textarea type="text" className="form-control"></textarea>
                     </div>
                   </div>
@@ -406,10 +406,10 @@ const MeteroTable = (props) => {
             </Modal.Body>
             <Modal.Footer>
               <div className="d-flex justify-content-start">
-                <button type="submit" class="btn btn-primary mx-1">
+                <button type="submit" className="btn btn-primary mx-1">
                   UPDATED NOTE
                 </button>
-                <button type="submit" class="btn btn-cancel mx-1"  onClick={_addNotesModalHide}>
+                <button type="submit" className="btn btn-cancel mx-1"  onClick={_addNotesModalHide}>
                   CANCEL
                 </button>
               </div>
@@ -437,12 +437,12 @@ const MeteroTable = (props) => {
                   <h4 className=" default-color py-2 px-3">
                    Email List
                   </h4>
-                  <div class="row d-flex justify-content-start py-1 px-3">
-                    <div class="col-12 mb-2">
+                  <div className="row d-flex justify-content-start py-1 px-3">
+                    <div className="col-12 mb-2">
                       <label for="email"> Enter email address</label>
                     </div>
 
-                    <div class="col-12">
+                    <div className="col-12">
                       <input
                         type="text"
                         className="form-control"
@@ -456,10 +456,10 @@ const MeteroTable = (props) => {
             </Modal.Body>
             <Modal.Footer>
               <div className="d-flex justify-content-start">
-                <button type="submit" class="btn btn-primary mx-1">
+                <button type="submit" className="btn btn-primary mx-1">
                   EMAIL
                 </button>
-                <button type="submit" class="btn btn-cancel mx-1">
+                <button type="submit" className="btn btn-cancel mx-1">
                   CANCEL
                 </button>
               </div>
