@@ -231,7 +231,15 @@ ul{
   .css-1hb7zxy-IndicatorsContainer{display: none !important;}
   /* eNd  mEtero-tAb ------------------- */
   
+  /* sTart tAble dIV  ------------------- */
+    .table-div{
+      height: 400px;
+      overflow-y: scroll;
+    }
+  /* eNd tAble dIv ------------------- */
+
   /* pAgination ------------------- */
+  .
 .table>:not(caption)>*>* {
     padding: .2rem .1rem;
     box-shadow: none;
@@ -485,6 +493,28 @@ ul{
   .no-job-selected{
     padding-top: 15%;
   }
+
+  /* sCrollBar cSs */
+  /* width */
+  .table-div::-webkit-scrollbar,  ::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+.table-div::-webkit-scrollbar-track, ::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+ 
+/* Handle */
+.table-div::-webkit-scrollbar-thumb, ::-webkit-scrollbar-thumb {
+  background: #888; 
+}
+
+/* Handle on hover */
+.table-div::-webkit-scrollbar-thumb:hover, ::-webkit-scrollbar-thumb:hover {
+  background: rgb(66, 62, 62); 
+}
+  /* eNd sCrollBar cSs */
   /*  --------------------- sTart mEdia qUery -----------------------*/
   /* // Extra small devices (portrait phones, less than 576px) */
   @media (max-width: 575.98px) {  }

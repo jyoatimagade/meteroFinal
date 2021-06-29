@@ -230,6 +230,8 @@ const MeteroTable = (props) => {
             
             </div>
           </div>
+         
+         <div class="table-div">
           <table className="table table-striped">
             <Header headers={headers} />
             <tbody>
@@ -295,6 +297,7 @@ const MeteroTable = (props) => {
             /> */}
          
           </table>
+          </div>
           {meteroTableList.meteroTableData !== null &&
             meteroTableList.meteroTableData !== undefined &&
             meteroTableList.isSuccess == true &&
@@ -326,6 +329,8 @@ const MeteroTable = (props) => {
                 />
               </div>
             ) : null}
+
+
           {/* <Modal
           className="text-center"
           centered
