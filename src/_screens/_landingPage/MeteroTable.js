@@ -25,7 +25,7 @@ const MeteroTable = (props) => {
   const [totalItems, setTotalItems] = useState(0);
 
   const [offset, setOffset] = useState(0);
-  const [perPage, setPerpage] = useState(5);
+  const [perPage, setPerpage] = useState(10);
   const [currentPage, setCurrentpage] = useState(1);
 
   const [searchcurrentPage, setSearchcurrentPage] = useState(1);
@@ -203,6 +203,7 @@ const MeteroTable = (props) => {
             <div className="page-item-div">
               <label>Page Item</label>
               <select
+                value={perPage}
                 onChange={(e) => {
                   setPerpage(parseInt(e.target.value));
                   handlePageClick({
