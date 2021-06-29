@@ -31,9 +31,11 @@ const MeteroTable = (props) => {
   const [searchcurrentPage, setSearchcurrentPage] = useState(1);
   const [search, setSearch] = useState("");
   const [data, setData] = useState([]);
-  const [pageRange, setPageRange] = useState([0, 5]);
+  const [pageRange, setPageRange] = useState([0, 10]);
   const [notesModal, setnotesModal] = useState(false);
   const [notesModalData, setnotesModalData] = useState();
+  const [exportListModal, setexportListModal] = useState(false);
+  // const [exportListData, setexportListData] = useState();
   const [dataListIsOfRemaining, setDataListIsOfRemaining] = useState(false);
 
   // console.log("select MeteroTable value", meteroTableList);
@@ -99,9 +101,9 @@ const MeteroTable = (props) => {
   // }, [meteroTableList.meteroTableData, currentPage, search]);
 
   const handlePageClick = (e) => {
-    // window.scrollTo(0, 0);
+    window.scrollTo(0, 0);
     const selectedPage = e.selected + 1;
-    let perPageCount = e.perPage ? e.perPage: perPage;
+    let perPageCount = e.perPage ? e.perPage : perPage;
     const offset = e.selected * perPageCount + 1;
     console.log(selectedPage);
     setCurrentpage(selectedPage);
@@ -114,30 +116,49 @@ const MeteroTable = (props) => {
   const _addNotesModalHide = () => {
     setnotesModal(false);
   };
+  const _exportListModalShow = () => {
+    setexportListModal(true);
+  };
+  const _exportListModalHide = () => {
+    setexportListModal(false);
+  };
   const showRemainingData = (showRemaining) => {
     setDataListIsOfRemaining(showRemaining);
-    if(!showRemaining){
+    if (!showRemaining) {
       setData(meteroTableList.meteroTableData);
     } else {
-      setData(meteroTableList.meteroTableData.filter(item=> item.Saved_MeterO !== "true"));
+      setData(
+        meteroTableList.meteroTableData.filter(
+          (item) => item.Saved_MeterO !== "true"
+        )
+      );
     }
-  }
-  const searchDataList = (searchTerm)=>{
-    if(searchTerm){
+  };
+  const searchDataList = (searchTerm) => {
+    if (searchTerm) {
       let filteredDataList = meteroTableList.meteroTableData.filter(
         (item) =>
-          (item.Equipment && item.Equipment.toLowerCase().includes(searchTerm.toLowerCase())) ||
-          (item.SerialNo && item.SerialNo.toLowerCase().includes(searchTerm.toLowerCase())) ||
-          (item.Description && item.Description.toLowerCase().includes(searchTerm.toLowerCase())) ||
-          (item.LicenseNumber && item.LicenseNumber.toLowerCase().includes(searchTerm.toLowerCase()))
+          (item.Equipment &&
+            item.Equipment.toLowerCase().includes(searchTerm.toLowerCase())) ||
+          (item.SerialNo &&
+            item.SerialNo.toLowerCase().includes(searchTerm.toLowerCase())) ||
+          (item.Description &&
+            item.Description.toLowerCase().includes(
+              searchTerm.toLowerCase()
+            )) ||
+          (item.LicenseNumber &&
+            item.LicenseNumber.toLowerCase().includes(searchTerm.toLowerCase()))
       );
       // console.log("search data", filteredDataList);
       setData(filteredDataList);
-    } else{
+    } else {
       setData(meteroTableList.meteroTableData);
     }
-  }
+  };
 
+  const _exportListModal =()=>{
+    alert('Just Checking');
+  }
   return (
     <div className="tab-div">
       {meteroTableList.meteroTableData !== null &&
@@ -150,7 +171,8 @@ const MeteroTable = (props) => {
               <button
                 type="button"
                 className="btn btn-primary export-list text-white"
-                onClick={() => this.exportListModal()}
+                
+                onClick={() => _exportListModalShow()}
               >
                 EXPORT LIST
               </button>
@@ -176,68 +198,94 @@ const MeteroTable = (props) => {
               </label>
             </div>
             <div className="show-equip-div">
-              <label>
-                Showing Equipments: {data.length}
-              </label>
+              <label>Showing Equipments: {data.length}</label>
             </div>
             <div className="page-item-div">
               <label>Page Item</label>
-              <select onChange={(e)=>{
+              <select
+                onChange={(e) => {
                   setPerpage(parseInt(e.target.value));
-                  handlePageClick({selected:currentPage-1, perPage:parseInt(e.target.value)});
-                }}>
+                  handlePageClick({
+                    selected: currentPage - 1,
+                    perPage: parseInt(e.target.value),
+                  });
+                }}
+              >
                 <option value="5">5</option>
                 <option value="10">10</option>
                 <option value="20">20</option>
               </select>
             </div>
-            <div className="data-list-type" style={{cursor:'pointer'}}>
-              <span className={dataListIsOfRemaining?'active':null} onClick={()=>{showRemainingData(true)}}>Remaining</span> / <span  className={dataListIsOfRemaining?null:'active'} onClick={()=>{showRemainingData(false)}}>All</span>
+            <div className="data-list-type" >
+              <ul style={{ cursor: "pointer" }}>
+                <li className={dataListIsOfRemaining ? "active" : null}
+                onClick={() => {
+                  showRemainingData(true);
+                }}>Remaining</li>
+                <li   className={dataListIsOfRemaining ? null : "active"}
+                onClick={() => {
+                  showRemainingData(false);
+                }}>All</li>
+              </ul>
+            
             </div>
           </div>
           <table className="table table-striped">
             <Header headers={headers} />
             <tbody>
               {data &&
-                data
-                  .slice(pageRange[0], pageRange[1])
-                  .map((item, key) => {
-                    return (
-                      <tr className={`card-itme mb-32 ${item.Saved_MeterO === 'true' ? 'saved-entry' : ''}`} key={key}>
-                        <td>
-                          {" "}
-                          <img
-                            src={notesIcon}
-                            className="img-fluid notesIcon"
-                            alt="notesIcon"
-                            onClick={() => {_addNotesModalShow(); setnotesModalData(item)}}
-                          />
-                        </td>
-                        <td>{item.Equipment}</td>
-                        <td>{item.SerialNo}</td>
-                        <td>{item.Description}</td>
-                        <td>{item.LicenseNumber}</td>
-                        <td>{item.udReferenceNumber}</td>
-                        <td>
-                          {" "}
-                          <input type="checkbox" />
-                        </td>
-                        <td>
-                          <input type="text" value={item.NewHr} className="form-control" />
-                        </td>
-                        <td>
-                          <input type="text" value={item.NewOdo} className="form-control" />
-                        </td>
-                        <td>{item.IsGPSActive}</td>
-                        <td>
-                          {" "}
-                          <button className="btn btn-primary tbl-save-btn">
-                            Save
-                          </button>
-                        </td>
-                      </tr>
-                    );
-                  })}
+                data.slice(pageRange[0], pageRange[1]).map((item, key) => {
+                  return (
+                    <tr
+                      className={`card-itme mb-32 ${
+                        item.Saved_MeterO === "true" ? "saved-entry" : ""
+                      }`}
+                      key={key}
+                    >
+                      <td>
+                        <img
+                          src={notesIcon}
+                          className="img-fluid notesIcon"
+                          alt="notesIcon"
+                          onClick={() => {
+                            _addNotesModalShow();
+                            setnotesModalData(item);
+                          }}
+                        />
+                      </td>
+                      <td>{item.Equipment}</td>
+                      <td>{item.SerialNo}</td>
+                      <td>{item.Description}</td>
+                      <td>{item.LicenseNumber}</td>
+                      <td>{item.udReferenceNumber}</td>
+                      <td>
+                        {" "}
+                        <input type="checkbox" />
+                      </td>
+                      <td>
+                        <input
+                          type="text"
+                          // value={item.NewHr}
+                          className="form-control"
+                        />
+                      </td>
+                      <td>
+                        <input
+                          type="text"
+                          // value={item.NewOdo}
+                          className="form-control"
+                        />
+                      </td>
+                      <td>{item.IsGPSActive}</td>
+                      <td>
+                        {" "}
+                        <button className="btn btn-primary tbl-save-btn">
+                          Save
+                        </button>
+                      </td>
+                    </tr>
+                  );
+                })}
             </tbody>
             {/* <Pagination
               total={totalItems}
@@ -245,7 +293,9 @@ const MeteroTable = (props) => {
               currentPage={currentPage}
               onPageChange={(page) => setCurrentPage(page)}
             /> */}
-            {meteroTableList.meteroTableData !== null &&
+         
+          </table>
+          {meteroTableList.meteroTableData !== null &&
             meteroTableList.meteroTableData !== undefined &&
             meteroTableList.isSuccess == true &&
             meteroTableList.meteroTableData.length !== 0 ? (
@@ -265,18 +315,17 @@ const MeteroTable = (props) => {
                   containerClassName={"pagination"}
                   // subContainerClassName={"pages pagination"}
                   // activeClassName={"pagination-active"}
-                  
-                  pageClassName={'page-item'}
-                  pageLinkClassName={'page-link'}
-                  previousClassName={'page-item'}
-                  previousLinkClassName={'page-link'}
-                  nextClassName={'page-item'}
-                  nextLinkClassName={'page-link'}
-                  activeClassName={'active'}
+
+                  pageClassName={"page-item"}
+                  pageLinkClassName={"page-link"}
+                  previousClassName={"page-item"}
+                  previousLinkClassName={"page-link"}
+                  nextClassName={"page-item"}
+                  nextLinkClassName={"page-link"}
+                  activeClassName={"active"}
                 />
               </div>
             ) : null}
-          </table>
           {/* <Modal
           className="text-center"
           centered
@@ -294,7 +343,11 @@ const MeteroTable = (props) => {
             <p>User name and password should not blank</p>
           </Modal.Body>
         </Modal> */}
-          <Modal show={notesModal} onHide={_addNotesModalHide} className="notesModal">
+          <Modal
+            show={notesModal}
+            onHide={_addNotesModalHide}
+            className="notesModal"
+          >
             <Modal.Header className="d-flex justify-content-end">
               <a
                 className="position-absolute modal-close"
@@ -304,52 +357,110 @@ const MeteroTable = (props) => {
               </a>
             </Modal.Header>
             <Modal.Body>
-          
-            {
-              notesModalData ? (
-                   <>
-                <h4 className=" default-color py-2">Equipment No: {notesModalData.Equipment}</h4>
-              <div class="row d-flex justify-content-start py-1">
-                <div class="col-md-5">
-                  <label for="email"> Last Recorded Hours</label>
-                </div>
+              {notesModalData ? (
+                <>
+                  <h4 className=" default-color py-2">
+                    Equipment No: {notesModalData.Equipment}
+                  </h4>
+                  <div class="row d-flex justify-content-start py-1">
+                    <div class="col-md-5">
+                      <label for="email"> Last Recorded Hours</label>
+                    </div>
 
-                <div class="col-md-7">
-                  <input type="text" className="form-control" value={notesModalData.NewHr}  disabled />
-                </div>
-              </div>
-              <div class="row d-flex justify-content-start py-1">
-                <div class="col-md-5">
-                  <label for="text"> Last Recorded Odo</label>
-                </div>
-                <div class="col-md-7">
-                  <input type="text" className="form-control" value={notesModalData.NewOdo}  />
-                </div>
-              </div>
-              <div class="row d-flex justify-content-start py-1">
-                <div class="col-md-5">
-                  <label for="text">Enter Notes Below</label>
-                </div>
-                <div class="col-md-7">
-                  <textarea type="text" className="form-control" ></textarea>
-                </div>
-              </div>
-                  
-             </>
-              ) : null
-            }
+                    <div class="col-md-7">
+                      <input
+                        type="text"
+                        className="form-control"
+                        value={notesModalData.NewHr}
+                        disabled
+                      />
+                    </div>
+                  </div>
+                  <div class="row d-flex justify-content-start py-1">
+                    <div class="col-md-5">
+                      <label for="text"> Last Recorded Odo</label>
+                    </div>
+                    <div class="col-md-7">
+                      <input
+                        type="text"
+                        className="form-control"
+                        value={notesModalData.NewOdo}
+                      />
+                    </div>
+                  </div>
+                  <div class="row d-flex justify-content-start py-1">
+                    <div class="col-md-5">
+                      <label for="text">Enter Notes Below</label>
+                    </div>
+                    <div class="col-md-7">
+                      <textarea type="text" className="form-control"></textarea>
+                    </div>
+                  </div>
+                </>
+              ) : null}
             </Modal.Body>
             <Modal.Footer>
               <div className="d-flex justify-content-start">
                 <button type="submit" class="btn btn-primary mx-1">
                   UPDATED NOTE
                 </button>
-                <button type="submit" class="btn btn-primary mx-1">
+                <button type="submit" class="btn btn-cancel mx-1"  onClick={_addNotesModalHide}>
                   CANCEL
                 </button>
               </div>
             </Modal.Footer>
           </Modal>
+
+          
+
+          <Modal
+            show={exportListModal}
+            onHide={_exportListModalHide}
+            className="notesModal "
+          >
+            <Modal.Header className="d-flex justify-content-end">
+              <a
+                className="position-absolute modal-close"
+                onClick={_exportListModalHide}
+              >
+                <img src={closeIcon} />
+              </a>
+            </Modal.Header>
+            <Modal.Body>
+              
+                <>
+                  <h4 className=" default-color py-2 px-3">
+                   Email List
+                  </h4>
+                  <div class="row d-flex justify-content-start py-1 px-3">
+                    <div class="col-12 mb-2">
+                      <label for="email"> Enter email address</label>
+                    </div>
+
+                    <div class="col-12">
+                      <input
+                        type="text"
+                        className="form-control"
+                        // value={notesModalData.NewHr}
+                        
+                      />
+                    </div>
+                  </div>
+                  </>
+              
+            </Modal.Body>
+            <Modal.Footer>
+              <div className="d-flex justify-content-start">
+                <button type="submit" class="btn btn-primary mx-1">
+                  EMAIL
+                </button>
+                <button type="submit" class="btn btn-cancel mx-1">
+                  CANCEL
+                </button>
+              </div>
+            </Modal.Footer>
+          </Modal>
+
           {/* <NotesModal /> */}
         </>
       ) : (

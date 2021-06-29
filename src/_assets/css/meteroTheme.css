@@ -10,6 +10,10 @@ body{
     margin-top: 0;
     margin-bottom: 0;
 }
+ul{
+  list-style: none;
+  padding: 0;
+}
   
   /* common cSs */
   .form-control{
@@ -44,6 +48,9 @@ body{
     font-size: 14px !important;
     padding:.275rem 2rem !important;
     color:#fff
+  }
+  .btn-cancel{
+    background: #5e5e5e;
   }
   a{
     color: #cbdb2d;
@@ -134,8 +141,9 @@ body{
     
   }
   .header-caption h2{
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     color: #0076bd;
+    margin-top: 0.3rem;
   }
   .header-Search{
     width: 86%;
@@ -157,6 +165,19 @@ body{
   
   /*eNd fOoter*/
   /* metero-tab ------------------- */
+  .data-list-type{
+    background: #9a9a9a;
+    cursor: pointer;
+    color: #fff;
+  }
+  .data-list-type ul li{
+    padding:.1rem .5rem;
+    display: inline;
+  }
+  .data-list-type .active{
+    background: #0076bd;
+    /* padding: 0.3rem; */
+  }
   .metero-tab-section .metero-tab{
   
   
@@ -211,8 +232,15 @@ body{
   /* eNd  mEtero-tAb ------------------- */
   
   /* pAgination ------------------- */
-  .pagination-div .table>:not(caption)>*>* {
-    padding: .2rem .1rem;}
+.table>:not(caption)>*>* {
+    padding: .2rem .1rem;
+    box-shadow: none;
+    border-color: #fff;
+  
+  }
+  tbody, td, tfoot, th, thead, tr{
+    border-width: .001rem;
+  }
   .pagination-active a{
     color:green !important
   }
@@ -230,6 +258,7 @@ body{
   margin-left: -3px;
 }
 .page-item {
+  padding: .1rem !important;
   padding: .1rem !important;
   
 }
@@ -274,7 +303,7 @@ body{
   }
   .modal-close{  
     right: 8px;
-    top: -2px;
+    top: 2px;
     color: #000;
     text-decoration: none;
   }
@@ -326,6 +355,15 @@ body{
   
   
   /* mEter hEder */
+  .css-1pahdxg-control{
+    box-shadow: none;
+    border-color: #fff !important;
+  }
+  .css-1pahdxg-control:hover{
+    box-shadow: none;
+    border-color: #fff !important;
+    border-radius: 1px;
+  }
   .search-div {
     width: 24%;
   }
@@ -346,6 +384,9 @@ body{
     background: #fff;
     color: blue;
     border-radius: 2px !important;
+}
+.saved-entry{
+  background:#faffc9
 }
   table.react-bootstrap-table  {
     font-family: Arial, Helvetica, sans-serif;
