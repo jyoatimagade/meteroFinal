@@ -101,14 +101,15 @@ const MeteroTable = (props) => {
   // }, [meteroTableList.meteroTableData, currentPage, search]);
 
   const handlePageClick = (e) => {
-    window.scrollTo(0, 0);
+    // window.scrollTo(0, 0);
     const selectedPage = e.selected + 1;
     let perPageCount = e.perPage ? e.perPage : perPage;
-    const offset = e.selected * perPageCount + 1;
-    console.log(selectedPage);
+    const offset = selectedPage !== 1 ? e.selected * perPageCount + 1 : 0;
+    // console.log(selectedPage);
+    let pageRangeTo = selectedPage !== 1 ? selectedPage * perPageCount + 1 : 10;
     setCurrentpage(selectedPage);
     setOffset(offset);
-    setPageRange([offset, selectedPage * perPageCount + 1]);
+    setPageRange([offset, pageRangeTo]);
   };
   const _addNotesModalShow = () => {
     setnotesModal(true);
@@ -156,8 +157,35 @@ const MeteroTable = (props) => {
     }
   };
 
+  const setNoChange =(event,item)=>{
+    console.log(event.target.checked, item);
+  }
+
+  const saveData = (item) => {
+    // console.log(item);
+  }
+
+  const updateInputValues = (value,equipment,inputField) => {
+    // console.log(value,itemIndex,inputField);
+    data.forEach(item=>{
+      if(item.Equipment === equipment){
+        item[inputField] = value;
+      }
+    })
+    setData([...data]);
+  }
+
   const _exportListModal =()=>{
     alert('Just Checking');
+  }
+  const refreshData = ()=>{
+    data.forEach(item=>{
+      if(item.Saved_MeterO !== 'true'){
+        item.NewHr = "";
+        item.NewOdo = "";
+      }
+    });
+    setData([...data]);
   }
   return (
     <div className="tab-div">
@@ -181,6 +209,7 @@ const MeteroTable = (props) => {
               <button
                 type="button"
                 className="btn btn-primary refresh-list text-white"
+                onClick={()=>refreshData()}
               >
                 REFRESH
               </button>
@@ -263,26 +292,30 @@ const MeteroTable = (props) => {
                       <td>{item.udReferenceNumber}</td>
                       <td>
                         {" "}
-                        <input type="checkbox" />
+                        <input checked={item.HourReading === 0 && item.NewHr ==="0" ? true :false} onChange={(e)=>setNoChange(e,item)} type="checkbox" />
                       </td>
                       <td>
                         <input
+                        disabled={item.HourReading === 0 && item.NewHr ==="0" ? true :false}
                           type="text"
                           value={item.NewHr}
+                          onInput={(e)=>updateInputValues(e.target.value, item.Equipment,'NewHr')}
                           className="form-control"
                         />
                       </td>
                       <td>
                         <input
+                        disabled={item.HourReading === 0 && item.NewHr ==="0" ? true :false}
                           type="text"
                           value={item.NewOdo}
+                          onInput={(e)=>updateInputValues(e.target.value, item.Equipment,'NewOdo')}
                           className="form-control"
                         />
                       </td>
                       <td>{item.IsGPSActive}</td>
                       <td>
                         {" "}
-                        <button className="btn btn-primary tbl-save-btn">
+                        <button onClick={()=>saveData(item)} className="btn btn-primary tbl-save-btn">
                           Save
                         </button>
                       </td>
