@@ -249,6 +249,64 @@ const MeteroTable = (props) => {
 
   const saveData = (item) => {
     console.log(item);
+    if(!item.NewHr){
+      setValidationModalData({
+        showModal:true,
+        validationMessage:"Please enter New Hour",
+        cancelButtonText:"Ok",
+        showActionButton:false,
+        showCancelButton:true,
+        showFooterActions:true
+      });
+      return
+    }
+    if(!item.NewOdo){
+      setValidationModalData({
+        showModal:true,
+        validationMessage:"Please enter New Odo",
+        cancelButtonText:"Ok",
+        showActionButton:false,
+        showCancelButton:true,
+        showFooterActions:true
+      });
+      return
+    }
+    if(item.NewOdo < item.OdoReading){
+      setValidationModalData({
+        showModal:true,
+        validationMessage:"New Odo is less than Odo reading",
+        cancelButtonText:"Ok",
+        showActionButton:false,
+        showCancelButton:true,
+        showFooterActions:true
+      });
+      return
+    }
+    axios.post(`${API_ENDPOINT}/metero/addTransaction`,[item])
+            .then(apiRes=>{
+              console.log(apiRes);
+              if(apiRes.data === 'Success'){
+                setValidationModalData({
+                  showModal:true,
+                  validationMessage:"Data added successfully",
+                  cancelButtonText:"Ok",
+                  showActionButton:false,
+                  showCancelButton:true,
+                  showFooterActions:true
+                })
+              }
+            })
+            .catch(apiErr=>{
+              console.log(apiErr);
+              setValidationModalData({
+                showModal:true,
+                validationMessage:"Error occured",
+                cancelButtonText:"Ok",
+                showActionButton:false,
+                showCancelButton:true,
+                showFooterActions:true
+              })
+            })
   }
 
   const updateInputValues = (value,equipment,inputField) => {
