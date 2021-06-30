@@ -4,7 +4,7 @@ import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import MeteroTable from './MeteroTable'
 
-const MeteroTab = () => {
+const MeteroTab = (props) => {
   return (
     <>
       <div className="metero-tab-section p-3">
@@ -16,7 +16,7 @@ const MeteroTab = () => {
         </TabList>
 
         <TabPanel>
-        <MeteroTable />
+        <MeteroTable selectedJob={props.selectedJob} />
         </TabPanel>
         <TabPanel>
         <div className="d-flex justify-content-center align-item-center no-job-selected"><p>No Job Selected</p></div>

@@ -49,6 +49,7 @@ const HeaderBottom = (props) => {
   const _getSelectdJob = (e) => {
     // debugger;
     setGetResult(e.label);
+    props.setSelectedJob(e.label);
     // setGetResult(e.value);
 
     // console.log("get job id result 111", e);

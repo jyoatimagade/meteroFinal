@@ -36,7 +36,7 @@ const MeteroTable = (props) => {
   const [notesModal, setnotesModal] = useState(false);
   const [notesModalData, setnotesModalData] = useState();
   const [exportListModal, setexportListModal] = useState(false);
-  // const [exportListData, setexportListData] = useState();
+  const [exportListEmailid, setExportListEmailid] = useState("");
   const [dataListIsOfRemaining, setDataListIsOfRemaining] = useState(false);
   const [validationModalData,setValidationModalData] = useState({
     showModal:false,
@@ -128,6 +128,7 @@ const MeteroTable = (props) => {
   };
   const _exportListModalShow = () => {
     setexportListModal(true);
+    setExportListEmailid("");
   };
   const _exportListModalHide = () => {
     setexportListModal(false);
@@ -197,6 +198,15 @@ const MeteroTable = (props) => {
                   showCancelButton:true,
                   showFooterActions:true
                 })
+              } else {
+                setValidationModalData({
+                  showModal:true,
+                  validationMessage:"Error occured",
+                  cancelButtonText:"Ok",
+                  showActionButton:false,
+                  showCancelButton:true,
+                  showFooterActions:true
+                })
               }
             })
             .catch(apiErr=>{
@@ -221,6 +231,15 @@ const MeteroTable = (props) => {
                 setValidationModalData({
                   showModal:true,
                   validationMessage:"Data removed successfully",
+                  cancelButtonText:"Ok",
+                  showActionButton:false,
+                  showCancelButton:true,
+                  showFooterActions:true
+                })
+              } else {
+                setValidationModalData({
+                  showModal:true,
+                  validationMessage:"Error occured",
                   cancelButtonText:"Ok",
                   showActionButton:false,
                   showCancelButton:true,
@@ -292,6 +311,15 @@ const MeteroTable = (props) => {
                   showCancelButton:true,
                   showFooterActions:true
                 })
+              } else {
+                setValidationModalData({
+                  showModal:true,
+                  validationMessage:"Error occured",
+                  cancelButtonText:"Ok",
+                  showActionButton:false,
+                  showCancelButton:true,
+                  showFooterActions:true
+                })
               }
             })
             .catch(apiErr=>{
@@ -328,6 +356,59 @@ const MeteroTable = (props) => {
       }
     });
     setData([...data]);
+  }
+
+  const sendExportEmail = () =>{
+    if(!exportListEmailid){
+      setValidationModalData({
+        showModal:true,
+        validationMessage:"Please enter email id",
+        cancelButtonText:"Ok",
+        showActionButton:false,
+        showCancelButton:true,
+        showFooterActions:true
+      })
+      return;
+    }
+    meteroTableList.meteroTableData.forEach(item=>{
+      item['JobDesc'] = props.selectedJob;
+      item['EmailTo'] = exportListEmailid;
+    });
+    axios.post(`${API_ENDPOINT}/metero/EmailEquipments`,meteroTableList.meteroTableData)
+            .then(apiRes=>{
+              console.log(apiRes);
+              if(apiRes.data === 'Success'){
+                _exportListModalHide();
+                setValidationModalData({
+                  showModal:true,
+                  validationMessage:"Data added successfully",
+                  cancelButtonText:"Ok",
+                  showActionButton:false,
+                  showCancelButton:true,
+                  showFooterActions:true
+                })
+              } else {
+                setValidationModalData({
+                  showModal:true,
+                  validationMessage:"Export failed",
+                  cancelButtonText:"Ok",
+                  showActionButton:false,
+                  showCancelButton:true,
+                  showFooterActions:true
+                })
+              }
+            })
+            .catch(apiErr=>{
+              console.log(apiErr);
+              setValidationModalData({
+                showModal:true,
+                validationMessage:"Error occured",
+                cancelButtonText:"Ok",
+                showActionButton:false,
+                showCancelButton:true,
+                showFooterActions:true
+              })
+            })
   }
   return (
     <div className="tab-div">
@@ -622,7 +703,8 @@ const MeteroTable = (props) => {
                       <input
                         type="text"
                         className="form-control"
-                        // value={notesModalData.NewHr}
+                        value={exportListEmailid}
+                        onInput={(e)=>setExportListEmailid(e.target.value)}
                         
                       />
                     </div>
@@ -632,10 +714,10 @@ const MeteroTable = (props) => {
             </Modal.Body>
             <Modal.Footer>
               <div className="d-flex justify-content-start">
-                <button type="submit" className="btn btn-primary mx-1">
+                <button onClick={()=>sendExportEmail()} type="submit" className="btn btn-primary mx-1">
                   EMAIL
                 </button>
-                <button type="submit" className="btn btn-cancel mx-1">
+                <button onClick={_exportListModalHide} type="submit" className="btn btn-cancel mx-1">
                   CANCEL
                 </button>
               </div>
