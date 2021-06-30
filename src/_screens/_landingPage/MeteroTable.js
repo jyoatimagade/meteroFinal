@@ -1,7 +1,8 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { notesIcon, closeIcon, loginError } from "../../_config/images";
-// import axios from "axios";
+import axios from "axios";
+import { API_ENDPOINT, AUTH_HEADERS } from '../../_config/ApiConstants';
 import { Modal } from "react-bootstrap";
 // import NotesModal from '../../_screens/_modals/NotesModal'
 
@@ -37,6 +38,16 @@ const MeteroTable = (props) => {
   const [exportListModal, setexportListModal] = useState(false);
   // const [exportListData, setexportListData] = useState();
   const [dataListIsOfRemaining, setDataListIsOfRemaining] = useState(false);
+  const [showValidationModal, setShowValidationModal] = useState(false);
+  const [validationMessage, setValidationMessage] = useState("");
+  const [validationModalData,setValidationModalData] = useState({
+    showModal:false,
+    validationMessage:"",
+    cancelButtonText:"Cancel",
+    showActionButton:false,
+    showCancelButton:true,
+    showFooterActions:true
+  })
 
   // console.log("select MeteroTable value", meteroTableList);
   const dispatch = useDispatch();
@@ -162,11 +173,74 @@ const MeteroTable = (props) => {
       data.forEach(item=>{
         if(item.Equipment === itemToUpdate.Equipment){
           if(event.target.checked){
+            if(itemToUpdate.NewHr && item.NewOdo){
+              setValidationModalData({
+                showModal:true,
+                validationMessage:"Data already added",
+                cancelButtonText:"Ok",
+                showActionButton:false,
+                showCancelButton:true,
+                showFooterActions:true
+              })
+              return;
+            }
             item.NewHr = "0";
             item.NewOdo = item.OdoReading;
+            item.Saved_MeterO = 'true';
+            axios.post(`${API_ENDPOINT}/metero/addTransaction`,[item])
+            .then(apiRes=>{
+              console.log(apiRes);
+              if(apiRes.data === 'Success'){
+                setValidationModalData({
+                  showModal:true,
+                  validationMessage:"Data saved successfully",
+                  cancelButtonText:"Ok",
+                  showActionButton:false,
+                  showCancelButton:true,
+                  showFooterActions:true
+                })
+              }
+            })
+            .catch(apiErr=>{
+              console.log(apiErr);
+              setValidationModalData({
+                showModal:true,
+                validationMessage:"Error occured",
+                cancelButtonText:"Ok",
+                showActionButton:false,
+                showCancelButton:true,
+                showFooterActions:true
+              })
+            })
           } else {
             item.NewHr = "";
             item.NewOdo = "";
+            item.Saved_MeterO = '';
+            axios.post(`${API_ENDPOINT}/metero/deleteTransaction`,[item])
+            .then(apiRes=>{
+              console.log(apiRes);
+              if(apiRes.data === 'Success'){
+                setValidationModalData({
+                  showModal:true,
+                  validationMessage:"Data removed successfully",
+                  cancelButtonText:"Ok",
+                  showActionButton:false,
+                  showCancelButton:true,
+                  showFooterActions:true
+                })
+              }
+            })
+            .catch(apiErr=>{
+              console.log(apiErr);
+              setValidationModalData({
+                showModal:true,
+                validationMessage:"Error occured",
+                cancelButtonText:"Ok",
+                showActionButton:false,
+                showCancelButton:true,
+                showFooterActions:true
+              })
+            })
           }
         }
       })
@@ -512,6 +586,30 @@ const MeteroTable = (props) => {
             </Modal.Footer>
           </Modal>
 
+          <CommonModal
+          showModal={validationModalData.showModal}
+          onHide={()=>setValidationModalData({
+    showModal:false,
+    validationMessage:"",
+    cancelButtonText:"Cancel",
+    showActionButton:false,
+    showCancelButton:true,
+    showFooterActions:true
+  })}
+          hideModal={()=>setValidationModalData({
+    showModal:false,
+    validationMessage:"",
+    cancelButtonText:"Cancel",
+    showActionButton:false,
+    showCancelButton:true,
+    showFooterActions:true
+  })}
+          showFooterActions={validationModalData.showFooterActions}
+          cancelButtonText={validationModalData.cancelButtonText}
+          showCancelButton={validationModalData.showCancelButton}>
+            {validationModalData.validationMessage}
+          </CommonModal>
+
           {/* <NotesModal /> */}
         </>
       ) : (
@@ -524,3 +622,48 @@ const MeteroTable = (props) => {
 };
 
 export default MeteroTable;
+
+
+const CommonModal = (props) => {
+  return (
+    <Modal
+            show={props.showModal}
+            onHide={props.onHide}
+            className="notesModal "
+          >
+            <Modal.Header className="d-flex justify-content-end">
+              <a
+                className="position-absolute modal-close"
+                onClick={props.hideModal}
+              >
+                <img src={closeIcon} />
+              </a>
+            </Modal.Header>
+            <Modal.Body>
+              {props.children}
+            </Modal.Body>
+            {
+              props.showFooterActions ? (
+            <Modal.Footer>
+              <div className="d-flex justify-content-start">
+                {
+                  props.showActionButton ? 
+                  <button onClick={props.buttonAction} type="submit" className="btn btn-primary mx-1">
+                    {props.buttonText}
+                  </button>
+                : null
+                }
+                {
+                  props.showCancelButton ? 
+                  <button onClick={props.hideModal} type="submit" className="btn btn-cancel mx-1">
+                    {props.cancelButtonText}
+                  </button>
+                : null
+              }
+              </div>
+            </Modal.Footer>
+            ) :null 
+          }
+          </Modal>
+  )
+}

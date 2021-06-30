@@ -7,6 +7,7 @@
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
     "async-selector": "^1.0.26",
+    "axios": "^0.21.1",
     "bootstrap": "^5.0.1",
     "font-awesome": "^4.7.0",
     "node-modules": "^1.0.1",
