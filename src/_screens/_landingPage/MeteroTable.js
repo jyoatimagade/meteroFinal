@@ -38,8 +38,6 @@ const MeteroTable = (props) => {
   const [exportListModal, setexportListModal] = useState(false);
   // const [exportListData, setexportListData] = useState();
   const [dataListIsOfRemaining, setDataListIsOfRemaining] = useState(false);
-  const [showValidationModal, setShowValidationModal] = useState(false);
-  const [validationMessage, setValidationMessage] = useState("");
   const [validationModalData,setValidationModalData] = useState({
     showModal:false,
     validationMessage:"",
