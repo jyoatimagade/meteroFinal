@@ -115,7 +115,7 @@ const MeteroTable = (props) => {
     let perPageCount = e.perPage ? e.perPage : perPage;
     const offset = selectedPage !== 1 ? e.selected * perPageCount + 1 : 0;
     // console.log(selectedPage);
-    let pageRangeTo = selectedPage !== 1 ? selectedPage * perPageCount + 1 : 10;
+    let pageRangeTo = selectedPage !== 1 ? selectedPage * perPageCount + 1 : perPageCount;
     setCurrentpage(selectedPage);
     setOffset(offset);
     setPageRange([offset, pageRangeTo]);
