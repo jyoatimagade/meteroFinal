@@ -432,7 +432,7 @@ const MeteroTable = (props) => {
     notesData.Notes = `(Meter Submit,(${new Date().toLocaleDateString()}) ${notesData.Notes}`
     console.log(notesData.Notes);
     
-    axios.post(`${API_ENDPOINT}/metero/EmailEquipments`,[notesData])
+    axios.post(`${API_ENDPOINT}/metero/updateNotesViewpoint`,[notesData])
             .then(apiRes=>{
               console.log(apiRes);
               if(apiRes.data === 'Success'){
