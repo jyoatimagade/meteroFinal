@@ -426,6 +426,47 @@ const MeteroTable = (props) => {
               })
             })
   }
+
+  const saveNotes = (notesData) => {
+    notesData.Notes = `(Meter Submit,(${new Date().toLocaleDateString()}) ${notesData.Notes}`
+    console.log(notesData.Notes);
+    
+    axios.post(`${API_ENDPOINT}/metero/EmailEquipments`,[notesData])
+            .then(apiRes=>{
+              console.log(apiRes);
+              if(apiRes.data === 'Success'){
+                _exportListModalHide();
+                setValidationModalData({
+                  showModal:true,
+                  validationMessage:"Notes not saved",
+                  cancelButtonText:"Ok",
+                  showActionButton:false,
+                  showCancelButton:true,
+                  showFooterActions:true
+                })
+              } else {
+                setValidationModalData({
+                  showModal:true,
+                  validationMessage:"Notes not saved",
+                  cancelButtonText:"Ok",
+                  showActionButton:false,
+                  showCancelButton:true,
+                  showFooterActions:true
+                })
+              }
+            })
+            .catch(apiErr=>{
+              console.log(apiErr);
+              setValidationModalData({
+                showModal:true,
+                validationMessage:"Error occured",
+                cancelButtonText:"Ok",
+                showActionButton:false,
+                showCancelButton:true,
+                showFooterActions:true
+              })
+            })
+  }
   return (
     <div className="tab-div">
       {meteroTableList.meteroTableData !== null &&
@@ -671,7 +712,7 @@ const MeteroTable = (props) => {
                       <label for="text">Enter Notes Below</label>
                     </div>
                     <div className="col-md-7">
-                      <textarea type="text" className="form-control"></textarea>
+                      <textarea type="text" className="form-control">{notesModalData.Notes}</textarea>
                     </div>
                   </div>
                 </>
@@ -679,7 +720,7 @@ const MeteroTable = (props) => {
             </Modal.Body>
             <Modal.Footer>
               <div className="d-flex justify-content-start">
-                <button type="submit" className="btn btn-primary mx-1">
+                <button onClick={()=>saveNotes(notesModalData)} type="submit" className="btn btn-primary mx-1">
                   UPDATED NOTE
                 </button>
                 <button type="submit" className="btn btn-cancel mx-1"  onClick={_addNotesModalHide}>
