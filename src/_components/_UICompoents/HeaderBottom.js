@@ -7,6 +7,7 @@ import Searchable from "react-searchable-dropdown";
 import SelectSearch from "react-select-search";
 import Select from "react-select";
 import { useSelect } from "react-select-search";
+import CommonModal from '../../_screens/_AllModals/CommonModal'
 
 const HeaderBottom = (props) => {
   // Selectors
@@ -20,6 +21,14 @@ const HeaderBottom = (props) => {
   const [ToggleSearchOn, setToggleSearchOn] = useState(false);
   const [getresult, setGetResult] = useState(dropDownArray.label);
   const [JobIdResult, setJobIdResult] = useState(dropDownArray.value);
+  const [validationModalData,setValidationModalData] = useState({
+    showModal:false,
+    validationMessage:"",
+    cancelButtonText:"Cancel",
+    showActionButton:false,
+    showCancelButton:true,
+    showFooterActions:true
+  })
   // console.log("check id", JobIdResult);
 
   useEffect(() => {
@@ -88,6 +97,17 @@ const HeaderBottom = (props) => {
       setToggleSearchOn(false);
       return;
     }
+    if(!getJobID.length) {
+      setValidationModalData({
+        showModal:true,
+        validationMessage:"Please select job",
+        cancelButtonText:"Ok",
+        showActionButton:false,
+        showCancelButton:true,
+        showFooterActions:true
+      })
+      return;
+    }
     let searchData = { jobId: getJobID };
     // setGetResult(searchData);
     // console.log(searchData);
@@ -153,6 +173,29 @@ const HeaderBottom = (props) => {
           </div>
         </div>
       </div>
+      <CommonModal
+          showModal={validationModalData.showModal}
+          onHide={()=>setValidationModalData({
+    showModal:false,
+    validationMessage:"",
+    cancelButtonText:"Cancel",
+    showActionButton:false,
+    showCancelButton:true,
+    showFooterActions:true
+  })}
+          hideModal={()=>setValidationModalData({
+    showModal:false,
+    validationMessage:"",
+    cancelButtonText:"Cancel",
+    showActionButton:false,
+    showCancelButton:true,
+    showFooterActions:true
+  })}
+          showFooterActions={validationModalData.showFooterActions}
+          cancelButtonText={validationModalData.cancelButtonText}
+          showCancelButton={validationModalData.showCancelButton}>
+            {validationModalData.validationMessage}
+          </CommonModal>
       {/* <div className="check the">
         {getJob.GETJOBData.map((item, key) => {
           // let dateFormat = moment(item.blogPublishDate).format("DD-MMMM-YYYY")
