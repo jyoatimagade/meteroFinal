@@ -535,7 +535,7 @@ const MeteroTable = (props) => {
                           className="form-control"
                         />
                       </td>
-                      <td>{item.IsGPSActive}</td>
+                      <td>{item.IsGPSActive.toLowerCase() !== 'yes' ? '' : item.IsGPSActive}</td>
                       <td>
                         {" "}
                         <button onClick={()=>saveData(item)} className="btn btn-primary tbl-save-btn">
