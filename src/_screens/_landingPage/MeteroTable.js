@@ -32,6 +32,7 @@ const MeteroTable = (props) => {
   const [searchcurrentPage, setSearchcurrentPage] = useState(1);
   const [search, setSearch] = useState("");
   const [data, setData] = useState([]);
+  const [rawdata, setRawData] = useState([]);
   const [pageRange, setPageRange] = useState([0, 10]);
   const [notesModal, setnotesModal] = useState(false);
   const [notesModalData, setnotesModalData] = useState();
@@ -58,7 +59,8 @@ const MeteroTable = (props) => {
       meteroTableList.meteroTableData.length !== 0
     ) {
       console.log("listing", meteroTableList.meteroTableData.length);
-      setData(meteroTableList.meteroTableData);
+      setData([...meteroTableList.meteroTableData]);
+      setRawData(JSON.parse(JSON.stringify(meteroTableList.meteroTableData)));
     }
   }, [meteroTableList]);
   // console.log("selected data", data);
@@ -299,6 +301,20 @@ const MeteroTable = (props) => {
       });
       return
     }
+    let isUpdateValidationError = [];
+    isUpdateValidationError = rawdata.filter(jobItem=> jobItem.Equipment === item.Equipment && parseFloat(jobItem.NewHr) > parseFloat(item.NewHr));
+    if(isUpdateValidationError.length){
+      setValidationModalData({
+        showModal:true,
+        validationMessage:`New Hour (${item.NewHr}) is less than Current Hour (${isUpdateValidationError[0].NewHr}) reading`,
+        cancelButtonText:"Ok",
+        showActionButton:false,
+        showCancelButton:true,
+        showFooterActions:true
+      });
+      return;
+    }
+    
     axios.post(`${API_ENDPOINT}/metero/addTransaction`,[item])
             .then(apiRes=>{
               console.log(apiRes);
