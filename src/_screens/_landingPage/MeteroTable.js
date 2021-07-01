@@ -302,7 +302,7 @@ const MeteroTable = (props) => {
       return
     }
     let isUpdateValidationError = [];
-    isUpdateValidationError = rawdata.filter(jobItem=> jobItem.Equipment === item.Equipment && parseFloat(jobItem.NewHr) > parseFloat(item.NewHr));
+    isUpdateValidationError = rawdata.filter(jobItem=> jobItem.Equipment === item.Equipment && (parseFloat(jobItem.NewHr) > parseFloat(item.NewHr) || parseFloat(jobItem.NewOdo) > parseFloat(item.NewOdo)));
     if(isUpdateValidationError.length){
       setValidationModalData({
         showModal:true,
