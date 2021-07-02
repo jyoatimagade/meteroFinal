@@ -579,7 +579,7 @@ const MeteroTable = (props) => {
                       <td>{item.udReferenceNumber}</td>
                       <td>
                         {" "}
-                        <input checked={item.HourReading === 0 && item.NewHr ==="0" ? true :false} onChange={(e)=>setNoChange(e,item)} type="checkbox" />
+                        <input checked={(item.HourReading === 0 || item.NewHr ==="0" || parseFloat(item.NewHr) === parseFloat(item.HourReading)) && item.Saved_MeterO === 'true' ? true :false} onChange={(e)=>setNoChange(e,item)} type="checkbox" />
                       </td>
                       <td>
                         <input
