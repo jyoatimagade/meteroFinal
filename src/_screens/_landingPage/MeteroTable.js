@@ -186,7 +186,7 @@ const MeteroTable = (props) => {
               })
               return;
             }
-            item.NewHr = "0";
+            item.NewHr = item.HourReading;;
             item.NewOdo = item.OdoReading;
             item.Saved_MeterO = 'true';
             axios.post(`${API_ENDPOINT}/metero/addTransaction`,[item])
