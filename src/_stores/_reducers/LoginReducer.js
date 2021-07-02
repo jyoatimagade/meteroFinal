@@ -10,6 +10,7 @@ const INITIAL_STATE = setInitialState({
 export default function (state = INITIAL_STATE, action) {
     switch (action.type) {
         case types.LOGIN_REQUEST:
+            console.log("add reducer111", action.payload);
             return {
                 ...state,
                 isFetching: true,

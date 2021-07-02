@@ -7,7 +7,7 @@ import Searchable from "react-searchable-dropdown";
 import SelectSearch from "react-select-search";
 import Select from "react-select";
 import { useSelect } from "react-select-search";
-import CommonModal from '../../_screens/_AllModals/CommonModal'
+import CommonModal from "../../_screens/_AllModals/CommonModal";
 
 const HeaderBottom = (props) => {
   // Selectors
@@ -21,14 +21,14 @@ const HeaderBottom = (props) => {
   const [ToggleSearchOn, setToggleSearchOn] = useState(false);
   const [getresult, setGetResult] = useState(dropDownArray.label);
   const [JobIdResult, setJobIdResult] = useState(dropDownArray.value);
-  const [validationModalData,setValidationModalData] = useState({
-    showModal:false,
-    validationMessage:"",
-    cancelButtonText:"Cancel",
-    showActionButton:false,
-    showCancelButton:true,
-    showFooterActions:true
-  })
+  const [validationModalData, setValidationModalData] = useState({
+    showModal: false,
+    validationMessage: "",
+    cancelButtonText: "Cancel",
+    showActionButton: false,
+    showCancelButton: true,
+    showFooterActions: true,
+  });
   // console.log("check id", JobIdResult);
 
   useEffect(() => {
@@ -69,7 +69,6 @@ const HeaderBottom = (props) => {
     // } catch (error) {}
 
     // console.log(getJob.SELECTJOBData[0].Description);
-    
   };
 
   // useEffect(() => {
@@ -93,19 +92,20 @@ const HeaderBottom = (props) => {
   const _ToggleSearch = (data) => {
     // debugger;
     // alert("YOU clicked !!!")
-    if(ToggleSearchOn){
+    if (ToggleSearchOn) {
       setToggleSearchOn(false);
       return;
     }
-    if(!getJobID.length) {
+    if (!getJobID.length) {
       setValidationModalData({
-        showModal:true,
-        validationMessage:"Please select job",
-        cancelButtonText:"Ok",
-        showActionButton:false,
-        showCancelButton:true,
-        showFooterActions:true
-      })
+        showModal: true,
+        validationMessage: <h4 className=" default-color">Please select job</h4>,
+        cancelButtonText: "Ok",
+        loginError:true,
+        showActionButton: false,
+        showCancelButton: true,
+        showFooterActions: true,
+      });
       return;
     }
     let searchData = { jobId: getJobID };
@@ -115,10 +115,10 @@ const HeaderBottom = (props) => {
     try {
       dispatch(meteroTable_Action(searchData));
     } catch (error) {}
-    if(getJob.isSuccess === true){
+    if (getJob.isSuccess === true) {
       // alert("111")
       setToggleSearchOn(true);
-    }else{
+    } else {
       setToggleSearchOn(false);
     }
   };
@@ -140,20 +140,20 @@ const HeaderBottom = (props) => {
               <div className=" job-search-div d-flex justify-content-end">
                 <form className=" header-Search d-flex justify-content-end">
                   {ToggleSearchOn ? (
-                  <div className="col-md-8 select-job header-caption">
-                    <h2>{getresult}</h2>
-                  </div>
-                   ) : ( 
-                     <>
-                  <div className="col-md-8 select-job">
-                    <Select
-                      options={dropDownArray}
-                      onChange={_getSelectdJob}
-                      required
-                      // onChange={opt => console.log(opt.label, opt.value)}
-                    />
-                  </div>
-                  </>
+                    <div className="col-md-8 select-job header-caption">
+                      <h2>{getresult}</h2>
+                    </div>
+                  ) : (
+                    <>
+                      <div className="col-md-8 select-job">
+                        <Select
+                          options={dropDownArray}
+                          onChange={_getSelectdJob}
+                          required
+                          // onChange={opt => console.log(opt.label, opt.value)}
+                        />
+                      </div>
+                    </>
                   )}
 
                   <button
@@ -165,7 +165,7 @@ const HeaderBottom = (props) => {
                       _ToggleSearch();
                     }}
                   >
-                    {ToggleSearchOn ? 'Change' : 'Select'} Job
+                    {ToggleSearchOn ? "Change" : "Select"} Job
                   </button>
                 </form>
               </div>
@@ -174,28 +174,33 @@ const HeaderBottom = (props) => {
         </div>
       </div>
       <CommonModal
-          showModal={validationModalData.showModal}
-          onHide={()=>setValidationModalData({
-    showModal:false,
-    validationMessage:"",
-    cancelButtonText:"Cancel",
-    showActionButton:false,
-    showCancelButton:true,
-    showFooterActions:true
-  })}
-          hideModal={()=>setValidationModalData({
-    showModal:false,
-    validationMessage:"",
-    cancelButtonText:"Cancel",
-    showActionButton:false,
-    showCancelButton:true,
-    showFooterActions:true
-  })}
-          showFooterActions={validationModalData.showFooterActions}
-          cancelButtonText={validationModalData.cancelButtonText}
-          showCancelButton={validationModalData.showCancelButton}>
-            {validationModalData.validationMessage}
-          </CommonModal>
+        showModal={validationModalData.showModal}
+        onHide={() =>
+          setValidationModalData({
+            showModal: false,
+            validationMessage: "",
+            cancelButtonText: "Cancel",
+            showActionButton: false,
+            showCancelButton: true,
+            showFooterActions: true,
+          })
+        }
+        hideModal={() =>
+          setValidationModalData({
+            showModal: false,
+            validationMessage: "",
+            cancelButtonText: "Cancel",
+            showActionButton: false,
+            showCancelButton: true,
+            showFooterActions: true,
+          })
+        }
+        showFooterActions={validationModalData.showFooterActions}
+        cancelButtonText={validationModalData.cancelButtonText}
+        showCancelButton={validationModalData.showCancelButton}
+      >
+        {validationModalData.validationMessage}
+      </CommonModal>
       {/* <div className="check the">
         {getJob.GETJOBData.map((item, key) => {
           // let dateFormat = moment(item.blogPublishDate).format("DD-MMMM-YYYY")

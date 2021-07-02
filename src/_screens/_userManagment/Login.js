@@ -1,4 +1,6 @@
 import React, { useCallback, useState, useEffect } from "react";
+import axios from 'axios';
+import { API_ENDPOINT, AUTH_HEADERS } from '../../_config/ApiConstants';
 import {
   loginBg,
   meteroLogo,
@@ -22,6 +24,7 @@ const Login = (props) => {
   // Login
   const dispatch = useDispatch();
   let history = useHistory();
+  const [Notes, setNotes] =useState();
   const [formData, setFormData] = useState(
     Object.freeze({
       userName: "",
@@ -29,12 +32,31 @@ const Login = (props) => {
     })
   );
 
+  useEffect(()=>{ 
+    axios.post(`${API_ENDPOINT}/metero/validateUser`)
+    .then(apiRes=>{
+      console.log(apiRes);
+      // if(apiRes.data === 'Success'){
+        setNotes(apiRes)
+      // } else {
+       
+      // }
+    })   
+    
+    }, [])
+
+  // useEffect(() => {
+  //   try {
+  //     dispatch(loginAPI_Action());
+  //   } catch (error) {}
+  // }, []);
+
   // useEffect(() => {
 
   //   if (loginData.loginData !== null || loginData !== undefined && loginData.loginData.isSuccess == true) {
   //     alert('Login suceesful',loginData )
   //   } else {
-  //     dispatch(resetLoginAPI_Action());
+  //     dispatch(loginAPI_Action());
 
   //     console.Console.log('try again')
   //   }
@@ -60,7 +82,7 @@ const Login = (props) => {
   // } else {
   //   // alert('Try again2');
   //   console.log("try again2");
-  // }
+
 
   const __onTextChange = (e) => {
     setFormData({
@@ -70,15 +92,17 @@ const Login = (props) => {
   };
 
   const __apiCall = useCallback(async () => {
+    debugger;
     try {
       await dispatch(loginAPI_Action(formData));
     } catch (error) {
-      // console.error(" profile ::  profile() :: Exception ==", error);
+    
     }
   });
 
   const _submitForm = (e) => {
     e.preventDefault();
+    debugger
     __apiCall();
     if (loginData.logindata &&  loginData.logindata.UserValidated !== true) {
           alert('Login suceesful',loginData )
@@ -95,6 +119,13 @@ const Login = (props) => {
 
   return (
     <>
+    <div>
+  {/* {
+    todos && todos.map((todo)=>{
+      const{} = todo
+    })
+  } */}
+</div>
       <div
         className="login"
         style={{

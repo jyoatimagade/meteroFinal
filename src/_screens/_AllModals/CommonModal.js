@@ -1,5 +1,5 @@
 import { Modal } from "react-bootstrap";
-import { notesIcon, closeIcon } from "../../_config/images";
+import { notesIcon, closeIcon, loginError } from "../../_config/images";
 
 const CommonModal = (props) => {
     return (
@@ -16,7 +16,13 @@ const CommonModal = (props) => {
                   <img src={closeIcon} />
                 </a>
               </Modal.Header>
-              <Modal.Body>
+              <Modal.Body className="text-center">
+                {
+                  props.icon 
+                  ? <img src={props.icon} className="img-fluid py-2 d-inline-block text-center"  /> 
+                  : ''
+                }
+              <img src={props.loginError}/>
                 {props.children}
               </Modal.Body>
               {

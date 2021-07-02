@@ -174,11 +174,12 @@ const MeteroTable = (props) => {
     console.log(event.target.checked, itemToUpdate);
       data.forEach(item=>{
         if(item.Equipment === itemToUpdate.Equipment){
+          debugger;
           if(event.target.checked){
             if(itemToUpdate.NewHr && item.NewOdo){
               setValidationModalData({
                 showModal:true,
-                validationMessage:"Data already added",
+                validationMessage:<h4 className="default-color">Data already added</h4>,
                 cancelButtonText:"Ok",
                 showActionButton:false,
                 showCancelButton:true,
@@ -186,7 +187,7 @@ const MeteroTable = (props) => {
               })
               return;
             }
-            item.NewHr = item.HourReading;;
+            item.NewHr = item.HourReading;
             item.NewOdo = item.OdoReading;
             item.Saved_MeterO = 'true';
             axios.post(`${API_ENDPOINT}/metero/addTransaction`,[item])
@@ -195,7 +196,7 @@ const MeteroTable = (props) => {
               if(apiRes.data === 'Success'){
                 setValidationModalData({
                   showModal:true,
-                  validationMessage:"Data saved successfully",
+                  validationMessage:<h4 className="default-color">Data saved successfully</h4>,
                   cancelButtonText:"Ok",
                   showActionButton:false,
                   showCancelButton:true,
@@ -204,7 +205,7 @@ const MeteroTable = (props) => {
               } else {
                 setValidationModalData({
                   showModal:true,
-                  validationMessage:"Error occured",
+                  validationMessage:<h4 className="default-color">Error occured</h4>,
                   cancelButtonText:"Ok",
                   showActionButton:false,
                   showCancelButton:true,
@@ -216,7 +217,7 @@ const MeteroTable = (props) => {
               console.log(apiErr);
               setValidationModalData({
                 showModal:true,
-                validationMessage:"Error occured",
+                validationMessage:<h4 className="default-color">Error occured</h4>,
                 cancelButtonText:"Ok",
                 showActionButton:false,
                 showCancelButton:true,
@@ -233,7 +234,7 @@ const MeteroTable = (props) => {
               if(apiRes.data === 'Success'){
                 setValidationModalData({
                   showModal:true,
-                  validationMessage:"Data removed successfully",
+                  validationMessage:<h4 className="default-color">Data removed successfully</h4>,
                   cancelButtonText:"Ok",
                   showActionButton:false,
                   showCancelButton:true,
@@ -242,7 +243,7 @@ const MeteroTable = (props) => {
               } else {
                 setValidationModalData({
                   showModal:true,
-                  validationMessage:"Error occured",
+                  validationMessage:<h4 className="default-color">Error occured</h4>,
                   cancelButtonText:"Ok",
                   showActionButton:false,
                   showCancelButton:true,
@@ -254,7 +255,7 @@ const MeteroTable = (props) => {
               console.log(apiErr);
               setValidationModalData({
                 showModal:true,
-                validationMessage:"Error occured",
+                validationMessage:<h4 className="default-color">Error occured</h4>,
                 cancelButtonText:"Ok",
                 showActionButton:false,
                 showCancelButton:true,
@@ -272,8 +273,8 @@ const MeteroTable = (props) => {
     if(!item.NewHr){
       setValidationModalData({
         showModal:true,
-        validationMessage:"Please enter New Hour",
-        cancelButtonText:"Ok",
+        validationMessage:<h4 className=" default-color">Please enter New Hour</h4>,
+        cancelButtonText:"Cancel",
         showActionButton:false,
         showCancelButton:true,
         showFooterActions:true
@@ -283,8 +284,8 @@ const MeteroTable = (props) => {
     if(!item.NewOdo){
       setValidationModalData({
         showModal:true,
-        validationMessage:"Please enter New Odo",
-        cancelButtonText:"Ok",
+        validationMessage:<h4 className=" default-color">Please enter New Odo</h4>,
+        cancelButtonText:"Cancel",
         showActionButton:false,
         showCancelButton:true,
         showFooterActions:true
@@ -294,8 +295,8 @@ const MeteroTable = (props) => {
     if(item.NewOdo < item.OdoReading){
       setValidationModalData({
         showModal:true,
-        validationMessage:"New Odo is less than Odo reading",
-        cancelButtonText:"Ok",
+        validationMessage:<h4 className=" default-color">New Odo is less than Odo reading</h4>,
+        cancelButtonText:"Cancel",
         showActionButton:false,
         showCancelButton:true,
         showFooterActions:true
@@ -696,7 +697,7 @@ const MeteroTable = (props) => {
                       <input
                         type="text"
                         className="form-control"
-                        value={notesModalData.NewHr}
+                        value={notesModalData.HourReading}
                         disabled
                       />
                     </div>
@@ -709,7 +710,7 @@ const MeteroTable = (props) => {
                       <input
                         type="text"
                         className="form-control"
-                        value={notesModalData.NewOdo}
+                        value={notesModalData.OdoReading}
                       />
                     </div>
                   </div>
@@ -807,7 +808,9 @@ const MeteroTable = (props) => {
   })}
           showFooterActions={validationModalData.showFooterActions}
           cancelButtonText={validationModalData.cancelButtonText}
-          showCancelButton={validationModalData.showCancelButton}>
+          showCancelButton={validationModalData.showCancelButton}
+          // icon={loginError}
+          >
             {validationModalData.validationMessage}
           </CommonModal>
 
