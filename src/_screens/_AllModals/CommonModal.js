@@ -22,7 +22,7 @@ const CommonModal = (props) => {
               {
                 props.showFooterActions ? (
               <Modal.Footer>
-                <div className="d-flex justify-content-start">
+                <div className="d-flex justify-content-start text-center">
                   {
                     props.showActionButton ? 
                     <button onClick={props.buttonAction} type="submit" className="btn btn-primary mx-1">

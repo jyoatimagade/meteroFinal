@@ -25,7 +25,7 @@ ul{
   .form-control:focus {
     color: #212529;
     background-color: #fff;
-    border-color: transparent;
+    border-color: #ededed;
     outline: 0;
     box-shadow: none;
   }
@@ -137,9 +137,7 @@ ul{
   .header-top .dropdown a{
     color: #fff;
   }
-  .dropdown {
-    
-  }
+ 
   .header-caption h2{
     font-size: 1.3rem;
     color: #0076bd;
@@ -165,6 +163,12 @@ ul{
   
   /*eNd fOoter*/
   /* metero-tab ------------------- */
+  .react-tabs .nav-tabs span.metero-tab-icon{
+    display: none;
+  }
+  .metero-tab-text{
+
+  }
   .data-list-type{
     background: #9a9a9a;
     cursor: pointer;
@@ -178,10 +182,7 @@ ul{
     background: #0076bd;
     /* padding: 0.3rem; */
   }
-  .metero-tab-section .metero-tab{
   
-  
-  }
   .react-tabs .nav-tabs .nav-link:focus, .metero-tab .nav-tabs .nav-link:hover, .react-tabs__tab--selected{
     background: #cbdb2d;
     border-radius: 0;
@@ -236,15 +237,21 @@ ul{
       height: 400px;
       overflow-y: scroll;
     }
+    input[type=number]::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+    }
   /* eNd tAble dIv ------------------- */
 
   /* pAgination ------------------- */
-  .
+
 .table>:not(caption)>*>* {
     padding: .2rem .1rem;
     box-shadow: none;
     border-color: #fff;
   
+  }
+  .table-striped>tbody>tr:nth-of-type(odd) {
+
   }
   tbody, td, tfoot, th, thead, tr{
     border-width: .001rem;
@@ -373,11 +380,14 @@ ul{
     border-radius: 1px;
   }
   .search-div {
-    width: 24%;
+    width: 55%;
   }
   .export-btn-div .btn, 
   .refresh-btn-div .btn{
     padding: .275rem 2rem;
+  }
+  .total-equip-div{
+    padding-left: 10px;
   }
   
   /* meterO tEble */
@@ -521,11 +531,45 @@ ul{
   
   /* // Small devices (landscape phones, less than 768px) */
   @media (max-width: 767.98px) { 
+    a.logo-section img{width: 100px;}
+    .header-top .dropdown{
+      padding: 8px !important;
+    }
+    .metero-tab-section .nav.nav-tabs span img{
+      width: 30px;
+    }
+    .user-name{
+      display:none;
+    }
+    .header-Search {
+      width: 100%;
+      flex-flow: column;
+      justify-content: center !important;
+  }
+  .btn{
+    padding: .275rem .2rem !important;
+  }
+    .select-job{
+      width: 100%;
+      padding-bottom: 10px;
+    }
+    .header-top .dropdown{
+      top:-7px
+    }
+    .user-icon{
+      width: 30px;
+    }
     .login-form{
         width: 100%;
     }
     .login-base-div {      
         padding: 0 .5rem;
+    }
+    .react-tabs .nav-tabs span.metero-tab-icon{
+      display: inline-block;
+    }
+    .metero-tab-text{
+      display: none;
     }
   }
   
@@ -537,6 +581,17 @@ ul{
     .login-base-div {
         
         padding: 0 .5rem;
+    }
+    .meter-Header{
+      flex-flow: column;
+    }
+    .meter-Header  .col-md-6:nth-child(1){
+      margin-bottom: 8px;
+      border-bottom: 1px solid #d8d8d875;
+      padding-bottom: 12px;
+    }
+    .btn{
+      padding:.275rem .5rem !important
     }
   }
   

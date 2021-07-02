@@ -1,5 +1,6 @@
 import React from "react";
 import {} from "../../_components";
+import{meterEntryIcon, reviewSubmissionIcon, mangEquipmentIcon} from "../../_config/images"
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import MeteroTable from './MeteroTable'
@@ -10,9 +11,10 @@ const MeteroTab = (props) => {
       <div className="metero-tab-section p-3">
       <Tabs>
         <TabList className="nav nav-tabs">
-          <Tab className="nav-item">Meter Entry</Tab>
-          <Tab className="nav-item">Review Submission</Tab>
-          <Tab className="nav-item">Manage Equipments</Tab>
+        <Tab className="nav-item"> <span className="metero-tab-icon"><img src={meterEntryIcon} /></span><span className="metero-tab-text">Meter Entry</span></Tab>
+          <Tab className="nav-item"> <span className="metero-tab-icon"><img src={reviewSubmissionIcon} /></span><span className="metero-tab-text">Review Submission</span></Tab>
+          <Tab className="nav-item"> <span className="metero-tab-icon"><img src={mangEquipmentIcon} /></span> <span className="metero-tab-text">Manage Equipments</span></Tab>
+
         </TabList>
 
         <TabPanel>

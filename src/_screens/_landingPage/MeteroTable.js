@@ -476,6 +476,7 @@ const MeteroTable = (props) => {
       meteroTableList.meteroTableData.length !== 0 ? (
         <>
           <div className="meter-Header d-flex justify-content-between align-items-center py-3">
+          <div className="col-xs-12 col-sm-12 col-md-12 col-lg-6 d-flex justify-content-between align-items-center pb-1">
             <div className="export-btn-div">
               <button
                 type="button"
@@ -502,6 +503,8 @@ const MeteroTable = (props) => {
                 }}
               />
             </div>
+            </div>
+            <div className="col-xs-12 col-sm-12 col-md-12 col-lg-6 d-flex justify-content-between align-items-center pb-1">
             <div className="total-equip-div">
               <label>
                 Total Equipments: {meteroTableList.meteroTableData.length}
@@ -540,6 +543,8 @@ const MeteroTable = (props) => {
               </ul>
             
             </div>
+         
+         </div>
           </div>
          
          <div className="table-div">
@@ -578,7 +583,7 @@ const MeteroTable = (props) => {
                       <td>
                         <input
                         disabled={item.HourReading === 0 && item.NewHr ==="0" ? true :false}
-                          type="text"
+                          type="number"
                           value={item.NewHr}
                           onInput={(e)=>updateInputValues(e.target.value, item.Equipment,'NewHr')}
                           className="form-control"
@@ -587,7 +592,7 @@ const MeteroTable = (props) => {
                       <td>
                         <input
                         disabled={item.HourReading === 0 && item.NewHr ==="0" ? true :false}
-                          type="text"
+                          type="number"
                           value={item.NewOdo}
                           onInput={(e)=>updateInputValues(e.target.value, item.Equipment,'NewOdo')}
                           className="form-control"
