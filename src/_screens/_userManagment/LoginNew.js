@@ -2,12 +2,14 @@
 import React, { useState } from "react";
 
 import "../../App.css";
+import {
+    loginBg,
+    meteroLogo,
+    meteroSecondLogo,
+    closeIcon,
+    loginError,
+  } from "../../_config/images";
 import { Modal } from "react-bootstrap";
-import loginBg from "../../images/login-bg.jpg";
-import logo from "../../images/logo.png";
-import closeIcon from "../../images/close-icon.png";
-import loginError from "../../images/login-warning.png";
-import meteroLogo from "../../images/MeterOLogo.png";
 import { Redirect } from "react-router-dom";
 
 const mapStateToProps =(state) =>{
@@ -17,7 +19,7 @@ const mapStateToProps =(state) =>{
   }
 }
 
-class Login extends React.Component {
+class LoginNew extends React.Component {
   constructor(props) {
     super(props);
 
@@ -154,7 +156,7 @@ class Login extends React.Component {
   }
   render() {
     if (this.state.loggedIn) {
-      return <Redirect to="/meterO" />;
+      return <Redirect to="/Metero" />;
     }
 
     return (
@@ -172,11 +174,11 @@ class Login extends React.Component {
                   <div className="login-base-div d-flex  justify-content-center  flex-column ">
                     <div className="logo-img d-flex border-bottom border-3  justify-content-around  py-3 ">
                       <div className="col d-flex  justify-content-end">
-                        <img src={logo} className="img-fluid" alt="logo" />
+                        <img src={meteroLogo} className="img-fluid" alt="logo" />
                       </div>
                       <div className="col">
                         <img
-                          src={meteroLogo}
+                          src={meteroSecondLogo}
                           className="img-fluid"
                           alt="logo"
                         />
@@ -302,4 +304,4 @@ class Login extends React.Component {
     );
   }
 }
-export default Login;
+export default LoginNew;
