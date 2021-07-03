@@ -40,7 +40,7 @@ const UserProfile = (props) => {
             // sessionStorage.removeItem("token");
             
             sessionStorage.clear();
-            setloggedIn(false)
+            setloggedIn(true)
             // this.setState({ loggedIn: !this.state.loggedIn });
           } else {
             alert("cant logout");

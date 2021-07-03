@@ -137,7 +137,10 @@ ul{
   .header-top .dropdown a{
     color: #fff;
   }
- 
+ .header-caption{
+  padding: 4px 8px;
+  background: #fff;
+ }
   .header-caption h2{
     font-size: 1.3rem;
     color: #0076bd;
@@ -149,6 +152,10 @@ ul{
   .header-Search input{
     width: 100%;
     height: 36px;
+  }
+  .header-Search button{
+    width: 10rem;
+    
   }
   
   /* eNd hEader Section--------- */

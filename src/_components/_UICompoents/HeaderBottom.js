@@ -15,7 +15,7 @@ const HeaderBottom = (props) => {
   // Selectors
   const getJob = useSelector((state) => state.getJob);
   const selectJobData = useSelector((state) => state.meteroTable);
- 
+ console.log(" job list ", selectJobData)
 
   
 
@@ -57,6 +57,7 @@ const HeaderBottom = (props) => {
         });
       }
       setdropDownArray(newArraydrop);
+      console.log(newArraydrop);
     }
   }, [getJob.GETJOBData]);
 
@@ -101,6 +102,7 @@ const HeaderBottom = (props) => {
       setToggleSearchOn(false);
       return;
     }
+   
     if (!getJobID.length) {
       setValidationModalData({
         showModal: true,
@@ -114,9 +116,23 @@ const HeaderBottom = (props) => {
       });
       return;
     }
+    // if(selectJobData.meteroTableData.length !== 0){
+    //   console.log("justi work", (selectJobData[0]))
+    //   setValidationModalData({
+    //     showModal: true,
+        
+    //     validationMessage:"No Data Avialable",
+    //     cancelButtonText: "Ok",
+    //     loginError:true,
+    //     showActionButton: false,
+    //     showCancelButton: true,
+    //     showFooterActions: true,
+    //   });
+    //   return;
+    // }
     let searchData = { jobId: getJobID };
     // setGetResult(searchData);
-    // console.log(searchData);
+    console.log("check list", searchData);
     // let data={jobId:e.value }
     try {
       dispatch(meteroTable_Action(searchData));
