@@ -2,19 +2,22 @@ import React from 'react';
 import {Route, Switch} from 'react-router-dom';
 import App from '../App'
 
-import {Login, Metero} from '../_screens';
+import {Login, LoginNew, Metero} from '../_screens';
 
 const AppNavigation = (props) =>{
     return(
-
         <Switch>
             <App>
             <Route
-          path="/login"
-          exact
-          component={Login} />
-             <Route
           path="/"
+          exact
+          component={LoginNew} />
+             {/* <Route
+          path="/"
+          exact
+          component={Metero} /> */}
+          <Route
+          path="/Metero"
           exact
           component={Metero} />
           

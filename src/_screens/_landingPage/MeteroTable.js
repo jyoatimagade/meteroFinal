@@ -196,6 +196,7 @@ const MeteroTable = (props) => {
               if(apiRes.data === 'Success'){
                 setValidationModalData({
                   showModal:true,
+                  icon:false,
                   validationMessage:<h4 className="default-color">Data saved successfully</h4>,
                   cancelButtonText:"Ok",
                   showActionButton:false,
@@ -809,10 +810,10 @@ const MeteroTable = (props) => {
           showFooterActions={validationModalData.showFooterActions}
           cancelButtonText={validationModalData.cancelButtonText}
           showCancelButton={validationModalData.showCancelButton}
-          // icon={loginError}
+          icon={loginError}
           >
-            {validationModalData.validationMessage}
-          </CommonModal>
+           <h4 className=" default-color"> {validationModalData.validationMessage}</h4>
+             </CommonModal>
 
           {/* <NotesModal /> */}
         </>

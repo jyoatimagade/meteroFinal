@@ -29,9 +29,9 @@ class LoginNew extends React.Component {
     //debugger
     console.log(UserName)
 
-    this.setState({UserName: UserName}, function () {
-      console.log(this.state.UserName);
-   });
+  //   this.setState({UserName: UserName}, function () {
+  //     console.log(this.state.UserName);
+  //  });
     let loggedIn =true
     // let MeteroRollName = true;
     // if (MeteroSession == null) {
@@ -43,7 +43,7 @@ class LoginNew extends React.Component {
       loggedIn = false;
     }
     this.state = {
-      username: "",
+      username: sessionStorage.getItem("profile"),
       password: "",
       userNameError: "",
       passwordError: "",
@@ -91,6 +91,12 @@ class LoginNew extends React.Component {
             sessionStorage.setItem("SID", response[0].SessionID);
             sessionStorage.setItem("UserObject", response[0]);
             sessionStorage.setItem("RoleInfo", response[0].RoleInfo);
+            let roleInfo = response[0].RoleInfo;
+            roleInfo.split(";").forEach(item=>{
+              if(item.split(':')[0] === 'Role_ID'){
+                sessionStorage.setItem("RoleId", item.split(':')[1]);
+              }
+            })
             console.log(response[0].RoleInfo);
             //debugger;
             sessionStorage.setItem("profile", response[0].Name);

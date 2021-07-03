@@ -12,9 +12,9 @@ const App = props => {
   let baseClass = 'app'
   return (
     <div className={baseClass} id="app">
-          <LoginNew />       
+          {/* <LoginNew />        */}
           {/* <Metero /> */}
-         {/* {props.children} */}
+         {props.children}
      
     </div>
   );

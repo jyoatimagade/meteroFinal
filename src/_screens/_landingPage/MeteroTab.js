@@ -6,6 +6,8 @@ import "react-tabs/style/react-tabs.css";
 import MeteroTable from './MeteroTable'
 
 const MeteroTab = (props) => {
+  const RoleId = sessionStorage.getItem("RoleId");
+
   return (
     <>
       <div className="metero-tab-section p-3">
@@ -13,7 +15,11 @@ const MeteroTab = (props) => {
         <TabList className="nav nav-tabs">
         <Tab className="nav-item"> <span className="metero-tab-icon"><img src={meterEntryIcon} /></span><span className="metero-tab-text">Meter Entry</span></Tab>
           <Tab className="nav-item"> <span className="metero-tab-icon"><img src={reviewSubmissionIcon} /></span><span className="metero-tab-text">Review Submission</span></Tab>
-          <Tab className="nav-item"> <span className="metero-tab-icon"><img src={mangEquipmentIcon} /></span> <span className="metero-tab-text">Manage Equipments</span></Tab>
+          {
+            RoleId === "1" || RoleId === "2" || RoleId === "3" 
+            ?  <Tab className="nav-item"> <span className="metero-tab-icon"><img src={mangEquipmentIcon} /></span> <span className="metero-tab-text">Manage Equipments</span></Tab> 
+            : ''
+          }
 
         </TabList>
 

@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from "react";
-import {} from "../../_config/images";
+import {loginError} from "../../_config/images";
 import { useDispatch, useSelector } from "react-redux";
 
 import { selectJob_Action, meteroTable_Action } from "../../_stores/_actions";
@@ -99,7 +99,8 @@ const HeaderBottom = (props) => {
     if (!getJobID.length) {
       setValidationModalData({
         showModal: true,
-        validationMessage: <h4 className=" default-color">Please select job</h4>,
+        
+        validationMessage:"Please select job",
         cancelButtonText: "Ok",
         loginError:true,
         showActionButton: false,
@@ -198,8 +199,9 @@ const HeaderBottom = (props) => {
         showFooterActions={validationModalData.showFooterActions}
         cancelButtonText={validationModalData.cancelButtonText}
         showCancelButton={validationModalData.showCancelButton}
+        icon={loginError}
       >
-        {validationModalData.validationMessage}
+         <h4 className=" default-color">{validationModalData.validationMessage}</h4>
       </CommonModal>
       {/* <div className="check the">
         {getJob.GETJOBData.map((item, key) => {
