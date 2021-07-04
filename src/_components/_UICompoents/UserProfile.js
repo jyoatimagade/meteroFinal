@@ -83,7 +83,7 @@ const UserProfile = (props) => {
             height="32"
             className="rounded-circle"
           />{" "}
-          <span>Meter Submit</span>
+          <span>{sessionStorage.getItem('UserFullName')}</span>
         </a>
 
         <ul
