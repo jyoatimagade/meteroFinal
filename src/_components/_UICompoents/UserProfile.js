@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { Redirect } from "react-router-dom";
+import { Redirect, useHistory  } from "react-router-dom";
 import { profileUser, closeIcon } from "../../_config/images";
 import { Modal } from "react-bootstrap";
+
 const UserProfile = (props) => {
   const [ToggleOn, setToggleOn] = useState(false);
   const [LogoutModalOn, setLogoutModalOn] = useState(false);
@@ -9,7 +10,7 @@ const UserProfile = (props) => {
   const [LogoutModalCancel, setLogoutModalCancel] = useState(false);
   const [loggedIn, setloggedIn] = useState(true);
   let token = sessionStorage.getItem("SID");
-  
+  let history = useHistory();
 
   // const __toggleProfile = () => setToggleOn(true)
 
@@ -40,7 +41,8 @@ const UserProfile = (props) => {
             // sessionStorage.removeItem("token");
             
             sessionStorage.clear();
-            setloggedIn(true)
+            setloggedIn(false);
+            history.push('/');
             // this.setState({ loggedIn: !this.state.loggedIn });
           } else {
             alert("cant logout");
