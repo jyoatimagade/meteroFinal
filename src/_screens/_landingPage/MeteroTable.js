@@ -819,7 +819,7 @@ const MeteroTable = (props) => {
         </>
       ) : (
         <div className="d-flex justify-content-center align-item-center no-job-selected">
-          <p>No Job Selected</p>
+          <p>{props.selectedJob ? 'No data to show' :'No Job Selected'}</p>
         </div>
       )}
     </div>
