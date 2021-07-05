@@ -151,19 +151,25 @@ const MeteroTable = (props) => {
   };
   const searchDataList = (searchTerm) => {
     if (searchTerm) {
-      let filteredDataList = meteroTableList.meteroTableData.filter(
-        (item) =>
-          (item.Equipment &&
-            item.Equipment.toLowerCase().includes(searchTerm.toLowerCase())) ||
-          (item.SerialNo &&
-            item.SerialNo.toLowerCase().includes(searchTerm.toLowerCase())) ||
-          (item.Description &&
-            item.Description.toLowerCase().includes(
-              searchTerm.toLowerCase()
-            )) ||
-          (item.LicenseNumber &&
-            item.LicenseNumber.toLowerCase().includes(searchTerm.toLowerCase()))
-      );
+      let filteredDataList = data.filter((item) => {
+          let _return = 0;
+          let searchStringsArray = searchTerm.split(" ").filter(i=>i);
+          searchStringsArray.forEach(st=>{
+            if (st && item.Equipment && item.Equipment.toLowerCase().includes(st.toLowerCase())){
+              _return++;
+            }
+            if (st && item.SerialNo && item.SerialNo.toLowerCase().includes(st.toLowerCase())){
+              _return++;
+            }
+            if (st && item.Description && item.Description.toLowerCase().includes(st.toLowerCase())){
+              _return++;
+            }
+            if (st && item.LicenseNumber && item.LicenseNumber.toLowerCase().includes(st.toLowerCase())){
+              _return++;
+            }
+          });
+          return _return >= searchStringsArray.length ? true : false;
+        });
       // console.log("search data", filteredDataList);
       setData(filteredDataList);
     } else {
@@ -502,6 +508,7 @@ const MeteroTable = (props) => {
             </div>
             <div className="search-div">
               <Search
+                showClose={true}
                 onSearch={(value) => {
                   searchDataList(value);
                 }}
