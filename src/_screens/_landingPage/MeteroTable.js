@@ -46,7 +46,8 @@ const MeteroTable = (props) => {
     cancelButtonText:"Cancel",
     showActionButton:false,
     showCancelButton:true,
-    showFooterActions:true
+    showFooterActions:true,
+    icon: loginError
   })
 
   // console.log("select MeteroTable value", meteroTableList);
@@ -278,7 +279,8 @@ const MeteroTable = (props) => {
         cancelButtonText:"Cancel",
         showActionButton:false,
         showCancelButton:true,
-        showFooterActions:true
+        showFooterActions:true,
+        icon:closeIcon
       });
       return
     }
@@ -810,7 +812,7 @@ const MeteroTable = (props) => {
           showFooterActions={validationModalData.showFooterActions}
           cancelButtonText={validationModalData.cancelButtonText}
           showCancelButton={validationModalData.showCancelButton}
-          icon={loginError}
+          icon={validationModalData.icon}
           >
            <h4 className=" default-color"> {validationModalData.validationMessage}</h4>
              </CommonModal>
