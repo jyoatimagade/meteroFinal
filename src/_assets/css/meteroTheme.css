@@ -531,6 +531,11 @@ ul{
 .table-div::-webkit-scrollbar-thumb:hover, ::-webkit-scrollbar-thumb:hover {
   background: rgb(66, 62, 62); 
 }
+.odoReading{
+  font-size: 16px;
+  line-height: 34px;
+  color: #494848;
+}
   /* eNd sCrollBar cSs */
   /*  --------------------- sTart mEdia qUery -----------------------*/
   /* // Extra small devices (portrait phones, less than 576px) */
