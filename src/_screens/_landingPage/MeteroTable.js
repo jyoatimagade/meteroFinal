@@ -336,6 +336,11 @@ const MeteroTable = (props) => {
       });
       return;
     }
+    data.forEach(dataItem=>{
+      if(dataItem.Equipment === item.Equipment){
+        dataItem.Saved_MeterO = 'true';
+      }
+    })
     
     axios.post(`${API_ENDPOINT}/metero/addTransaction`,[item])
             .then(apiRes=>{
@@ -609,7 +614,7 @@ const MeteroTable = (props) => {
                       <td>{item.udReferenceNumber}</td>
                       <td>
                         {" "}
-                        <input checked={(item.HourReading === 0 || item.NewHr ==="0" || parseFloat(item.NewHr) === parseFloat(item.HourReading)) && item.Saved_MeterO === 'true' ? true :false} onChange={(e)=>setNoChange(e,item)} type="checkbox" />
+                        <input checked={( item.NewHr ==="0" || parseFloat(item.NewHr) === parseFloat(item.HourReading)) && item.Saved_MeterO === 'true' ? true :false} onChange={(e)=>setNoChange(e,item)} type="checkbox" />
                       </td>
                       <td>
                         <input
@@ -632,7 +637,7 @@ const MeteroTable = (props) => {
                       <td>{item.IsGPSActive.toLowerCase() !== 'yes' ? '' : item.IsGPSActive}</td>
                       <td>
                         {" "}
-                        <button onClick={()=>saveData(item)} className="btn btn-primary tbl-save-btn">
+                        <button disabled={( item.NewHr ==="0" || parseFloat(item.NewHr) === parseFloat(item.HourReading)) && item.Saved_MeterO === 'true' ? true :false} onClick={()=>saveData(item)} className="btn btn-primary tbl-save-btn">
                           Save
                         </button>
                       </td>
