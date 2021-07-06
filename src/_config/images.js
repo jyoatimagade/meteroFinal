@@ -1,6 +1,7 @@
 import meteroLogo from '../_assets/images/logo.png';
 import loginBg from '../_assets/images/login-bg.jpg';
 import closeIcon from '../_assets/images/close-icon.png';
+import searchcloseIcon from '../_assets/images/search-close-icon.png';
 import loginError from '../_assets/images/login-warning.png';
 import  meteroSecondLogo from '../_assets/images/MeterOLogo.png';
 import headerBg from '../_assets/images/header-bg.png';
@@ -26,5 +27,6 @@ export {
     meterEntryIcon,
     reviewSubmissionIcon,
     mangEquipmentIcon,
-    successIcon
+    successIcon,
+    searchcloseIcon
 }
