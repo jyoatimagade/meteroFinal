@@ -2,7 +2,7 @@ import React from 'react';
 import {Route, Switch} from 'react-router-dom';
 import App from '../App'
 
-import {Login, LoginNew, Metero} from '../_screens';
+import {Login, Metero} from '../_screens';
 
 const AppNavigation = (props) =>{
     return(
@@ -11,7 +11,7 @@ const AppNavigation = (props) =>{
             <Route
           path="/"
           exact
-          component={LoginNew} />
+          component={Login} />
              {/* <Route
           path="/"
           exact

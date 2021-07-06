@@ -10,6 +10,7 @@ import themeToggle from '../_assets/images/theme-toggle.png';
 import meterEntryIcon from '../_assets/images/meter-entry.png';
 import reviewSubmissionIcon from '../_assets/images/review-submission.png';
 import mangEquipmentIcon from '../_assets/images/manage-equipments.png';
+import successIcon from '../_assets/images/success-tick-icon.png';
 
 
 export {
@@ -24,5 +25,6 @@ export {
     themeToggle,
     meterEntryIcon,
     reviewSubmissionIcon,
-    mangEquipmentIcon
+    mangEquipmentIcon,
+    successIcon
 }

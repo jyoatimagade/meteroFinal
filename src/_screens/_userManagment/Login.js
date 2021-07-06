@@ -1,197 +1,243 @@
-import React, { useCallback, useState, useEffect } from "react";
-import axios from 'axios';
-import { API_ENDPOINT, AUTH_HEADERS } from '../../_config/ApiConstants';
+// import favIcon from './logo.svg';
+import React, { useState } from "react";
+
+import "../../App.css";
 import {
-  loginBg,
-  meteroLogo,
-  meteroSecondLogo,
-  closeIcon,
-  loginError,
-} from "../../_config/images";
-import { useDispatch, useSelector } from "react-redux";
+    loginBg,
+    meteroLogo,
+    meteroSecondLogo,
+    closeIcon,
+    loginError,
+  } from "../../_config/images";
 import { Modal } from "react-bootstrap";
-import { loginAPI_Action, resetLoginAPI_Action } from "../../_stores/_actions";
-import {
-  setLocalStorageData,
-  getLocalStorageData,
-  clearLocalStorage,
-} from "../../_utils/storage";
-import { Redirect, useHistory } from "react-router-dom";
-const Login = (props) => {
-  // Selectors
-  const loginData = useSelector((state) => state.login);
-  // console.log(loginData)
-  // Login
-  const dispatch = useDispatch();
-  let history = useHistory();
-  const [Notes, setNotes] =useState();
-  const [formData, setFormData] = useState(
-    Object.freeze({
-      userName: "",
-      password: "",
-    })
-  );
+import { Redirect } from "react-router-dom";
 
-  useEffect(()=>{ 
-    axios.post(`${API_ENDPOINT}/metero/validateUser`)
-    .then(apiRes=>{
-      console.log(apiRes);
-      // if(apiRes.data === 'Success'){
-        setNotes(apiRes)
-      // } else {
-       
-      // }
-    })   
-    
-    }, [])
+const mapStateToProps =(state) =>{
+  debugger
+  return{
+    myName:state.name
+  }
+}
 
-  // useEffect(() => {
-  //   try {
-  //     dispatch(loginAPI_Action());
-  //   } catch (error) {}
-  // }, []);
+class Login extends React.Component {
+  constructor(props) {
+    super(props);
 
-  // useEffect(() => {
+    // let MeteroSession = sessionStorage.getItem("MeteroRollName");
+    const token = sessionStorage.getItem("SID");
+    let UserName = sessionStorage.getItem("profile");
+    //debugger
+    console.log(UserName)
 
-  //   if (loginData.loginData !== null || loginData !== undefined && loginData.loginData.isSuccess == true) {
-  //     alert('Login suceesful',loginData )
-  //   } else {
-  //     dispatch(loginAPI_Action());
+  //   this.setState({UserName: UserName}, function () {
+  //     console.log(this.state.UserName);
+  //  });
+    let loggedIn =true
+    // let MeteroRollName = true;
+    // if (MeteroSession == null) {
+    //   MeteroRollName = false;
+    // }
 
-  //     console.Console.log('try again')
-  //   }
-  // }, [loginData.loginData]);
-
-  // if (loginData.logindata && loginData.logindata[0].UserValidated!==undefined && loginData.logindata[0].UserValidated!=="true") {
-  // if ( loginData.logindata &&  loginData.logindata[0].UserValidated !== true) {
-  //   console.log("loginData.logindata.data ", loginData[0]);
-
-  //   if (
-  //     // loginData.logindata &&
-  //     // loginData.logindata[0].UserValidated !== undefined &&
-  //     // loginData.logindata[0].UserValidated !== true
-  //     loginData.logindata[0].UserValidated === "true" &&
-  //     loginData.logindata[0].SessionID > 0
-  //   ) {
-  //     history.push("/Metero");
-      
-  //   } else {
-  //     // alert('Try again');
-  //     console.log("try again"); 
-  //   }
-  // } else {
-  //   // alert('Try again2');
-  //   console.log("try again2");
-
-
-  const __onTextChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value.trim(),
-    });
-  };
-
-  const __apiCall = useCallback(async () => {
-    debugger;
-    try {
-      await dispatch(loginAPI_Action(formData));
-    } catch (error) {
-    
+    // let token = true;
+    if (token == null) {
+      loggedIn = false;
     }
-  });
+    this.state = {
+      username: sessionStorage.getItem("profile"),
+      password: "",
+      userNameError: "",
+      passwordError: "",
+      rememberMe:false,
+      show: false,
+      loggedIn,
+      loginValidation: false,
+      loop: 0,
+      // MeteroRollName,
+      rowitem: [],
+    };
+  }
+  toggleRememberMe = ()=> {
+    this.setState({
+        rememberMe: !this.state.rememberMe
+    });
+}
 
-  const _submitForm = (e) => {
+  submitForm = (e) => {
+    //debugger
     e.preventDefault();
-    debugger
-    __apiCall();
-    if (loginData.logindata &&  loginData.logindata.UserValidated !== true) {
-          alert('Login suceesful',loginData )
-         
-        } else {
-          dispatch(resetLoginAPI_Action());
-    
-          alert('try again')
-        }
-  
-  };
-  const _loginErrorModal = () => {};
-  const _loginValidationModal = () => {};
+    const { username, password, rememberMe } = this.state;
+    console.log("state", this.state);
 
-  return (
-    <>
-    <div>
-  {/* {
-    todos && todos.map((todo)=>{
-      const{} = todo
-    })
-  } */}
-</div>
-      <div
-        className="login"
-        style={{
-          backgroundImage: "url(" + loginBg + ")",
-        }}
-      >
-        <div className="container-fluid">
-          <div className="row">
-            <div className="col">
-              <div className="login-form">
-                <div className="login-base-div d-flex  justify-content-center  flex-column ">
-                  <div className="logo-img d-flex border-bottom border-3  justify-content-around  py-3 ">
-                    <div className="col d-flex  justify-content-end">
-                      <img src={meteroLogo} className="img-fluid" alt="logo" />
-                    </div>
-                    <div className="col">
-                      <img
-                        src={meteroSecondLogo}
-                        className="img-fluid"
-                        alt="logo"
-                      />
-                    </div>
-                  </div>
-                  <div className="welcome-heading text-center  py-4">
-                    <h2>Welcome to IEA MeterO</h2>
-                  </div>
-                  <div className="sign-in-section text-center p-4">
-                    <div className="sign-in-heading pb-3">
-                      <h2>Sign In</h2>
-                      <p>Please enter your credentials to continue</p>
-                    </div>
-                    <form onSubmit={_submitForm} className="sign-in-form">
-                      <div className="mb-3 row">
-                        <label className="col-sm-3 col-form-label">
-                          User Name
-                        </label>
-                        <div className="col-sm-9">
-                          <input
-                            type="text"
-                            className="form-control"
-                            id="username"
-                            name="username"
-                            placeholder="Username"
-                            onChange={__onTextChange}
-                          />
-                        </div>
+    console.log(this.state.username + this.state.password);
+    if (this.state.username !== "" && this.state.password !== "") {
+      fetch("https://testmeteroapi.iea.net:60000/api/MeterO/validateUser", {
+        method: "POST",
+        HEADERS: {
+          Accept: "application/json",
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify(this.state),
+      }).then((res) => {
+        console.log(res);
+        res.json().then((response) => {
+          console.log(response);
+          // console.log(response[0].UserValidated);
+          if (
+            response[0].UserValidated === "true" &&
+            response[0].SessionID > 0
+          ) {
+            sessionStorage.setItem("UserId", username);
+            sessionStorage.setItem("UserFullName", response[0].Name);
+            sessionStorage.setItem("SID", response[0].SessionID);
+            sessionStorage.setItem("UserObject", response[0]);
+            sessionStorage.setItem("RoleInfo", response[0].RoleInfo);
+            let roleInfo = response[0].RoleInfo;
+            roleInfo.split(";").forEach(item=>{
+              if(item.split(':')[0] === 'Role_ID'){
+                sessionStorage.setItem("RoleId", item.split(':')[1]);
+              }
+            })
+            console.log(response[0].RoleInfo);
+            //debugger;
+            sessionStorage.setItem("profile", response[0].Name);
+            this.setState({
+              profileName: true,
+            });
+            sessionStorage.setItem("SID", response[0].SessionID);
+            this.setState({
+              loggedIn: true,
+            });
+
+            const roles = response[0].RoleInfo.split("#");
+            let role_data = [];
+
+            let loop = 0;
+
+            for (loop = 0; loop < roles.length; loop++) {
+              let rowitem = {};
+              rowitem["App_ID"] = roles[loop].split(";")[0].split(":")[1];
+              rowitem["App_Name"] = roles[loop].split(";")[1].split(":")[1];
+              rowitem["Role_ID"] = roles[loop].split(";")[2].split(":")[1];
+              rowitem["Role_Name"] = roles[loop].split(";")[3].split(":")[1];
+              rowitem["UserAccessID"] = roles[loop].split(";")[4].split(":")[1];
+              // console.log(rowitem);
+              role_data.push(rowitem);
+              console.log(role_data);
+            }
+
+            sessionStorage.setItem("MeteroRollName", role_data["App_Name"]);
+            this.setState({
+              MeteroRollName: true,
+            });
+            sessionStorage.setItem("TransitRollName", role_data["App_Name"]);
+            // if (role_data.length == 1) {
+            //   let app = role_data[0];
+            //   if (app["App_Name"] == "MeterO")
+            //    return  <Redirect to="/home)" />
+
+            //   else if(app["App_Name"] == "Transit"){
+            //     alert('You cant logged sucessfully in meter Entery')
+            //   }
+
+            // }
+          } else {
+            // alert('You CAN not logged sucessfully');
+            this.setState({ show: !this.state.show });
+          }
+        });
+      });
+    } else {
+      // alert("User name and password should not blank")
+      // this.setState({ show: !this.state.show })
+      this.setState({ loginValidation: !this.state.loginValidation });
+    }
+  };
+
+  loginErrorModal() {
+    this.setState({ show: !this.state.show });
+  }
+
+  loginValidationModal() {
+    this.setState({ loginValidation: !this.state.loginValidation });
+  }
+  render() {
+    if (this.state.loggedIn) {
+      return <Redirect to="/Metero" />;
+    }
+
+    return (
+      <>
+        <div
+          className="login"
+          style={{
+            backgroundImage: "url(" + loginBg + ")",
+          }}
+        >
+          <div className="container-fluid">
+            <div className="row">
+              <div className="col">
+                <div className="login-form">
+                  <div className="login-base-div d-flex  justify-content-center  flex-column ">
+                    <div className="logo-img d-flex border-bottom border-3  justify-content-around  py-3 ">
+                      <div className="col d-flex  justify-content-end">
+                        <img src={meteroLogo} className="img-fluid" alt="logo" />
                       </div>
-                      <div className="mb-3 row">
-                        <label className="col-sm-3 col-form-label">
-                          Password
-                        </label>
-                        <div className="col-sm-9">
-                          <input
-                            type="password"
-                            className="form-control"
-                            id="password"
-                            name="password"
-                            placeholder="Password"
-                            onChange={__onTextChange}
-                          />
-                        </div>
+                      <div className="col">
+                        <img
+                          src={meteroSecondLogo}
+                          className="img-fluid"
+                          alt="logo"
+                        />
                       </div>
-                      <div className="mb-3 row">
-                        <label className="col-sm-3 col-form-label"></label>
-                        <div className="col-sm-9 d-flex  justify-content-between">
-                          {/* <div className="form-check remeber-me">
+                    </div>
+                    <div className="welcome-heading text-center  py-4">
+                      <h2>Welcome to IEA MeterO</h2>
+                    </div>
+                    <div className="sign-in-section text-center p-4">
+                      <div className="sign-in-heading pb-3">
+                        <h2>Sign In</h2>
+                        <p>Please enter your credentials to continue</p>
+                      </div>
+                      <form onSubmit={this.submitForm} className="sign-in-form">
+                        <div className="mb-3 row">
+                          <label className="col-sm-3 col-form-label">
+                            User Name
+                          </label>
+                          <div className="col-sm-9">
+                            <input
+                              type="text"
+                              className="form-control"
+                              id="staticEmail"
+                              name="username"
+                              placeholder="Username"
+                              onChange={(e) => {
+                                this.setState({ username: e.target.value });
+                              }}
+                            />
+                            <p>{this.state.userNameError}</p>
+                          </div>
+                        </div>
+                        <div className="mb-3 row">
+                          <label className="col-sm-3 col-form-label">
+                            Password
+                          </label>
+                          <div className="col-sm-9">
+                            <input
+                              type="password"
+                              className="form-control"
+                              id="inputPassword"
+                              name="password"
+                              placeholder="Password"
+                              onChange={(e) => {
+                                this.setState({ password: e.target.value });
+                              }}
+                            />
+                          </div>
+                        </div>
+                        <div className="mb-3 row">
+                          <label className="col-sm-3 col-form-label"></label>
+                          <div className="col-sm-9 d-flex  justify-content-between">
+                            <div className="form-check remeber-me">
                               <input
                                 className="form-check-input"
                                 type="checkbox"
@@ -207,20 +253,21 @@ const Login = (props) => {
                               <a href="#" className="">
                                 <i>Forgot Password</i>
                               </a>
-                            </div> */}
+                            </div>
+                          </div>
                         </div>
-                      </div>
 
-                      <button
-                        type="submit"
-                        className="btn btn-primary w-75 mb-5 mt-2"
-                      >
-                        Sign in
-                      </button>
-                    </form>
-                    <div className="sign-in-footer d-flex  justify-content-between pt-4">
-                      <a href="#">About MeterO</a>
-                      <a href="#">Contact Us</a>
+                        <button
+                          type="submit"
+                          className="btn btn-primary w-75 mb-5 mt-2"
+                        >
+                          Sign in
+                        </button>
+                      </form>
+                      <div className="sign-in-footer d-flex  justify-content-between pt-4">
+                        <a href="#">About MeterO</a>
+                        <a href="#">Contact Us</a>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -228,12 +275,11 @@ const Login = (props) => {
             </div>
           </div>
         </div>
-      </div>
-      {/* <Modal className="text-center" centered show={this.state.show}>
+        <Modal className="text-center" centered show={this.state.show}>
           <Modal.Body className="py-4">
             <a
               className="position-absolute modal-close"
-              onClick={() => (_loginErrorModal())}
+              onClick={() => this.loginErrorModal()}
             >
               <img src={closeIcon} />
             </a>
@@ -251,7 +297,7 @@ const Login = (props) => {
           <Modal.Body className="py-4">
             <a
               className="position-absolute modal-close"
-              onClick={() => (_loginValidationModal())}
+              onClick={() => this.loginValidationModal()}
             >
               <img src={closeIcon} />
             </a>
@@ -259,9 +305,9 @@ const Login = (props) => {
             <h4 className=" default-color">Login Status</h4>
             <p>User name and password should not blank</p>
           </Modal.Body>
-        </Modal> */}
-    </>
-  );
-};
-
+        </Modal>
+      </>
+    );
+  }
+}
 export default Login;

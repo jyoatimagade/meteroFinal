@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { notesIcon, closeIcon, loginError } from "../../_config/images";
+import { notesIcon, closeIcon, loginError, successIcon } from "../../_config/images";
 import axios from "axios";
 import { API_ENDPOINT, AUTH_HEADERS } from '../../_config/ApiConstants';
 import { Modal } from "react-bootstrap";
@@ -43,7 +43,7 @@ const MeteroTable = (props) => {
   const [validationModalData,setValidationModalData] = useState({
     showModal:false,
     validationMessage:"",
-    cancelButtonText:"Cancel",
+    cancelButtonText:"Ok",
     showActionButton:false,
     showCancelButton:true,
     showFooterActions:true,
@@ -190,7 +190,9 @@ const MeteroTable = (props) => {
                 cancelButtonText:"Ok",
                 showActionButton:false,
                 showCancelButton:true,
-                showFooterActions:true
+                showFooterActions:true,
+                icon:loginError
+                
               })
               return;
             }
@@ -203,7 +205,7 @@ const MeteroTable = (props) => {
               if(apiRes.data === 'Success'){
                 setValidationModalData({
                   showModal:true,
-                  icon:false,
+                  icon:successIcon,
                   validationMessage:<h4 className="default-color">Data saved successfully</h4>,
                   cancelButtonText:"Ok",
                   showActionButton:false,
@@ -217,7 +219,8 @@ const MeteroTable = (props) => {
                   cancelButtonText:"Ok",
                   showActionButton:false,
                   showCancelButton:true,
-                  showFooterActions:true
+                  showFooterActions:true,
+                  icon:loginError
                 })
               }
             })
@@ -229,7 +232,8 @@ const MeteroTable = (props) => {
                 cancelButtonText:"Ok",
                 showActionButton:false,
                 showCancelButton:true,
-                showFooterActions:true
+                showFooterActions:true,
+                icon:loginError
               })
             })
           } else {
@@ -246,7 +250,8 @@ const MeteroTable = (props) => {
                   cancelButtonText:"Ok",
                   showActionButton:false,
                   showCancelButton:true,
-                  showFooterActions:true
+                  showFooterActions:true,
+                  icon:successIcon
                 })
               } else {
                 setValidationModalData({
@@ -255,7 +260,8 @@ const MeteroTable = (props) => {
                   cancelButtonText:"Ok",
                   showActionButton:false,
                   showCancelButton:true,
-                  showFooterActions:true
+                  showFooterActions:true,
+                  icon:loginError
                 })
               }
             })
@@ -267,7 +273,8 @@ const MeteroTable = (props) => {
                 cancelButtonText:"Ok",
                 showActionButton:false,
                 showCancelButton:true,
-                showFooterActions:true
+                showFooterActions:true,
+                icon:loginError
               })
             })
           }
@@ -282,11 +289,11 @@ const MeteroTable = (props) => {
       setValidationModalData({
         showModal:true,
         validationMessage:<h4 className=" default-color">Please enter New Hour</h4>,
-        cancelButtonText:"Cancel",
+        cancelButtonText:"Ok",
         showActionButton:false,
         showCancelButton:true,
         showFooterActions:true,
-        icon:closeIcon
+        icon:loginError
       });
       return
     }
@@ -294,10 +301,11 @@ const MeteroTable = (props) => {
       setValidationModalData({
         showModal:true,
         validationMessage:<h4 className=" default-color">Please enter New Odo</h4>,
-        cancelButtonText:"Cancel",
+        cancelButtonText:"Ok",
         showActionButton:false,
         showCancelButton:true,
-        showFooterActions:true
+        showFooterActions:true,
+        icon:loginError
       });
       return
     }
@@ -305,10 +313,11 @@ const MeteroTable = (props) => {
       setValidationModalData({
         showModal:true,
         validationMessage:<h4 className=" default-color">New Odo is less than Odo reading</h4>,
-        cancelButtonText:"Cancel",
+        cancelButtonText:"Ok",
         showActionButton:false,
         showCancelButton:true,
-        showFooterActions:true
+        showFooterActions:true,
+        icon:loginError
       });
       return
     }
@@ -321,7 +330,8 @@ const MeteroTable = (props) => {
         cancelButtonText:"Ok",
         showActionButton:false,
         showCancelButton:true,
-        showFooterActions:true
+        showFooterActions:true,
+        icon:loginError
       });
       return;
     }
@@ -336,7 +346,8 @@ const MeteroTable = (props) => {
                   cancelButtonText:"Ok",
                   showActionButton:false,
                   showCancelButton:true,
-                  showFooterActions:true
+                  showFooterActions:true,
+                  icon:successIcon
                 })
               } else {
                 setValidationModalData({
@@ -345,7 +356,8 @@ const MeteroTable = (props) => {
                   cancelButtonText:"Ok",
                   showActionButton:false,
                   showCancelButton:true,
-                  showFooterActions:true
+                  showFooterActions:true,
+                  icon:loginError
                 })
               }
             })
@@ -393,7 +405,8 @@ const MeteroTable = (props) => {
         cancelButtonText:"Ok",
         showActionButton:false,
         showCancelButton:true,
-        showFooterActions:true
+        showFooterActions:true,
+        icon:loginError
       })
       return;
     }
@@ -408,11 +421,12 @@ const MeteroTable = (props) => {
                 _exportListModalHide();
                 setValidationModalData({
                   showModal:true,
-                  validationMessage:"Data added successfully",
+                  validationMessage:"Data sent successfully",
                   cancelButtonText:"Ok",
                   showActionButton:false,
                   showCancelButton:true,
-                  showFooterActions:true
+                  showFooterActions:true,
+                  icon:successIcon
                 })
               } else {
                 setValidationModalData({
@@ -421,7 +435,8 @@ const MeteroTable = (props) => {
                   cancelButtonText:"Ok",
                   showActionButton:false,
                   showCancelButton:true,
-                  showFooterActions:true
+                  showFooterActions:true,
+                  icon:loginError
                 })
               }
             })
@@ -433,7 +448,8 @@ const MeteroTable = (props) => {
                 cancelButtonText:"Ok",
                 showActionButton:false,
                 showCancelButton:true,
-                showFooterActions:true
+                showFooterActions:true,
+                icon:loginError
               })
             })
   }
@@ -449,11 +465,12 @@ const MeteroTable = (props) => {
                 _exportListModalHide();
                 setValidationModalData({
                   showModal:true,
-                  validationMessage:"Notes not saved",
+                  validationMessage:"Notes save successfully",
                   cancelButtonText:"Ok",
                   showActionButton:false,
                   showCancelButton:true,
-                  showFooterActions:true
+                  showFooterActions:true,
+                  icon:successIcon
                 })
               } else {
                 setValidationModalData({
@@ -462,7 +479,8 @@ const MeteroTable = (props) => {
                   cancelButtonText:"Ok",
                   showActionButton:false,
                   showCancelButton:true,
-                  showFooterActions:true
+                  showFooterActions:true,
+                  icon:loginError
                 })
               }
             })
@@ -474,7 +492,8 @@ const MeteroTable = (props) => {
                 cancelButtonText:"Ok",
                 showActionButton:false,
                 showCancelButton:true,
-                showFooterActions:true
+                showFooterActions:true,
+                icon:loginError
               })
             })
   }
@@ -803,7 +822,7 @@ const MeteroTable = (props) => {
           onHide={()=>setValidationModalData({
     showModal:false,
     validationMessage:"",
-    cancelButtonText:"Cancel",
+    cancelButtonText:"Ok",
     showActionButton:false,
     showCancelButton:true,
     showFooterActions:true
@@ -811,7 +830,7 @@ const MeteroTable = (props) => {
           hideModal={()=>setValidationModalData({
     showModal:false,
     validationMessage:"",
-    cancelButtonText:"Cancel",
+    cancelButtonText:"Ok",
     showActionButton:false,
     showCancelButton:true,
     showFooterActions:true

@@ -1,7 +1,7 @@
 import React from 'react';
 import initReactFastclick from 'react-fastclick';
 import {Header, Footer, HeaderBottom} from './_components/'
-import {Login, Metero, LoginNew } from './_screens'
+import {Login, Metero, } from './_screens'
 import { isIOS, isAndroid, isChrome, isSafari, isFirefox, isMobile, isTablet, isMobileSafari, isIOS13 } from 'react-device-detect';
 
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
@@ -12,7 +12,7 @@ const App = props => {
   let baseClass = 'app'
   return (
     <div className={baseClass} id="app">
-          {/* <LoginNew />        */}
+          
           {/* <Metero /> */}
          {props.children}
      
