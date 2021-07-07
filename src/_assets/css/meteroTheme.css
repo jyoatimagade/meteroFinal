@@ -718,6 +718,9 @@ table td:nth-child(9) input {
     border-bottom: 1px solid #d8d8d875;
     padding-bottom: 12px;
   }
+  .meter-Header.align-items-center{
+    align-items: inherit!important;
+  }
   .btn {
     padding: 0.275rem 0.5rem !important;
   }
