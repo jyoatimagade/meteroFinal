@@ -568,7 +568,7 @@ const MeteroTable = (props) => {
   };
 
   const onBackPress = (searchTerm, dataList=[]) => {
-    console.log('back pressed');
+    // console.log('back pressed');
     let searchDataList = dataList;
     if (!dataList.length) {
       searchDataList = meteroTableList.meteroTableData;
