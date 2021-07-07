@@ -194,12 +194,12 @@ class Login extends React.Component {
                       <h2>Welcome to IEA MeterO</h2>
                     </div>
                     <div className="sign-in-section text-center p-4">
-                      <div className="sign-in-heading pb-3">
+                      <div className="sign-in-heading pb-4">
                         <h2>Sign In</h2>
                         <p>Please enter your credentials to continue</p>
                       </div>
                       <form onSubmit={this.submitForm} className="sign-in-form">
-                        <div className="mb-3 row">
+                        <div className="mb-4 row">
                           <label className="col-sm-3 col-form-label">
                             User Name
                           </label>
@@ -217,7 +217,7 @@ class Login extends React.Component {
                             <p>{this.state.userNameError}</p>
                           </div>
                         </div>
-                        <div className="mb-3 row">
+                        <div className="mb-4 row">
                           <label className="col-sm-3 col-form-label">
                             Password
                           </label>
@@ -234,28 +234,7 @@ class Login extends React.Component {
                             />
                           </div>
                         </div>
-                        <div className="mb-3 row">
-                          <label className="col-sm-3 col-form-label"></label>
-                          <div className="col-sm-9 d-flex  justify-content-between">
-                            <div className="form-check remeber-me">
-                              <input
-                                className="form-check-input"
-                                type="checkbox"
-                                value=""
-                                id="flexCheckDefault"
-                                onChange={this.toggleRememberMe}
-                              />
-                              <label className="form-check-label">
-                                Remember Me
-                              </label>
-                            </div>
-                            <div className="forgot-password">
-                              <a href="#" className="">
-                                <i>Forgot Password</i>
-                              </a>
-                            </div>
-                          </div>
-                        </div>
+                       
 
                         <button
                           type="submit"

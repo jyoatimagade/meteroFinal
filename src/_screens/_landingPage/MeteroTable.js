@@ -312,8 +312,8 @@ const MeteroTable = (props) => {
     if(item.NewOdo < item.OdoReading){
       setValidationModalData({
         showModal:true,
-        validationMessage:<p className="odoReading">Enter a reading greater than the previous hour reading <br/>
-        Previous recording hours in viewport are <span className="default-color">{item.OdoReading}</span></p>,
+        validationMessage:<p className="odoReading">Current Odo reading is <span className="default-color">{item.OdoReading}</span><br/>
+        Please enter reading greater than  <span className="default-color">{item.OdoReading}</span></p>,
         cancelButtonText:"Ok",
         showActionButton:false,
         showCancelButton:true,

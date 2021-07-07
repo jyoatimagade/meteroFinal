@@ -83,7 +83,7 @@ const UserProfile = (props) => {
             height="32"
             className="rounded-circle"
           />{" "}
-          <span>{sessionStorage.getItem('UserFullName')}</span>
+          <span className="userName-lg-show">{sessionStorage.getItem('UserFullName')}</span>
         </a>
 
         <ul
@@ -91,6 +91,7 @@ const UserProfile = (props) => {
             !ToggleOn ? "d-none" : "d-block"
           }`}
         >
+          <li><a className="dropdown-item userName-sm-show">{sessionStorage.getItem('UserFullName')}</a></li>
           <li>
             <a
               className="dropdown-item"
