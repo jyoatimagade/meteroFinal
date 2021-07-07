@@ -167,7 +167,7 @@ a.dropdown-item {
   margin-top: 0.3rem;
 }
 .header-Search {
-  width: 86%;
+  width: 100%;
 }
 .header-Search input {
   width: 100%;
@@ -180,6 +180,14 @@ a.dropdown-item {
 .userName-sm-show{
   display: none;
 }
+.pageIte-main-div div, .total-record-div div{
+  padding: 0 1rem;
+}
+.data-list-type{
+  padding: 0 !important;
+
+}
+
 
 /* eNd hEader Section--------- */
 /* fOoter */
@@ -193,7 +201,7 @@ a.dropdown-item {
 
 /*eNd fOoter*/
 /* metero-tab ------------------- */
-.react-tabs .nav-tabs span.metero-tab-icon {
+.react-tabs .nav-tabs span.metero-tab-icon, .headerbtm-icon {
   display: none;
 }
 .metero-tab-text {
@@ -585,13 +593,6 @@ table td:nth-child(9) input {
 }
 }
 
-@media (max-width: 575.98px) {
-  .userName-lg-show{display: none;}
-  .userName-sm-show{
-    display: inline-block;
-  }
-}
-
 
 /* // Small devices (landscape phones, less than 768px) */
 @media (max-width: 767.98px) {
@@ -634,6 +635,7 @@ table td:nth-child(9) input {
   .select-job {
     width: 100%;
     padding-bottom: 10px;
+    
   }
   
   .user-icon {
@@ -645,12 +647,56 @@ table td:nth-child(9) input {
   .login-base-div {
     padding: 0 0.5rem;
   }
-  .react-tabs .nav-tabs span.metero-tab-icon {
+  .react-tabs .nav-tabs span.metero-tab-icon  {
     display: inline-block;
   }
   .metero-tab-text {
     display: none;
   }
+}
+
+
+@media (max-width: 575.98px) {
+  .userName-lg-show{display: none;}
+  .userName-sm-show, .headerbtm-icon{
+    display: inline-block;
+  }
+  .select-job {
+    margin-bottom: .8rem;
+     padding-bottom: 0;
+    }
+     .header-caption h2 {
+      font-size: 1rem;
+    }
+    .export-btn-div .btn.btn-primary, .refresh-btn-div .btn.btn-primary{
+      background: #fff !important;
+      border-radius: 2px !important;
+      border: 1px solid #ececec;
+      font-size: 0 !important;
+      margin-right: .4rem;
+    }
+    .search-div {
+      width: 100%;
+  }
+  .meter-Header{
+    text-align: left !important;
+  }
+  .header-bottom-right-div{
+    flex-direction: column;
+    align-items: inherit !important;
+    
+  }
+  .total-equip-div, .show-equip-div{
+    font-size: 14px;
+  }
+  .total-record-div {
+    border-bottom: 1px solid #dcdbdb;
+    margin-bottom: 10px;
+    padding-bottom: 6px;
+  }
+  .header-bottom-right-div.align-items-center {
+    align-items: inherit;
+}
 }
 
 /* // Medium devices (tablets, less than 992px) */

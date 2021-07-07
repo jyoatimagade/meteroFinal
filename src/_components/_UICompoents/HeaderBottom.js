@@ -150,7 +150,7 @@ const HeaderBottom = (props) => {
       <div className="header-bottom py-3">
         <div className="container-fluid px-3">
           <div className="row">
-            <div className="col-md-2">
+            <div className="col-md-1">
               <div className="theme-toggle">
                 {/* <Toggle onClick={changeTheme}>
                               {icon}
@@ -158,16 +158,16 @@ const HeaderBottom = (props) => {
                    <img src={themeToggle} className="img-fluid" alt="logo" /> */}
               </div>
             </div>
-            <div className="col-md-10">
+            <div className="col-md-11">
               <div className=" job-search-div d-flex justify-content-end">
                 <form className=" header-Search d-flex justify-content-end">
                   {ToggleSearchOn ? (
-                    <div className="col-md-8 select-job header-caption">
+                    <div className="col-md-10 select-job header-caption">
                       <h2>{getresult}</h2>
                     </div>
                   ) : (
                     <>
-                      <div className="col-md-8 select-job">
+                      <div className="col-md-10 select-job">
                         <Select
                           options={dropDownArray}
                           onChange={_getSelectdJob}
