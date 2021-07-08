@@ -1,9 +1,9 @@
 import React from "react";
+import "react-tabs/style/react-tabs.css";
 import {} from "../../_components";
 import{meterEntryIcon, reviewSubmissionIcon, mangEquipmentIcon} from "../../_config/images"
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
-import "react-tabs/style/react-tabs.css";
-import MeteroTable from './MeteroTable'
+import { MeteroTable, ReviewSubmissionTab} from '../index'
 
 const MeteroTab = (props) => {
   const RoleId = sessionStorage.getItem("RoleId");
@@ -27,7 +27,8 @@ const MeteroTab = (props) => {
         <MeteroTable selectedJob={props.selectedJob} />
         </TabPanel>
         <TabPanel>
-        <div className="d-flex justify-content-center align-item-center no-job-selected"><p>No Job Selected</p></div>
+{/* <ReviewSubmissionTab /> */}
+        {/* <div className="d-flex justify-content-center align-item-center no-job-selected"><p>No Job Selected</p></div> */}
         </TabPanel>
         <TabPanel>
         <div className="d-flex justify-content-center align-item-center no-job-selected"><p>No Job Selected</p></div>

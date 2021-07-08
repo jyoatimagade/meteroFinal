@@ -3,21 +3,21 @@ import React, { useState } from "react";
 
 import "../../App.css";
 import {
-    loginBg,
-    meteroLogo,
-    meteroSecondLogo,
-    closeIcon,
-    loginError,
-  } from "../../_config/images";
+  loginBg,
+  meteroLogo,
+  meteroSecondLogo,
+  closeIcon,
+  loginError,
+} from "../../_config/images";
 import { Modal } from "react-bootstrap";
 import { Redirect } from "react-router-dom";
 
-const mapStateToProps =(state) =>{
-  debugger
-  return{
-    myName:state.name
-  }
-}
+const mapStateToProps = (state) => {
+  debugger;
+  return {
+    myName: state.name,
+  };
+};
 
 class Login extends React.Component {
   constructor(props) {
@@ -27,12 +27,12 @@ class Login extends React.Component {
     const token = sessionStorage.getItem("SID");
     let UserName = sessionStorage.getItem("profile");
     //debugger
-    console.log(UserName)
+    console.log(UserName);
 
-  //   this.setState({UserName: UserName}, function () {
-  //     console.log(this.state.UserName);
-  //  });
-    let loggedIn =true
+    //   this.setState({UserName: UserName}, function () {
+    //     console.log(this.state.UserName);
+    //  });
+    let loggedIn = true;
     // let MeteroRollName = true;
     // if (MeteroSession == null) {
     //   MeteroRollName = false;
@@ -47,7 +47,7 @@ class Login extends React.Component {
       password: "",
       userNameError: "",
       passwordError: "",
-      rememberMe:false,
+      rememberMe: false,
       show: false,
       loggedIn,
       loginValidation: false,
@@ -56,11 +56,11 @@ class Login extends React.Component {
       rowitem: [],
     };
   }
-  toggleRememberMe = ()=> {
+  toggleRememberMe = () => {
     this.setState({
-        rememberMe: !this.state.rememberMe
+      rememberMe: !this.state.rememberMe,
     });
-}
+  };
 
   submitForm = (e) => {
     //debugger
@@ -92,11 +92,11 @@ class Login extends React.Component {
             sessionStorage.setItem("UserObject", response[0]);
             sessionStorage.setItem("RoleInfo", response[0].RoleInfo);
             let roleInfo = response[0].RoleInfo;
-            roleInfo.split(";").forEach(item=>{
-              if(item.split(':')[0] === 'Role_ID'){
-                sessionStorage.setItem("RoleId", item.split(':')[1]);
+            roleInfo.split(";").forEach((item) => {
+              if (item.split(":")[0] === "Role_ID") {
+                sessionStorage.setItem("RoleId", item.split(":")[1]);
               }
-            })
+            });
             console.log(response[0].RoleInfo);
             //debugger;
             sessionStorage.setItem("profile", response[0].Name);
@@ -180,7 +180,11 @@ class Login extends React.Component {
                   <div className="login-base-div d-flex  justify-content-center  flex-column ">
                     <div className="logo-img d-flex border-bottom border-3  justify-content-around  py-3 ">
                       <div className="col d-flex  justify-content-end">
-                        <img src={meteroLogo} className="img-fluid" alt="logo" />
+                        <img
+                          src={meteroLogo}
+                          className="img-fluid"
+                          alt="logo"
+                        />
                       </div>
                       <div className="col">
                         <img
@@ -234,7 +238,6 @@ class Login extends React.Component {
                             />
                           </div>
                         </div>
-                       
 
                         <button
                           type="submit"

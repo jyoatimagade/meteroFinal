@@ -11,14 +11,12 @@ import {
 import axios from "axios";
 import { API_ENDPOINT, AUTH_HEADERS } from "../../_config/ApiConstants";
 import { Modal } from "react-bootstrap";
-// import NotesModal from '../../_screens/_modals/NotesModal'
 import CommonModal from "../_AllModals/CommonModal";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import {
   Header,
-  Search,
-  Pagination,
+  Search  
 } from "../../_components/_UICompoents/datatable";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.css";
 import "react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.min.css";

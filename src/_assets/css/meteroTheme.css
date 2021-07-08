@@ -248,11 +248,11 @@ a.dropdown-item {
 .react-tabs .nav-tabs .nav-link.active,
 .react-tabs__tab--selected {
   color: #495057;
-  background-color: #fff;
-  border-color: #dee2e6 #dee2e6 #fff;
-  border-radius: 0;
-  border-top-right-radius: 15px;
-  background: #cbdb2d;
+  background-color: #fff !important;
+  border-color: #dee2e6 #dee2e6 #fff !important;
+  border-radius: 0 !important;
+  border-top-right-radius: 15px !important;
+  background: #cbdb2d !important;
 }
 .react-tabs .nav-tabs {
   border-bottom: none;

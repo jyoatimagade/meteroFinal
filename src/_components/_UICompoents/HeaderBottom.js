@@ -1,31 +1,20 @@
 import React, { useEffect, useState, useCallback } from "react";
-
-import {loginError} from "../../_config/images";
-
+import { loginError } from "../../_config/images";
 import { useDispatch, useSelector } from "react-redux";
-
 import { selectJob_Action, meteroTable_Action } from "../../_stores/_actions";
-import Searchable from "react-searchable-dropdown";
-import SelectSearch from "react-select-search";
 import Select from "react-select";
-import { useSelect } from "react-select-search";
 import CommonModal from "../../_screens/_AllModals/CommonModal";
 
 const HeaderBottom = (props) => {
   // Selectors
   const getJob = useSelector((state) => state.getJob);
   const selectJobData = useSelector((state) => state.meteroTable);
- console.log(" job list ", selectJobData)
-
-  
-
-  // console.log(getJob.GETJOBData);
+  console.log(" job list ", selectJobData);
   const dispatch = useDispatch();
   const [dropDownArray, setdropDownArray] = useState([]);
   const [getJobID, setgetJobID] = useState([]);
   const [ToggleSearchOn, setToggleSearchOn] = useState(false);
   const [getresult, setGetResult] = useState(dropDownArray.label);
-  const [JobIdResult, setJobIdResult] = useState(dropDownArray.value);
   const [validationModalData, setValidationModalData] = useState({
     showModal: false,
     validationMessage: "",
@@ -34,7 +23,7 @@ const HeaderBottom = (props) => {
     showCancelButton: true,
     showFooterActions: true,
   });
-  // console.log("check id", JobIdResult);
+  
 
   useEffect(() => {
     try {
@@ -45,10 +34,9 @@ const HeaderBottom = (props) => {
   useEffect(() => {
     if (getJob.GETJOBData) {
       let newArraydrop = [];
-      // console.log(newArraydrop);
+
       if (getJob.GETJOBData) {
         getJob.GETJOBData.map((item) => {
-          // console.log("item", item);
           let obj = {
             value: item.Job,
             label: item.Description,
@@ -61,84 +49,40 @@ const HeaderBottom = (props) => {
     }
   }, [getJob.GETJOBData]);
 
-  const _getSelectdJob = (e) => {
-    // debugger;
+  const _getSelectdJob = (e) => {    
     setGetResult(e.label);
     props.setSelectedJob(e.label);
-    // setGetResult(e.value);
-
-    // console.log("get job id result 111", e);
     let data = { jobId: e.value };
     setgetJobID(e.value);
-    // try {
-    //   dispatch(meteroTable_Action(data));
-    // } catch (error) {}
-
-    // console.log(getJob.SELECTJOBData[0].Description);
   };
 
-  // useEffect(() => {
-  //   if (selectJobData.METEROTABLEdata) {
-  //     let newArraydrop1 = [];
-  //     // console.log(newArraydrop);
-  //     if (selectJobData.METEROTABLEdata) {
-  //       selectJobData.METEROTABLEdata.map((item) => {
-  //         // console.log("item", item);
-  //         let obj = {
-  //           value: item.jobId,
-  //           label: item.Description,
-  //         };
-  //         newArraydrop1.push(obj);
-  //       });
-  //     }
-  //     setJobIdResult(newArraydrop1);
-  //   }
-  // }, [selectJobData.METEROTABLEdata]);
-
-  const _ToggleSearch = (data) => {
-    // debugger;
-    // alert("YOU clicked !!!")
+  
+  const _ToggleSearch = (data) => {    
     if (ToggleSearchOn) {
       setToggleSearchOn(false);
       return;
     }
-   
+
     if (!getJobID.length) {
       setValidationModalData({
         showModal: true,
-        
-        validationMessage:"Please select job",
+
+        validationMessage: "Please select job",
         cancelButtonText: "Ok",
-        loginError:true,
+        loginError: true,
         showActionButton: false,
         showCancelButton: true,
         showFooterActions: true,
       });
       return;
     }
-    // if(selectJobData.meteroTableData.length !== 0){
-    //   console.log("justi work", (selectJobData[0]))
-    //   setValidationModalData({
-    //     showModal: true,
-        
-    //     validationMessage:"No Data Avialable",
-    //     cancelButtonText: "Ok",
-    //     loginError:true,
-    //     showActionButton: false,
-    //     showCancelButton: true,
-    //     showFooterActions: true,
-    //   });
-    //   return;
-    // }
+    
     let searchData = { jobId: getJobID };
-    // setGetResult(searchData);
-    console.log("check list", searchData);
-    // let data={jobId:e.value }
     try {
       dispatch(meteroTable_Action(searchData));
     } catch (error) {}
     if (getJob.isSuccess === true) {
-      // alert("111")
+      
       setToggleSearchOn(true);
     } else {
       setToggleSearchOn(false);
@@ -222,21 +166,11 @@ const HeaderBottom = (props) => {
         showCancelButton={validationModalData.showCancelButton}
         icon={loginError}
       >
-         <h4 className=" default-color">{validationModalData.validationMessage}</h4>
+        <h4 className=" default-color">
+          {validationModalData.validationMessage}
+        </h4>
       </CommonModal>
-      {/* <div className="check the">
-        {getJob.GETJOBData.map((item, key) => {
-          // let dateFormat = moment(item.blogPublishDate).format("DD-MMMM-YYYY")
-          console.log("Thnks for coming");
-          return (
-            <div className="card-itme mb-32" key={key}>
-              <p>
-                {item.Description} || {item.jobId}
-              </p>
-            </div>
-          );
-        })}
-      </div> */}
+   
     </>
   );
 };
