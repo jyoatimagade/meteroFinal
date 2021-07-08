@@ -564,6 +564,51 @@ const MeteroTable = (props) => {
         });
       });
   };
+
+  const onBackPress = (searchTerm, dataList=[]) => {
+    // console.log('back pressed');
+    let searchDataList = dataList;
+    if (!dataList.length) {
+      searchDataList = meteroTableList.meteroTableData;
+    }
+    let filteredDataList = searchDataList.filter((item) => {
+      let _return = 0;
+      let searchStringsArray = searchTerm.split(" ").filter((i) => i);
+      searchStringsArray.forEach((st) => {
+        if (
+          st &&
+          item.Equipment &&
+          item.Equipment.toLowerCase().includes(st.toLowerCase())
+        ) {
+          _return++;
+        }
+        if (
+          st &&
+          item.SerialNo &&
+          item.SerialNo.toLowerCase().includes(st.toLowerCase())
+        ) {
+          _return++;
+        }
+        if (
+          st &&
+          item.Description &&
+          item.Description.toLowerCase().includes(st.toLowerCase())
+        ) {
+          _return++;
+        }
+        if (
+          st &&
+          item.LicenseNumber &&
+          item.LicenseNumber.toLowerCase().includes(st.toLowerCase())
+        ) {
+          _return++;
+        }
+      });
+      return _return >= searchStringsArray.length ? true : false;
+    });
+    // console.log("search data", filteredDataList);
+    setData(filteredDataList);
+  }
   return (
     <div className="tab-div">
       {meteroTableList.meteroTableData !== null &&
@@ -598,6 +643,7 @@ const MeteroTable = (props) => {
                   onSearch={(value) => {
                     searchDataList(value);
                   }}
+                  onBackPress={(value)=> onBackPress(value)}
                 />
               </div>
             </div>
