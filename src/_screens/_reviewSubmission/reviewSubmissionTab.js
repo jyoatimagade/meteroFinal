@@ -45,6 +45,16 @@ const ReviewSubmissionTab = (props) => {
   const [rawReviewSubmitdata, setRawReviewSubmitdata] = useState([]);
   const [pageRange, setPageRange] = useState([0, 10]);
   const [isAPIcalled, setIsAPIcalled] = useState(false);
+  const [validationModalData, setValidationModalData] = useState({
+    showModal: false,
+    validationMessage: "",
+    cancelButtonText: "Ok",
+    showActionButton: false,
+    showCancelButton: true,
+    showFooterActions: true,
+    icon: loginError,
+  });
+  const [showConfirmationModal, setShowConfirmationModal] = useState(false);
   
 
   // console.log("select MeteroTable value", meteroTableList);
@@ -56,7 +66,7 @@ const ReviewSubmissionTab = (props) => {
     if(props.selectedTab === 1 && !isAPIcalled){
       setIsAPIcalled(true);
       try {
-        dispatch(reviewSubmissionTable_Action({ jobId: "" }));
+        dispatch(reviewSubmissionTable_Action({ jobId: props.selectedJobId ? props.selectedJobId : "" }));
       } catch (error) {}
     }
 
@@ -201,6 +211,15 @@ const ReviewSubmissionTab = (props) => {
     // console.log("search data", filteredDataList);
     setReviewSubmitdata(filteredDataList);
   }
+
+  const showReviewSubmissionConfirmation = () => {
+    setShowConfirmationModal(true);
+  }
+
+  const saveReviewSubmitData = () => {
+    console.log('save data now');
+  }
+
   return (
     <div className="tab-div review-tab">
        {reviewSubmissionList.reviewSubmissionTableData !== null &&
@@ -297,7 +316,9 @@ const ReviewSubmissionTab = (props) => {
             </table>
           </div>
           <div className="review-sbumission-btn d-flex justify-content-center">
-            <button className="btn btn-primary tbl-save-btn py-3">SUBMIT</button>
+            <button disabled={meteroTableList.meteroTableData === null ||
+      meteroTableList.meteroTableData === undefined ||
+      meteroTableList.meteroTableData.length === 0} onClick={()=>showReviewSubmissionConfirmation()} className="btn btn-primary tbl-save-btn py-3">SUBMIT</button>
           </div>
           {reviewSubmissionList.reviewSubmissionTableData !== null &&
           reviewSubmissionList.reviewSubmissionTableData !== undefined &&
@@ -462,7 +483,7 @@ const ReviewSubmissionTab = (props) => {
             </Modal.Footer>
           </Modal> */}
 
-          {/* <CommonModal
+          <CommonModal
             showModal={validationModalData.showModal}
             onHide={() =>
               setValidationModalData({
@@ -493,7 +514,27 @@ const ReviewSubmissionTab = (props) => {
               {" "}
               {validationModalData.validationMessage}
             </h4>
-          </CommonModal> */}
+          </CommonModal>
+
+          
+
+          <CommonModal
+            showModal={showConfirmationModal}
+            onHide={() => setShowConfirmationModal(false)}
+            hideModal={() => setShowConfirmationModal(false)}
+            showFooterActions={true}
+            showActionButton={true}
+            buttonText={"Continue"}
+            buttonAction={()=> saveReviewSubmitData()}
+            cancelButtonText={"Cancel"}
+            showCancelButton={true}
+            // icon={validationModalData.icon}
+          >
+            <h4 className="default-color">
+              Confirmation
+            </h4>
+            You want to submit {reviewSubmitdata.length} / {data.length}?
+          </CommonModal>
 
           {/* <NotesModal /> */}
         </>

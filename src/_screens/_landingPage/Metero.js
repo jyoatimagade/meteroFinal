@@ -7,6 +7,7 @@ import { Redirect } from "react-router-dom";
 
 const Metero = () => {
   const [selectedJob, setSelectedJob] = useState("");
+  const [selectedJobId, setSelectedJobId] = useState("");
  
   if (!sessionStorage.getItem("UserId")) {
     return <Redirect to="/" />;
@@ -17,8 +18,8 @@ const Metero = () => {
       {/* <ThemeProvider theme={themes[theme]}> */}
       
         <Header />
-        <HeaderBottom setSelectedJob={setSelectedJob} />
-        <MeteroTab selectedJob={selectedJob} />
+        <HeaderBottom setSelectedJob={setSelectedJob} setSelectedJobId={setSelectedJobId} />
+        <MeteroTab selectedJob={selectedJob} selectedJobId={selectedJobId} />
         <Footer />
       {/* </ThemeProvider> */}
     </>
