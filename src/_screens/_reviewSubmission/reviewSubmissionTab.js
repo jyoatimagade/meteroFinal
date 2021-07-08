@@ -218,6 +218,52 @@ const ReviewSubmissionTab = (props) => {
 
   const saveReviewSubmitData = () => {
     console.log('save data now');
+    axios.post(`${API_ENDPOINT}/metero/SubmitReadings`, reviewSubmissionList.reviewSubmissionTableData)
+    .then((apiRes) => {
+      console.log(apiRes);
+      if (apiRes.data === "Success") {
+        setShowConfirmationModal(false);
+        setValidationModalData({
+          showModal: true,
+          icon: successIcon,
+          validationMessage: (
+            <h4 className="default-color">Data saved successfully</h4>
+          ),
+          cancelButtonText: "Ok",
+          showActionButton: false,
+          showCancelButton: true,
+          showFooterActions: true,
+        });
+      } else {
+        setShowConfirmationModal(false);
+        setValidationModalData({
+          showModal: true,
+          validationMessage: (
+            <h4 className="default-color">Error occured</h4>
+          ),
+          cancelButtonText: "Ok",
+          showActionButton: false,
+          showCancelButton: true,
+          showFooterActions: true,
+          icon: loginError,
+        });
+      }
+    })
+    .catch((apiErr) => {
+      console.log(apiErr);
+      setShowConfirmationModal(false);
+      setValidationModalData({
+        showModal: true,
+        validationMessage: (
+          <h4 className="default-color">Error occured</h4>
+        ),
+        cancelButtonText: "Ok",
+        showActionButton: false,
+        showCancelButton: true,
+        showFooterActions: true,
+        icon: loginError,
+      });
+    });
   }
 
   return (
