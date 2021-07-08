@@ -22,10 +22,12 @@ import "react-bootstrap-table-next/dist/react-bootstrap-table2.css";
 import "react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.min.css";
 import BootstrapTable, { TableHeaderColumn } from "react-bootstrap-table-next";
 import ReactPaginate from "react-paginate";
+import { selectJob_Action, meteroTable_Action, reviewSubmissionTable_Action } from "../../_stores/_actions";
 // import ToolkitProvider, { Search } from "react-bootstrap-table2-toolkit";
 
 const ReviewSubmissionTab = (props) => {
   const meteroTableList = useSelector((state) => state.meteroTable);
+  const reviewSubmissionList = useSelector((state) => state.reviewSubmissionTable);
   const getJob = useSelector((state) => state.getJob);
 
   const [dropDownArray, setdropDownArray] = useState([]);
@@ -39,7 +41,10 @@ const ReviewSubmissionTab = (props) => {
   const [search, setSearch] = useState("");
   const [data, setData] = useState([]);
   const [rawdata, setRawData] = useState([]);
+  const [reviewSubmitdata, setReviewSubmitdata] = useState([]);
+  const [rawReviewSubmitdata, setRawReviewSubmitdata] = useState([]);
   const [pageRange, setPageRange] = useState([0, 10]);
+  const [isAPIcalled, setIsAPIcalled] = useState(false);
   
 
   // console.log("select MeteroTable value", meteroTableList);
@@ -47,6 +52,25 @@ const ReviewSubmissionTab = (props) => {
 
   const ITEMS_PER_PAGE = 10;
   useEffect(() => {
+    console.log('in review submission tab', props.selectedTab);
+    if(props.selectedTab === 1 && !isAPIcalled){
+      setIsAPIcalled(true);
+      try {
+        dispatch(reviewSubmissionTable_Action({ jobId: "" }));
+      } catch (error) {}
+    }
+
+    if (
+      reviewSubmissionList.reviewSubmissionTableData !== null &&
+      reviewSubmissionList.reviewSubmissionTableData !== undefined &&
+      reviewSubmissionList.reviewSubmissionTableData.length !== 0
+    ) {
+      console.log('reviewSubmissionTableData ', reviewSubmissionList.reviewSubmissionTableData);
+      setReviewSubmitdata([...reviewSubmissionList.reviewSubmissionTableData]);
+      setRawReviewSubmitdata(JSON.parse(JSON.stringify(reviewSubmissionList.reviewSubmissionTableData)));
+      
+    }
+
     if (
       meteroTableList.meteroTableData !== null &&
       meteroTableList.meteroTableData !== undefined &&
@@ -56,7 +80,7 @@ const ReviewSubmissionTab = (props) => {
       setData([...meteroTableList.meteroTableData]);
       setRawData(JSON.parse(JSON.stringify(meteroTableList.meteroTableData)));
     }
-  }, [meteroTableList]);
+  }, [meteroTableList, reviewSubmissionList, props.selectedTab]);
   // console.log("selected data", data);
   const headers = [
     { dataField: "notes", text: "Notes", sort: true },
@@ -88,13 +112,10 @@ const ReviewSubmissionTab = (props) => {
     setOffset(offset);
     setPageRange([offset, pageRangeTo]);
   };
-  
-  
-  
 
   const searchDataList = (searchTerm) => {
     if (searchTerm) {
-      let filteredDataList = data.filter((item) => {
+      let filteredDataList = reviewSubmitdata.filter((item) => {
         let _return = 0;
         let searchStringsArray = searchTerm.split(" ").filter((i) => i);
         searchStringsArray.forEach((st) => {
@@ -130,23 +151,17 @@ const ReviewSubmissionTab = (props) => {
         return _return >= searchStringsArray.length ? true : false;
       });
       // console.log("search data", filteredDataList);
-      setData(filteredDataList);
+      setReviewSubmitdata(filteredDataList);
     } else {
-      setData(meteroTableList.meteroTableData);
+      setReviewSubmitdata(reviewSubmissionList.reviewSubmissionTableData);
     }
   };
-
-
-  
-
-  
-
 
   const onBackPress = (searchTerm, dataList=[]) => {
     // console.log('back pressed');
     let searchDataList = dataList;
     if (!dataList.length) {
-      searchDataList = meteroTableList.meteroTableData;
+      searchDataList = reviewSubmissionList.reviewSubmissionTableData;
     }
     let filteredDataList = searchDataList.filter((item) => {
       let _return = 0;
@@ -184,14 +199,14 @@ const ReviewSubmissionTab = (props) => {
       return _return >= searchStringsArray.length ? true : false;
     });
     // console.log("search data", filteredDataList);
-    setData(filteredDataList);
+    setReviewSubmitdata(filteredDataList);
   }
   return (
     <div className="tab-div review-tab">
-       {meteroTableList.meteroTableData !== null &&
-      meteroTableList.meteroTableData !== undefined &&
-      meteroTableList.isSuccess == true &&
-      meteroTableList.meteroTableData.length !== 0 ? (
+       {reviewSubmissionList.reviewSubmissionTableData !== null &&
+      reviewSubmissionList.reviewSubmissionTableData !== undefined &&
+      reviewSubmissionList.isSuccess == true &&
+      reviewSubmissionList.reviewSubmissionTableData.length !== 0 ? (
         <>
           <div className="meter-Header d-flex justify-content-between align-items-center py-3">
             <div className="col-xs-12 col-sm-12 col-md-12 col-lg-10 d-flex justify-content-between align-items-center pb-1 review-tab-search">
@@ -236,8 +251,8 @@ const ReviewSubmissionTab = (props) => {
             <table className="table table-striped">
               <Header headers={headers} />
               <tbody>
-                {data &&
-                  data.slice(pageRange[0], pageRange[1]).map((item, key) => {
+                {reviewSubmitdata &&
+                  reviewSubmitdata.slice(pageRange[0], pageRange[1]).map((item, key) => {
                     return (
                       <tr
                         className={`card-itme mb-32 ${
@@ -284,23 +299,23 @@ const ReviewSubmissionTab = (props) => {
           <div className="review-sbumission-btn d-flex justify-content-center">
             <button className="btn btn-primary tbl-save-btn py-3">SUBMIT</button>
           </div>
-          {meteroTableList.meteroTableData !== null &&
-          meteroTableList.meteroTableData !== undefined &&
-          meteroTableList.isSuccess == true &&
-          meteroTableList.meteroTableData.length !== 0 ? (
+          {reviewSubmissionList.reviewSubmissionTableData !== null &&
+          reviewSubmissionList.reviewSubmissionTableData !== undefined &&
+          reviewSubmissionList.isSuccess == true &&
+          reviewSubmissionList.reviewSubmissionTableData.length !== 0 ? (
             <div className="pagination-div">
               <ReactPaginate
                 previousLabel={"prev"}
                 nextLabel={"next"}
                 breakLabel={"..."}
                 breakClassName={"break-me"}
-                // pageCount={Math.ceil(meteroTableList.meteroTableData && meteroTableList.meteroTableData !== null && meteroTableList.meteroTableData.length / perPage)}
+                // pageCount={Math.ceil(reviewSubmissionList.reviewSubmissionTableData && reviewSubmissionList.reviewSubmissionTableData !== null && reviewSubmissionList.reviewSubmissionTableData.length / perPage)}
                 pageCount={Math.ceil(
-                  meteroTableList.meteroTableData.length / perPage
+                  reviewSubmissionList.reviewSubmissionTableData.length / perPage
                 )}
                 marginPagesDisplayed={2}
                 pageRangeDisplayed={5}
-                // onPageChange={handlePageClick}
+                onPageChange={handlePageClick}
                 containerClassName={"pagination"}
                 // subContainerClassName={"pages pagination"}
                 // activeClassName={"pagination-active"}
@@ -485,9 +500,9 @@ const ReviewSubmissionTab = (props) => {
       ) : (
         <div className="d-flex justify-content-center align-item-center no-job-selected">
           <p>
-            {props.selectedJob && meteroTableList.isSuccess == true
+            {/* { reviewSubmissionList.isSuccess == true
               ? "No data to show"
-              : "No Job Selected"}
+              : "No Job Selected"} */}
           </p>
         </div>
       )}

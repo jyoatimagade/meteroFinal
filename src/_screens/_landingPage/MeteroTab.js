@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "react-tabs/style/react-tabs.css";
 import {} from "../../_components";
 import{meterEntryIcon, reviewSubmissionIcon, mangEquipmentIcon} from "../../_config/images"
@@ -6,12 +6,27 @@ import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import { MeteroTable, ReviewSubmissionTab} from '../index'
 
 const MeteroTab = (props) => {
+  const [selectedTabData, setSelectedTabData] = useState(null);
   const RoleId = sessionStorage.getItem("RoleId");
+
+  const onTabActive = (index, lastIndex, event) => {
+    // console.log(`tab active - `,index, lastIndex, event);
+    setSelectedTabData({
+      selectedTab: index,
+      lastTab: lastIndex,
+      event: event
+    })
+  }
+  
+  useEffect(() => {
+    if(selectedTabData && selectedTabData.selectedTab !== 1) return;
+    console.log('review submission tab active');
+  }, [selectedTabData]);
 
   return (
     <>
       <div className="metero-tab-section p-3">
-      <Tabs>
+      <Tabs onSelect={(index, lastIndex, event) => onTabActive(index, lastIndex, event)}>
         <TabList className="nav nav-tabs">
         <Tab className="nav-item"> <span className="metero-tab-icon"><img src={meterEntryIcon} /></span><span className="metero-tab-text">Meter Entry</span></Tab>
           <Tab className="nav-item"> <span className="metero-tab-icon"><img src={reviewSubmissionIcon} /></span><span className="metero-tab-text">Review Submission</span></Tab>
@@ -27,7 +42,7 @@ const MeteroTab = (props) => {
         <MeteroTable selectedJob={props.selectedJob} />
         </TabPanel>
         <TabPanel>
-<ReviewSubmissionTab />
+          <ReviewSubmissionTab selectedTab={selectedTabData?.selectedTab} selectedJob={props.selectedJob} />
         {/* <div className="d-flex justify-content-center align-item-center no-job-selected"><p>No Job Selected</p></div> */}
         </TabPanel>
         <TabPanel>
