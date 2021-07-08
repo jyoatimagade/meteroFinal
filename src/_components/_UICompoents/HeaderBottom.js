@@ -116,6 +116,7 @@ const HeaderBottom = (props) => {
                         <Select
                           options={dropDownArray}
                           onChange={_getSelectdJob}
+                          isDisabled={props.selectedTab !== 0}
                           required
                           // onChange={opt => console.log(opt.label, opt.value)}
                         />
@@ -127,7 +128,7 @@ const HeaderBottom = (props) => {
                     className="btn btn-primary text-white"
                     type="button"
                     disabled
-                    disabled={!dropDownArray}
+                    disabled={!dropDownArray || props.selectedTab !== 0}
                     onClick={() => {
                       _ToggleSearch();
                     }}

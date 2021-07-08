@@ -11,6 +11,7 @@ const MeteroTab = (props) => {
 
   const onTabActive = (index, lastIndex, event) => {
     // console.log(`tab active - `,index, lastIndex, event);
+    props.setselectedTab(index);
     setSelectedTabData({
       selectedTab: index,
       lastTab: lastIndex,
