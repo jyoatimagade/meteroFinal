@@ -213,7 +213,44 @@ const ReviewSubmissionTab = (props) => {
   }
 
   const showReviewSubmissionConfirmation = () => {
-    setShowConfirmationModal(true);
+    let reviewSubmissionEquipmentList = [];
+    reviewSubmissionList.reviewSubmissionTableData.forEach(item=>{
+      reviewSubmissionEquipmentList.push(item.Equipment);
+    });
+    let remainingEquipments = meteroTableList.meteroTableData.filter(item=> !reviewSubmissionEquipmentList.includes(item.Equipment))
+    axios.post(`${API_ENDPOINT}/metero/reviewremainingEquipments`, remainingEquipments)
+    .then((apiRes) => {
+      console.log(apiRes);
+      // if (!apiRes.data.length) {
+      //   setValidationModalData({
+      //     showModal: true,
+      //     validationMessage: (
+      //       <h4 className="default-color">Error occured</h4>
+      //     ),
+      //     cancelButtonText: "Ok",
+      //     showActionButton: false,
+      //     showCancelButton: true,
+      //     showFooterActions: true,
+      //     icon: loginError,
+      //   });
+      //   return;
+      // }
+      setShowConfirmationModal(true);
+    })
+    .catch((apiErr) => {
+      console.log(apiErr);
+      setValidationModalData({
+        showModal: true,
+        validationMessage: (
+          <h4 className="default-color">Error occured</h4>
+        ),
+        cancelButtonText: "Ok",
+        showActionButton: false,
+        showCancelButton: true,
+        showFooterActions: true,
+        icon: loginError,
+      });
+    });
   }
 
   const saveReviewSubmitData = () => {
@@ -556,10 +593,7 @@ const ReviewSubmissionTab = (props) => {
             showCancelButton={validationModalData.showCancelButton}
             icon={validationModalData.icon}
           >
-            <h4 className=" default-color">
-              {" "}
               {validationModalData.validationMessage}
-            </h4>
           </CommonModal>
 
           
