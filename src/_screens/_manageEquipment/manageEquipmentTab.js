@@ -24,7 +24,7 @@ import BootstrapTable, { TableHeaderColumn } from "react-bootstrap-table-next";
 import ReactPaginate from "react-paginate";
 // import ToolkitProvider, { Search } from "react-bootstrap-table2-toolkit";
 
-const ReviewSubmissionTab = (props) => {
+const ManageEquipmentTab = (props) => {
   const meteroTableList = useSelector((state) => state.meteroTable);
   const getJob = useSelector((state) => state.getJob);
 
@@ -495,4 +495,4 @@ const ReviewSubmissionTab = (props) => {
   );
 };
 
-export default ReviewSubmissionTab;
+export default ManageEquipmentTab;

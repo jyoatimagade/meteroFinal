@@ -579,6 +579,22 @@ table td:nth-child(9) input {
   color: #494848;
 }
 /* eNd sCrollBar cSs */
+
+
+/* review Submission */
+.review-tab .search-div{
+  width: 100%;
+}
+.review-tab-search  {
+  width: 89.333333%;
+}
+.review-tab-pageItem {
+  width: 10.666667%;
+}
+.review-sbumission-btn button{
+  width: 12%;
+  padding: 6px 10px !important;
+}
 /*  --------------------- sTart mEdia qUery -----------------------*/
 
 @media screen and (min-width: 1024px) and (max-width: 1366px) {

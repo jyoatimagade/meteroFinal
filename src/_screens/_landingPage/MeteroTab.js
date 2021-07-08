@@ -27,7 +27,7 @@ const MeteroTab = (props) => {
         <MeteroTable selectedJob={props.selectedJob} />
         </TabPanel>
         <TabPanel>
-{/* <ReviewSubmissionTab /> */}
+<ReviewSubmissionTab />
         {/* <div className="d-flex justify-content-center align-item-center no-job-selected"><p>No Job Selected</p></div> */}
         </TabPanel>
         <TabPanel>

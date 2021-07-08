@@ -849,23 +849,8 @@ const MeteroTable = (props) => {
             </div>
           ) : null}
 
-          {/* <Modal
-          className="text-center"
-          centered
-          show={this.state.loginValidation}
-        >
-          <Modal.Body className="py-4">
-            <a
-              className="position-absolute modal-close"
-              // onClick={() => (_addNotesModal())}
-            >
-              <img src={closeIcon} />
-            </a>
-            <img src={loginError} className="img-fluid py-2" />
-            <h4 className=" default-color">Login Status</h4>
-            <p>User name and password should not blank</p>
-          </Modal.Body>
-        </Modal> */}
+
+        
           <Modal
             show={notesModal}
             onHide={_addNotesModalHide}
