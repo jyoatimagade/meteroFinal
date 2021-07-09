@@ -213,28 +213,28 @@ const ReviewSubmissionTab = (props) => {
   }
 
   const showReviewSubmissionConfirmation = () => {
-    let reviewSubmissionEquipmentList = [];
-    reviewSubmissionList.reviewSubmissionTableData.forEach(item=>{
-      reviewSubmissionEquipmentList.push(item.Equipment);
-    });
-    let remainingEquipments = meteroTableList.meteroTableData.filter(item=> !reviewSubmissionEquipmentList.includes(item.Equipment))
-    axios.post(`${API_ENDPOINT}/metero/reviewremainingEquipments`, remainingEquipments)
+    // let reviewSubmissionEquipmentList = [];
+    // reviewSubmissionList.reviewSubmissionTableData.forEach(item=>{
+    //   reviewSubmissionEquipmentList.push(item.Equipment);
+    // });
+    // let remainingEquipments = meteroTableList.meteroTableData.filter(item=> !reviewSubmissionEquipmentList.includes(item.Equipment))
+    axios.post(`${API_ENDPOINT}/metero/reviewremainingEquipments`, reviewSubmissionList.reviewSubmissionTableData)
     .then((apiRes) => {
       console.log(apiRes);
-      // if (!apiRes.data.length) {
-      //   setValidationModalData({
-      //     showModal: true,
-      //     validationMessage: (
-      //       <h4 className="default-color">Error occured</h4>
-      //     ),
-      //     cancelButtonText: "Ok",
-      //     showActionButton: false,
-      //     showCancelButton: true,
-      //     showFooterActions: true,
-      //     icon: loginError,
-      //   });
-      //   return;
-      // }
+      if (!apiRes.data.length) {
+        setValidationModalData({
+          showModal: true,
+          validationMessage: (
+            <h4 className="default-color">Error occured</h4>
+          ),
+          cancelButtonText: "Ok",
+          showActionButton: false,
+          showCancelButton: true,
+          showFooterActions: true,
+          icon: loginError,
+        });
+        return;
+      }
       setShowConfirmationModal(true);
     })
     .catch((apiErr) => {
@@ -610,10 +610,14 @@ const ReviewSubmissionTab = (props) => {
             showCancelButton={true}
             // icon={validationModalData.icon}
           >
-            <h4 className="default-color">
-              Confirmation
+            <h4 className="default-color pb-3">
+              Submit Summary
             </h4>
-            You want to submit {reviewSubmitdata.length} / {data.length}?
+            Total Equipments on Job:  {data.length} 
+            <hr />
+            Readings saved for equipments: {reviewSubmitdata.length} 
+            <hr />
+            I confirm that all readings are accurate. Pre proceed to submit cancel to continue adding more meter readings
           </CommonModal>
 
           {/* <NotesModal /> */}
