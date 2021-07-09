@@ -356,7 +356,7 @@ const MeteroTable = (props) => {
         validationMessage: (
           <p className="odoReading">
             Current Odo reading is{" "}
-            <span className="default-color">{item.OdoReading}</span>
+            <span className="default-color">{item.NewOdo}</span>
             <br />
             Please enter reading greater than{" "}
             <span className="default-color">{item.OdoReading}</span>
