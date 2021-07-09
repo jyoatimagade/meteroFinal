@@ -370,6 +370,26 @@ const MeteroTable = (props) => {
       });
       return;
     }
+    if (item.NewHr < item.HourReading) {
+      setValidationModalData({
+        showModal: true,
+        validationMessage: (
+          <p className="odoReading">
+            Current Hour reading is{" "}
+            <span className="default-color">{item.NewHr}</span>
+            <br />
+            Please enter reading greater than{" "}
+            <span className="default-color">{item.HourReading}</span>
+          </p>
+        ),
+        cancelButtonText: "Ok",
+        showActionButton: false,
+        showCancelButton: true,
+        showFooterActions: true,
+        icon: loginError,
+      });
+      return;
+    }
     let isUpdateValidationError = [];
     isUpdateValidationError = rawdata.filter(
       (jobItem) =>
