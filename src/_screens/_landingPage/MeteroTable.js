@@ -143,18 +143,6 @@ const MeteroTable = (props) => {
   const _exportListModalHide = () => {
     setexportListModal(false);
   };
-  const showRemainingData = (showRemaining) => {
-    setDataListIsOfRemaining(showRemaining);
-    if (!showRemaining) {
-      setData(meteroTableList.meteroTableData);
-    } else {
-      setData(
-        meteroTableList.meteroTableData.filter(
-          (item) => item.Saved_MeterO !== "true"
-        )
-      );
-    }
-  };
   const searchDataList = (searchTerm) => {
     if (searchTerm) {
       let filteredDataList = data.filter((item) => {
@@ -676,7 +664,9 @@ const MeteroTable = (props) => {
                 </label>
               </div>
               <div className="show-equip-div">
-                <label>Showing Equipments: {data.length}</label>
+                <label>Showing Equipments: {!dataListIsOfRemaining ? meteroTableList.meteroTableData.length : meteroTableList.meteroTableData.filter(
+          (item) => item.Saved_MeterO !== "true"
+        ).length}</label>
               </div>
               </div>
               <div className="d-flex justify-content-around align-items-cente pageIte-main-div">
@@ -702,7 +692,7 @@ const MeteroTable = (props) => {
                   <li
                     className={dataListIsOfRemaining ? "active" : null}
                     onClick={() => {
-                      showRemainingData(true);
+                      setDataListIsOfRemaining(true);
                     }}
                   >
                     Remaining
@@ -710,7 +700,7 @@ const MeteroTable = (props) => {
                   <li
                     className={dataListIsOfRemaining ? null : "active"}
                     onClick={() => {
-                      showRemainingData(false);
+                      setDataListIsOfRemaining(false);
                     }}
                   >
                     All
