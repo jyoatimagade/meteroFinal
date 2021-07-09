@@ -3,7 +3,7 @@ import "react-tabs/style/react-tabs.css";
 import {} from "../../_components";
 import{meterEntryIcon, reviewSubmissionIcon, mangEquipmentIcon} from "../../_config/images"
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
-import { MeteroTable, ReviewSubmissionTab} from '../index'
+import { MeteroTable, ReviewSubmissionTab,ManageEquipmentTab } from '../index'
 
 const MeteroTab = (props) => {
   const [selectedTabData, setSelectedTabData] = useState(null);
@@ -47,7 +47,8 @@ const MeteroTab = (props) => {
         {/* <div className="d-flex justify-content-center align-item-center no-job-selected"><p>No Job Selected</p></div> */}
         </TabPanel>
         <TabPanel>
-        <div className="d-flex justify-content-center align-item-center no-job-selected"><p>No Job Selected</p></div>
+          <ManageEquipmentTab />
+        {/* <div className="d-flex justify-content-center align-item-center no-job-selected"><p>No Job Selected</p></div> */}
         </TabPanel>
       </Tabs>
       </div>

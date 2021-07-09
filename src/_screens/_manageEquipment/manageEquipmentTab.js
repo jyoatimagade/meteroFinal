@@ -34,6 +34,8 @@ const ManageEquipmentTab = (props) => {
   const [offset, setOffset] = useState(0);
   const [perPage, setPerpage] = useState(10);
   const [currentPage, setCurrentpage] = useState(1);
+  const [notesModal, setnotesModal] = useState(false);
+  const [notesModalData, setnotesModalData] = useState();
 
   const [searchcurrentPage, setSearchcurrentPage] = useState(1);
   const [search, setSearch] = useState("");
@@ -63,16 +65,12 @@ const ManageEquipmentTab = (props) => {
     { dataField: "equipment_no", text: "Equipment No", sort: true },
     { dataField: "serial_no", text: "Serial No", sort: true },
     { dataField: "Description", text: "Description", sort: true },
-    { dataField: "LicenseNumber", text: "License Number", sort: true },
-    { dataField: "udReerenceNumber", text: "Last Rec Hrs", sort: true },
-    {
-      dataField: "noChangeCheckbox",
-      text: "Last Rec Odo",
-    },
-    { dataField: "newHourText", text: "New Hour" },
-    { dataField: "newOdoText", text: "New Odo" },
+    { dataField: "LicenseNumber", text: "License No", sort: true },
+    // { dataField: "udReerenceNumber", text: "Last Rec Hrs", sort: true },
     { dataField: "gpsEnable", text: "Job Assign" },
-    { dataField: "submitBtn", text: "Entered by" },
+    { dataField: "udReerenceNumber", text: "Reference No", sort: true },
+  
+    { dataField: "submitBtn", text: "" }
     
   ];
 
@@ -139,8 +137,6 @@ const ManageEquipmentTab = (props) => {
 
   
 
-  
-
 
   const onBackPress = (searchTerm, dataList=[]) => {
     // console.log('back pressed');
@@ -186,6 +182,14 @@ const ManageEquipmentTab = (props) => {
     // console.log("search data", filteredDataList);
     setData(filteredDataList);
   }
+
+
+  const _addNotesModalShow = () => {
+    setnotesModal(true);
+  };
+  const _addNotesModalHide = () => {
+    setnotesModal(false);
+  };
   return (
     <div className="tab-div review-tab">
        {meteroTableList.meteroTableData !== null &&
@@ -194,7 +198,19 @@ const ManageEquipmentTab = (props) => {
       meteroTableList.meteroTableData.length !== 0 ? (
         <>
           <div className="meter-Header d-flex justify-content-between align-items-center py-3">
-            <div className="col-xs-12 col-sm-12 col-md-12 col-lg-10 d-flex justify-content-between align-items-center pb-1 review-tab-search">
+          <div className="col-xs-12 col-sm-12 col-md-12 col-lg-2 d-flex justify-content-between align-items-center pb-1">
+              <div className="export-btn-div">
+                <button
+                  type="button"
+                  className="btn btn-primary export-list text-white"
+                  // onClick={() => _exportListModalShow()}
+                >
+                  SUBMIT QUERY TO EM <img className="headerbtm-icon" src={exportListIcon} title="Export List" />
+                </button>
+              </div>
+              </div>
+           
+            <div className="col-xs-12 col-sm-12 col-md-12 col-lg-8 d-flex justify-content-between align-items-center pb-1 ">
             
             
               <div className="search-div ">
@@ -245,29 +261,38 @@ const ManageEquipmentTab = (props) => {
                         }`}
                         key={key}
                       >
+                        
                         <td>
-                         
+                          <img
+                            src={notesIcon}
+                            className="img-fluid notesIcon"
+                            alt="notesIcon"
+                            onClick={() => {
+                              _addNotesModalShow();
+                              setnotesModalData(item);
+                            }}
+                          />
+                        
                         </td>
                         <td>{item.Equipment}</td>
                         <td>{item.SerialNo}</td>
                         <td>{item.Description}</td>
                         <td>{item.LicenseNumber}</td>
-                        <td>{item.HourReading}</td>
-                        <td>
-                        {item.OdoReading}
-                        </td>
-                        <td>
-                         {item.NewHr}
-                        </td>
-                        <td>
-                         {item.NewOdo}
-                        </td>
+                       
                         <td>
                           {item.JobAssign}
                         </td>
                         <td>
-                          {item.CreatedBy}
+                         {item.udReerenceNumber}
+                        </td>
+                        <td>
+                        <button
                          
+                         // onClick={() => saveData(item)}
+                         className="btn btn-primary tbl-save-btn"
+                       >
+                         UPDATE
+                       </button>
                         </td>
                       </tr>
                     );
@@ -281,9 +306,7 @@ const ManageEquipmentTab = (props) => {
             /> */}
             </table>
           </div>
-          <div className="review-sbumission-btn d-flex justify-content-center">
-            <button className="btn btn-primary tbl-save-btn py-3">SUBMIT</button>
-          </div>
+          
           {meteroTableList.meteroTableData !== null &&
           meteroTableList.meteroTableData !== undefined &&
           meteroTableList.isSuccess == true &&
@@ -317,7 +340,7 @@ const ManageEquipmentTab = (props) => {
           ) : null}
 
        
-          {/* <Modal
+          <Modal
             show={notesModal}
             onHide={_addNotesModalHide}
             className="notesModal"
@@ -330,45 +353,38 @@ const ManageEquipmentTab = (props) => {
                 <img src={closeIcon} />
               </a>
             </Modal.Header>
-            <Modal.Body>
+            <Modal.Body className="px-4">
               {notesModalData ? (
                 <>
                   <h4 className=" default-color py-2">
-                    Equipment No: {notesModalData.Equipment}
+                    Submit Query
                   </h4>
+                  <p>Compose Email</p>
                   <div className="row d-flex justify-content-start py-1">
-                    <div className="col-md-5">
-                      <label for="email"> Last Recorded Hours</label>
-                    </div>
-
-                    <div className="col-md-7">
+                                       <div className="col-md-12">
                       <input
                         type="text"
                         className="form-control"
-                        value={notesModalData.HourReading}
-                        disabled
+                        placeholder="Subject:"
                       />
                     </div>
                   </div>
                   <div className="row d-flex justify-content-start py-1">
-                    <div className="col-md-5">
-                      <label for="text"> Last Recorded Odo</label>
-                    </div>
-                    <div className="col-md-7">
+                   
+                    <div className="col-md-12">
                       <input
                         type="text"
                         className="form-control"
-                        value={notesModalData.OdoReading}
+                        placeholder="CC To: Provide your email address"
+                        
                       />
                     </div>
                   </div>
                   <div className="row d-flex justify-content-start py-1">
-                    <div className="col-md-5">
-                      <label for="text">Enter Notes Below</label>
-                    </div>
-                    <div className="col-md-7">
-                      <textarea type="text" className="form-control">
-                        {notesModalData.Notes}
+                    
+                    <div className="col-md-12">
+                      <textarea type="text" className="form-control" placeholder="Message">
+                       
                       </textarea>
                     </div>
                   </div>
@@ -378,11 +394,11 @@ const ManageEquipmentTab = (props) => {
             <Modal.Footer>
               <div className="d-flex justify-content-start">
                 <button
-                  onClick={() => saveNotes(notesModalData)}
+                  // onClick={() => saveNotes(notesModalData)}
                   type="submit"
                   className="btn btn-primary mx-1"
                 >
-                  UPDATED NOTE
+                  EMAIL
                 </button>
                 <button
                   type="submit"
@@ -393,7 +409,7 @@ const ManageEquipmentTab = (props) => {
                 </button>
               </div>
             </Modal.Footer>
-          </Modal>*/}
+          </Modal>
 
           {/* <Modal
             show={exportListModal}
