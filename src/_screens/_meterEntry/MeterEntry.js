@@ -24,8 +24,8 @@ import BootstrapTable, { TableHeaderColumn } from "react-bootstrap-table-next";
 import ReactPaginate from "react-paginate";
 // import ToolkitProvider, { Search } from "react-bootstrap-table2-toolkit";
 
-const MeteroTable = (props) => {
-  const meteroTableList = useSelector((state) => state.meteroTable);
+const MeterEntry = (props) => {
+  const meterEntryList = useSelector((state) => state.meteroTable);
   const getJob = useSelector((state) => state.getJob);
 
   const [dropDownArray, setdropDownArray] = useState([]);
@@ -55,29 +55,29 @@ const MeteroTable = (props) => {
     icon: loginError,
   });
 
-  // console.log("select MeteroTable value", meteroTableList);
+  // console.log("select MeteroTable value", meterEntryList);
   const dispatch = useDispatch();
 
   const ITEMS_PER_PAGE = 10;
   useEffect(() => {
     if (
-      meteroTableList.meteroTableData !== null &&
-      meteroTableList.meteroTableData !== undefined &&
-      meteroTableList.meteroTableData.length !== 0
+      meterEntryList.meteroTableData !== null &&
+      meterEntryList.meteroTableData !== undefined &&
+      meterEntryList.meteroTableData.length !== 0
     ) {
-      console.log("listing", meteroTableList.meteroTableData.length);
-      setData([...meteroTableList.meteroTableData]);
-      setRawData(JSON.parse(JSON.stringify(meteroTableList.meteroTableData)));
+      console.log("listing", meterEntryList.meteroTableData.length);
+      setData([...meterEntryList.meteroTableData]);
+      setRawData(JSON.parse(JSON.stringify(meterEntryList.meteroTableData)));
     }
-  }, [meteroTableList]);
+  }, [meterEntryList]);
   // console.log("selected data", data);
   const headers = [
     { dataField: "notes", text: "Notes", sort: true },
     { dataField: "equipment_no", text: "Equipment No", sort: true },
     { dataField: "serial_no", text: "Serial No", sort: true },
     { dataField: "Description", text: "Description", sort: true },
-    { dataField: "LicenseNumber", text: "License Number", sort: true },
-    { dataField: "udReerenceNumber", text: "Ref Number", sort: true },
+    { dataField: "LicenseNumber", text: "License No", sort: true },
+    { dataField: "udReerenceNumber", text: "Ref No", sort: true },
     {
       dataField: "noChangeCheckbox",
       text: "No Change",
@@ -91,7 +91,7 @@ const MeteroTable = (props) => {
   // useMemo(() => {
 
   //   if (search) {
-  //     let filteredDataList = meteroTableList.meteroTableData.filter(
+  //     let filteredDataList = meterEntryList.meteroTableData.filter(
   //       (item) =>
   //         item.Equipment.toLowerCase().includes(search.toLowerCase()) ||
   //         item.SerialNo.toLowerCase().includes(search.toLowerCase())
@@ -116,7 +116,7 @@ const MeteroTable = (props) => {
   //   //     (currentPage - 1) * ITEMS_PER_PAGE,
   //   //     (currentPage - 1) * ITEMS_PER_PAGE + ITEMS_PER_PAGE
   //   // );
-  // }, [meteroTableList.meteroTableData, currentPage, search]);
+  // }, [meterEntryList.meteroTableData, currentPage, search]);
 
   const handlePageClick = (e) => {
     // window.scrollTo(0, 0);
@@ -183,7 +183,7 @@ const MeteroTable = (props) => {
       // console.log("search data", filteredDataList);
       setData(filteredDataList);
     } else {
-      setData(meteroTableList.meteroTableData);
+      setData(meterEntryList.meteroTableData);
     }
   };
 
@@ -191,7 +191,7 @@ const MeteroTable = (props) => {
     console.log(event.target.checked, itemToUpdate);
     data.forEach((item) => {
       if (item.Equipment === itemToUpdate.Equipment) {
-        debugger;
+        // debugger;
         if (event.target.checked) {
           if (itemToUpdate.NewHr && item.NewOdo) {
             setValidationModalData({
@@ -478,14 +478,14 @@ const MeteroTable = (props) => {
       });
       return;
     }
-    meteroTableList.meteroTableData.forEach((item) => {
+    meterEntryList.meteroTableData.forEach((item) => {
       item["JobDesc"] = props.selectedJob;
       item["EmailTo"] = exportListEmailid;
     });
     axios
       .post(
         `${API_ENDPOINT}/metero/EmailEquipments`,
-        meteroTableList.meteroTableData
+        meterEntryList.meteroTableData
       )
       .then((apiRes) => {
         console.log(apiRes);
@@ -577,7 +577,7 @@ const MeteroTable = (props) => {
     // console.log('back pressed');
     let searchDataList = dataList;
     if (!dataList.length) {
-      searchDataList = meteroTableList.meteroTableData;
+      searchDataList = meterEntryList.meteroTableData;
     }
     let filteredDataList = searchDataList.filter((item) => {
       let _return = 0;
@@ -619,13 +619,13 @@ const MeteroTable = (props) => {
   }
   return (
     <div className="tab-div">
-      {meteroTableList.meteroTableData !== null &&
-      meteroTableList.meteroTableData !== undefined &&
-      meteroTableList.isSuccess == true &&
-      meteroTableList.meteroTableData.length !== 0 ? (
+      {meterEntryList.meteroTableData !== null &&
+      meterEntryList.meteroTableData !== undefined &&
+      meterEntryList.isSuccess == true &&
+      meterEntryList.meteroTableData.length !== 0 ? (
         <>
           <div className="meter-Header d-flex justify-content-between align-items-center py-3">
-            <div className="col-xs-12 col-sm-12 col-md-12 col-lg-6 d-flex justify-content-between align-items-center pb-1">
+            <div className="col-xs-12 col-sm-12 col-md-12 col-lg-6 d-flex justify-content-between align-items-center header-bottom-left-div pb-1">
               <div className="export-btn-div">
                 <button
                   type="button"
@@ -660,18 +660,18 @@ const MeteroTable = (props) => {
               <div className="d-flex justify-content-around align-items-center total-record-div">
               <div className="total-equip-div">
                 <label>
-                  Total Equipments: {meteroTableList.meteroTableData.length}
+                  Total Equipments: {meterEntryList.meteroTableData.length}
                 </label>
               </div>
               <div className="show-equip-div">
-                <label>Showing Equipments: {!dataListIsOfRemaining ? meteroTableList.meteroTableData.length : meteroTableList.meteroTableData.filter(
+                <label>Showing Equipments: {!dataListIsOfRemaining ? meterEntryList.meteroTableData.length : meterEntryList.meteroTableData.filter(
           (item) => item.Saved_MeterO !== "true"
         ).length}</label>
               </div>
               </div>
               <div className="d-flex justify-content-around align-items-cente pageIte-main-div">
               <div className="page-item-div">
-                <label>Page Item</label>
+                <label>Page Item : </label>
                 <select
                   value={perPage}
                   onChange={(e) => {
@@ -711,7 +711,7 @@ const MeteroTable = (props) => {
             </div>
           </div>
 
-          <div className="table-div">
+          <div className="table-div"  id="no-more-tables">
             <table className="table table-striped">
               <Header headers={headers} />
               <tbody>
@@ -724,8 +724,9 @@ const MeteroTable = (props) => {
                         }`}
                         key={key}
                       >
-                        <td>
+                        <td data-title="Notes">
                           <img
+                          data-title=""
                             src={notesIcon}
                             className="img-fluid notesIcon"
                             alt="notesIcon"
@@ -735,12 +736,12 @@ const MeteroTable = (props) => {
                             }}
                           />
                         </td>
-                        <td>{item.Equipment}</td>
-                        <td>{item.SerialNo}</td>
-                        <td>{item.Description}</td>
-                        <td>{item.LicenseNumber}</td>
-                        <td>{item.udReferenceNumber}</td>
-                        <td>
+                        <td data-title="Equipment No">{item.Equipment}</td>
+                        <td data-title="Serial No">{item.SerialNo}</td>
+                        <td data-title="Description">{item.Description}</td>
+                        <td data-title="License No">{item.LicenseNumber}</td>
+                        <td data-title="Ref No">{item.udReferenceNumber}</td>
+                        <td data-title="No Change">
                           {" "}
                           <input
                             checked={
@@ -755,7 +756,7 @@ const MeteroTable = (props) => {
                             type="checkbox"
                           />
                         </td>
-                        <td>
+                        <td data-title="New Hour">
                           <input
                             disabled={
                               item.HourReading === 0 && item.NewHr === "0"
@@ -774,7 +775,7 @@ const MeteroTable = (props) => {
                             className="form-control"
                           />
                         </td>
-                        <td>
+                        <td data-title="New Odo">
                           <input
                             disabled={
                               item.HourReading === 0 && item.NewHr === "0"
@@ -793,12 +794,12 @@ const MeteroTable = (props) => {
                             className="form-control"
                           />
                         </td>
-                        <td>
+                        <td data-title="GPS Enable">
                           {item.IsGPSActive.toLowerCase() !== "yes"
                             ? ""
                             : "GPS"}
                         </td>
-                        <td>
+                        <td data-title="btn">
                           {" "}
                           <button
                             disabled={
@@ -827,19 +828,19 @@ const MeteroTable = (props) => {
             /> */}
             </table>
           </div>
-          {meteroTableList.meteroTableData !== null &&
-          meteroTableList.meteroTableData !== undefined &&
-          meteroTableList.isSuccess == true &&
-          meteroTableList.meteroTableData.length !== 0 ? (
+          {meterEntryList.meteroTableData !== null &&
+          meterEntryList.meteroTableData !== undefined &&
+          meterEntryList.isSuccess == true &&
+          meterEntryList.meteroTableData.length !== 0 ? (
             <div className="pagination-div">
               <ReactPaginate
                 previousLabel={"prev"}
                 nextLabel={"next"}
                 breakLabel={"..."}
                 breakClassName={"break-me"}
-                // pageCount={Math.ceil(meteroTableList.meteroTableData && meteroTableList.meteroTableData !== null && meteroTableList.meteroTableData.length / perPage)}
+                // pageCount={Math.ceil(meterEntryList.meteroTableData && meterEntryList.meteroTableData !== null && meterEntryList.meteroTableData.length / perPage)}
                 pageCount={Math.ceil(
-                  meteroTableList.meteroTableData.length / perPage
+                  meterEntryList.meteroTableData.length / perPage
                 )}
                 marginPagesDisplayed={2}
                 pageRangeDisplayed={5}
@@ -1029,7 +1030,7 @@ const MeteroTable = (props) => {
       ) : (
         <div className="d-flex justify-content-center align-item-center no-job-selected">
           <p>
-            {props.selectedJob && meteroTableList.isSuccess == true
+            {props.selectedJob && meterEntryList.isSuccess == true
               ? "No data to show"
               : "No Job Selected"}
           </p>
@@ -1039,4 +1040,4 @@ const MeteroTable = (props) => {
   );
 };
 
-export default MeteroTable;
+export default MeterEntry;

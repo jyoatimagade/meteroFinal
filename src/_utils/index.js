@@ -7,6 +7,5 @@ export {
     isEmpty,
     getLocalStorageData,
     setLocalStorageData,
-
     UIAlert
 }

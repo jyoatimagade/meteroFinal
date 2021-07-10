@@ -191,7 +191,7 @@ const ManageEquipmentTab = (props) => {
     setnotesModal(false);
   };
   return (
-    <div className="tab-div review-tab">
+    <div className="tab-div review-tab manage-equipment-tab">
        {meteroTableList.meteroTableData !== null &&
       meteroTableList.meteroTableData !== undefined &&
       meteroTableList.isSuccess == true &&
@@ -228,7 +228,7 @@ const ManageEquipmentTab = (props) => {
             
               <div className="d-flex justify-content-around align-items-cente pageIte-main-div">
               <div className="page-item-div">
-                <label>Page Item</label>
+                <label>Page Item : </label>
                 <select
                   value={perPage}
                   onChange={(e) => {

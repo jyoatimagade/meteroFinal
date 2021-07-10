@@ -3,13 +3,14 @@ import "react-tabs/style/react-tabs.css";
 import {} from "../../_components";
 import{meterEntryIcon, reviewSubmissionIcon, mangEquipmentIcon} from "../../_config/images"
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
-import { MeteroTable, ReviewSubmissionTab,ManageEquipmentTab } from '../index'
+import { MeterEntry, ReviewSubmissionTab,ManageEquipmentTab } from '../index'
 
 const MeteroTab = (props) => {
   const [selectedTabData, setSelectedTabData] = useState(null);
   const RoleId = sessionStorage.getItem("RoleId");
 
   const onTabActive = (index, lastIndex, event) => {
+    // debugger
     // console.log(`tab active - `,index, lastIndex, event);
     props.setselectedTab(index);
     setSelectedTabData({
@@ -36,11 +37,10 @@ const MeteroTab = (props) => {
             ?  <Tab className="nav-item"> <span className="metero-tab-icon"><img src={mangEquipmentIcon} /></span> <span className="metero-tab-text">Manage Equipments</span></Tab> 
             : ''
           }
-
         </TabList>
 
         <TabPanel>
-        <MeteroTable selectedJob={props.selectedJob} />
+        <MeterEntry selectedJob={props.selectedJob} />
         </TabPanel>
         <TabPanel>
           <ReviewSubmissionTab selectedTab={selectedTabData?.selectedTab} selectedJob={props.selectedJob} selectedJobId={props.selectedJobId} />

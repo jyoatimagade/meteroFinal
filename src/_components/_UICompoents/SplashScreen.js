@@ -1,7 +1,28 @@
+import React,{useState} from "react";
 import styled from "styled-components";
 import { CgSun } from "react-icons/cg";
 import { HiMoon } from "react-icons/hi";
+import MeteroTab from "../../_screens/_landingPage/MeteroTab";
+import { Header, HeaderBottom, Footer } from "../../_components";
 // import {headerBg, meteroLogo,meteroSecondLogo,} from '../../_config/images';
+
+
+const LightTheme = {
+    pageBackground: "white",
+    titleColor: "#dc658b",
+    tagLineColor: "black"
+  };
+  
+  const DarkTheme = {
+    pageBackground: "#282c36",
+    titleColor: "lightpink",
+    tagLineColor: "lavender"
+  }
+  
+  const themes = {
+    light: LightTheme,
+    dark: DarkTheme,
+  }
 
 const Toggle = styled.button`
     cursor: pointer;
@@ -18,9 +39,6 @@ const Toggle = styled.button`
 `;
 
 const Page = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
   height: 100vh;
   width: 100%;
   background-color: ${props => props.theme.pageBackground};
@@ -45,6 +63,10 @@ const TagLine = styled.span`
 `;
 
 function SplashScreen(props) {
+    
+  const [selectedJob, setSelectedJob] = useState("");
+  const [selectedJobId, setSelectedJobId] = useState("");
+  const [selectedTab, setselectedTab] = useState(0);
     function changeTheme() {
         if (props.theme === "light") {
             props.setTheme("dark");
@@ -57,13 +79,17 @@ function SplashScreen(props) {
 
     return (
         <Page>
-            <Container>
-                <Toggle onClick={changeTheme}>
+               <Header />
+       <HeaderBottom selectedTab={selectedTab} setSelectedJob={setSelectedJob} setSelectedJobId={setSelectedJobId} />
+               {/* <Toggle onClick={changeTheme}>
                     {icon}
-                </Toggle>
-                <Title>Coding With Chaim</Title>
-                <TagLine>Level up your web development skills!</TagLine>
-            </Container>
+                </Toggle> */}
+         <MeteroTab setselectedTab={setselectedTab} selectedJob={selectedJob} selectedJobId={selectedJobId} />
+        <Footer />
+        
+               
+               
+            
         </Page>
     );
 };

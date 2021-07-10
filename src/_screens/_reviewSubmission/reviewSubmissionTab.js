@@ -97,7 +97,7 @@ const ReviewSubmissionTab = (props) => {
     { dataField: "equipment_no", text: "Equipment No", sort: true },
     { dataField: "serial_no", text: "Serial No", sort: true },
     { dataField: "Description", text: "Description", sort: true },
-    { dataField: "LicenseNumber", text: "License Number", sort: true },
+    { dataField: "LicenseNumber", text: "License No", sort: true },
     { dataField: "udReerenceNumber", text: "Last Rec Hrs", sort: true },
     {
       dataField: "noChangeCheckbox",
@@ -310,8 +310,8 @@ const ReviewSubmissionTab = (props) => {
       reviewSubmissionList.isSuccess == true &&
       reviewSubmissionList.reviewSubmissionTableData.length !== 0 ? (
         <>
-          <div className="meter-Header d-flex justify-content-between align-items-center py-3">
-            <div className="col-xs-12 col-sm-12 col-md-12 col-lg-10 d-flex justify-content-between align-items-center pb-1 review-tab-search">
+          <div className="row meter-Header d-flex justify-content-between align-items-center py-3">
+            <div className="col-xs-6 col-sm-10 col-md-8 col-lg-10 d-flex justify-content-between align-items-center pb-1 review-tab-search">
             
             
               <div className="search-div ">
@@ -324,12 +324,12 @@ const ReviewSubmissionTab = (props) => {
                 />
               </div>
             </div>
-            <div className="col-xs-12 col-sm-12 col-md-12 col-lg-2 d-flex justify-content-around align-items-center pb-1 header-bottom-right-div review-tab-pageItem">
+            <div className="col-xs-6 col-sm-2 col-md-4 col-lg-2 d-flex justify-content-around align-items-center pb-1 header-bottom-right-div review-tab-pageItem">
               
             
               <div className="d-flex justify-content-around align-items-cente pageIte-main-div">
               <div className="page-item-div">
-                <label>Page Item</label>
+                <label className="mr-2">Page Item : </label>
                 <select
                   value={perPage}
                   onChange={(e) => {
