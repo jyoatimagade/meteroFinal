@@ -135,6 +135,15 @@ const ManageEquipmentTab = (props) => {
   };
 
 
+  const updateInputValues = (value, equipment, inputField) => {
+    // console.log(value,itemIndex,inputField);
+    data.forEach((item) => {
+      if (item.Equipment === equipment) {
+        item[inputField] = value;
+      }
+    });
+    setData([...data]);
+  };
   
 
 
@@ -282,8 +291,26 @@ const ManageEquipmentTab = (props) => {
                         <td data-title="Job Assign"> 
                           {item.JobAssign}
                         </td>
-                        <td data-title="Reference No">
-                         {item.udReerenceNumber}
+                        <td data-title="Reference No" style={{
+                          maxWidth:'100px'
+                        }}>
+                         <input
+                            // disabled={
+                            //   item.HourReading === 0 && item.NewHr === "0"
+                            //     ? true
+                            //     : false
+                            // }
+                            type="text"
+                            value={item.udReferenceNumber}
+                            onInput={(e) =>
+                              updateInputValues(
+                                e.target.value,
+                                item.udReferenceNumber,
+                                "udReferenceNumber"
+                              )
+                            }
+                            className="form-control"
+                          />
                         </td>
                         <td data-title="">
                         <button
