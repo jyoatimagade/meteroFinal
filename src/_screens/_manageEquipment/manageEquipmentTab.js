@@ -35,7 +35,7 @@ const ManageEquipmentTab = (props) => {
   const [perPage, setPerpage] = useState(10);
   const [currentPage, setCurrentpage] = useState(1);
   const [notesModal, setnotesModal] = useState(false);
-  const [notesModalData, setnotesModalData] = useState();
+  // const [notesModalData, setnotesModalData] = useState();
 
   const [searchcurrentPage, setSearchcurrentPage] = useState(1);
   const [search, setSearch] = useState("");
@@ -50,6 +50,13 @@ const ManageEquipmentTab = (props) => {
     showCancelButton: true,
     showFooterActions: true,
     icon: loginError,
+  });
+  const [mailData, setMailData] = useState({
+    sub: `Subject: Query From ${props.selectedJob}`,
+    fromemail: "",
+    body: "",
+    job: props.selectedJob,
+    item: ""
   });
   
 
@@ -270,6 +277,92 @@ const ManageEquipmentTab = (props) => {
       });
   };
 
+  const submitQuery = () => {
+    
+    if (!mailData.sub) {
+      setValidationModalData({
+        showModal: true,
+        validationMessage: "Please enter subject",
+        cancelButtonText: "Ok",
+        showActionButton: false,
+        showCancelButton: true,
+        showFooterActions: true,
+        icon: loginError,
+      });
+      return;
+    }
+
+    if (!mailData.fromemail) {
+      setValidationModalData({
+        showModal: true,
+        validationMessage: "Please enter email id",
+        cancelButtonText: "Ok",
+        showActionButton: false,
+        showCancelButton: true,
+        showFooterActions: true,
+        icon: loginError,
+      });
+      return;
+    }
+
+    if (!mailData.body) {
+      setValidationModalData({
+        showModal: true,
+        validationMessage: "Please enter body",
+        cancelButtonText: "Ok",
+        showActionButton: false,
+        showCancelButton: true,
+        showFooterActions: true,
+        icon: loginError,
+      });
+      return;
+    }
+
+    let mailQuery = mailData;
+
+    delete mailQuery.item;
+
+    axios
+      .post(`${API_ENDPOINT}/metero/sendEmailQuery`, [mailData])
+      .then((apiRes) => {
+        console.log(apiRes);
+        if (apiRes.data.toLowerCase() === "success") {
+          _addNotesModalHide();
+          setValidationModalData({
+            showModal: true,
+            validationMessage: "Email sent successfully",
+            cancelButtonText: "Ok",
+            showActionButton: false,
+            showCancelButton: true,
+            showFooterActions: true,
+            icon: successIcon,
+          });
+        } else {
+          setValidationModalData({
+            showModal: true,
+            validationMessage: "Email not sent",
+            cancelButtonText: "Ok",
+            showActionButton: false,
+            showCancelButton: true,
+            showFooterActions: true,
+            icon: loginError,
+          });
+        }
+      })
+      .catch((apiErr) => {
+        console.log(apiErr);
+        setValidationModalData({
+          showModal: true,
+          validationMessage: "Error occured",
+          cancelButtonText: "Ok",
+          showActionButton: false,
+          showCancelButton: true,
+          showFooterActions: true,
+          icon: loginError,
+        });
+      });
+  };
+
   return (
     <div className="tab-div review-tab manage-equipment-tab">
        {meteroTableList.meteroTableData !== null &&
@@ -283,7 +376,17 @@ const ManageEquipmentTab = (props) => {
                 <button
                   type="button"
                   className="btn btn-primary export-list text-white"
-                  // onClick={() => _exportListModalShow()}
+                  onClick={() => {
+                    _addNotesModalShow();
+                    // setnotesModalData(item);
+                    setMailData({
+                      sub: `Subject: Query From JOB: ${props.selectedJob}`,
+                      fromemail: "",
+                      body: "",
+                      job: props.selectedJob,
+                      item: ""
+                    })
+                  }}
                 >
                   SUBMIT QUERY TO EM <img className="headerbtm-icon" src={exportListIcon} title="Export List" />
                 </button>
@@ -349,7 +452,14 @@ const ManageEquipmentTab = (props) => {
                             alt="notesIcon"
                             onClick={() => {
                               _addNotesModalShow();
-                              setnotesModalData(item);
+                              // setnotesModalData(item);
+                              setMailData({
+                                sub: `Subject: Query From Equipment ${item.Equipment} JOB: ${props.selectedJob}`,
+                                fromemail: "",
+                                body: "",
+                                job: props.selectedJob,
+                                item: item
+                              })
                             }}
                           />
                         
@@ -452,7 +562,6 @@ const ManageEquipmentTab = (props) => {
               </a>
             </Modal.Header>
             <Modal.Body className="px-4">
-              {notesModalData ? (
                 <>
                   <h4 className=" default-color py-2">
                     Submit Query
@@ -464,6 +573,14 @@ const ManageEquipmentTab = (props) => {
                         type="text"
                         className="form-control"
                         placeholder="Subject:"
+                        value={mailData.sub}
+                        onChange={(e)=>{ 
+                          console.log(e.target.value);
+                          setMailData({
+                            ...mailData,
+                            sub: e.target.value
+                          });
+                        }}
                       />
                     </div>
                   </div>
@@ -474,25 +591,39 @@ const ManageEquipmentTab = (props) => {
                         type="text"
                         className="form-control"
                         placeholder="CC To: Provide your email address"
-                        
+                        value={mailData.fromemail}
+                        onChange={(e)=>{ 
+                          console.log(e.target.value);
+                          setMailData({
+                            ...mailData,
+                            fromemail: e.target.value
+                          })
+                        }}
                       />
                     </div>
                   </div>
                   <div className="row d-flex justify-content-start py-1">
                     
                     <div className="col-md-12">
-                      <textarea type="text" className="form-control" placeholder="Message">
+                      <textarea type="text" className="form-control" placeholder="Message" 
+                        value={mailData.body}
+                        onChange={(e)=>{ 
+                          console.log(e.target.value);
+                          setMailData({
+                            ...mailData,
+                            body: e.target.value
+                          })
+                        }}>
                        
                       </textarea>
                     </div>
                   </div>
                 </>
-              ) : null}
             </Modal.Body> 
             <Modal.Footer>
               <div className="d-flex justify-content-start">
                 <button
-                  // onClick={() => saveNotes(notesModalData)}
+                  onClick={() => submitQuery()}
                   type="submit"
                   className="btn btn-primary mx-1"
                 >
