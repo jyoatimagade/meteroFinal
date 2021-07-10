@@ -8,6 +8,7 @@ import headerBg from '../_assets/images/header-bg.png';
 import notesIcon from '../_assets/images/notes-icon.png';
 import profileUser from '../_assets/images/profile-user.png';
 import themeToggle from '../_assets/images/theme-toggle.png';
+import themeToggleDark from '../_assets/images/theme-toggle-dark.png';
 import meterEntryIcon from '../_assets/images/meter-entry.png';
 import reviewSubmissionIcon from '../_assets/images/review-submission.png';
 import mangEquipmentIcon from '../_assets/images/manage-equipments.png';
@@ -26,6 +27,7 @@ export {
     notesIcon,
     profileUser,
     themeToggle,
+    themeToggleDark,
     meterEntryIcon,
     reviewSubmissionIcon,
     mangEquipmentIcon,
