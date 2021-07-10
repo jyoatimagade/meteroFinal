@@ -836,8 +836,63 @@ display: block;
 }
 
 /* toggle Theme */
-.dark .tab-div, .dark TabPanel{}
 
+
+.theme-toggle button {
+  height: 40px;
+  width: 143px;
+  border-radius: 26px;
+  border: none;
+  background-color: #fff;
+}
+.dark .border-bottom {
+  border-bottom: 1px solid #000!important;
+}
+.dark .header-bottom{
+  background: #000;
+}
+.dark .header-caption h2 {
+  font-size: 1.3rem;
+  color: #000;
+}
+.dark .metero-tab-section {
+  background: #0f1f2b;
+}
+.dark .react-tabs .nav-tabs .nav-item.show .nav-link, .dark .react-tabs .nav-tabs .nav-link.active, .dark .react-tabs__tab--selected, .dark .saved-entry {
+  background: #fff !important;
+  color:#000 !important
+}
+
+.dark .react-tabs .nav-tabs .nav-item, .dark .pageIte-main-div div, .dark .total-record-div div{
+  color: #fff;
+}
+.dark .react-tabs .nav-tabs .nav-item.show{
+  color: #000;
+}
+
+.dark .tab-div, .dark TabPanel{
+  background: #000;
+}
+ 
+.dark .table > thead {
+  background: #0f1f2b;
+}
+.dark .table {
+  border-top:1px solid #000 ;
+}
+.dark table td {
+  color: #cbdb2d;
+}
+  .dark table tr.saved-entry td{  
+  color: #000 !important;
+}
+.dark .page-item.active .page-link {
+ 
+  color: #fff;
+  background-color: transparent;
+  border-color: #000;
+  border: none;
+}
 /* // Medium devices (tablets, less than 992px) */
 @media (max-width: 991.98px) {
   .login-form {
