@@ -42,6 +42,15 @@ const ManageEquipmentTab = (props) => {
   const [data, setData] = useState([]);
   const [rawdata, setRawData] = useState([]);
   const [pageRange, setPageRange] = useState([0, 10]);
+  const [validationModalData, setValidationModalData] = useState({
+    showModal: false,
+    validationMessage: "",
+    cancelButtonText: "Ok",
+    showActionButton: false,
+    showCancelButton: true,
+    showFooterActions: true,
+    icon: loginError,
+  });
   
 
   // console.log("select MeteroTable value", meteroTableList);
@@ -135,6 +144,15 @@ const ManageEquipmentTab = (props) => {
   };
 
 
+  const updateInputValues = (value, equipment, inputField) => {
+    // console.log(value,itemIndex,inputField);
+    data.forEach((item) => {
+      if (item.Equipment === equipment) {
+        item[inputField] = value;
+      }
+    });
+    setData([...data]);
+  };
   
 
 
@@ -190,6 +208,68 @@ const ManageEquipmentTab = (props) => {
   const _addNotesModalHide = () => {
     setnotesModal(false);
   };
+
+  const saveData = (item) => {
+    console.log(item);
+    // if (!item.udReferenceNumber) {
+    //   setValidationModalData({
+    //     showModal: true,
+    //     validationMessage: (
+    //       <h4 className=" default-color">Please enter Reference Number</h4>
+    //     ),
+    //     cancelButtonText: "Ok",
+    //     showActionButton: false,
+    //     showCancelButton: true,
+    //     showFooterActions: true,
+    //     icon: loginError,
+    //   });
+    //   return;
+    // }
+    // data.forEach((dataItem) => {
+    //   if (dataItem.udReferenceNumber === item.udReferenceNumber) {
+    //     dataItem.Saved_MeterO = "true";
+    //   }
+    // });
+
+    axios
+      .post(`${API_ENDPOINT}/metero/updateEquipment`, [item])
+      .then((apiRes) => {
+        console.log(apiRes);
+        if (apiRes.data === "Success") {
+          setValidationModalData({
+            showModal: true,
+            validationMessage: "Data added successfully",
+            cancelButtonText: "Ok",
+            showActionButton: false,
+            showCancelButton: true,
+            showFooterActions: true,
+            icon: successIcon,
+          });
+        } else {
+          setValidationModalData({
+            showModal: true,
+            validationMessage: "Error occured",
+            cancelButtonText: "Ok",
+            showActionButton: false,
+            showCancelButton: true,
+            showFooterActions: true,
+            icon: loginError,
+          });
+        }
+      })
+      .catch((apiErr) => {
+        console.log(apiErr);
+        setValidationModalData({
+          showModal: true,
+          validationMessage: "Error occured",
+          cancelButtonText: "Ok",
+          showActionButton: false,
+          showCancelButton: true,
+          showFooterActions: true,
+        });
+      });
+  };
+
   return (
     <div className="tab-div review-tab manage-equipment-tab">
        {meteroTableList.meteroTableData !== null &&
@@ -282,13 +362,31 @@ const ManageEquipmentTab = (props) => {
                         <td data-title="Job Assign"> 
                           {item.JobAssign}
                         </td>
-                        <td data-title="Reference No">
-                         {item.udReerenceNumber}
+                        <td data-title="Reference No" style={{
+                          maxWidth:'100px'
+                        }}>
+                         <input
+                            // disabled={
+                            //   item.HourReading === 0 && item.NewHr === "0"
+                            //     ? true
+                            //     : false
+                            // }
+                            type="text"
+                            value={item.udReferenceNumber ? item.udReferenceNumber : ''}
+                            onInput={(e) =>
+                              updateInputValues(
+                                e.target.value,
+                                item.Equipment,
+                                "udReferenceNumber"
+                              )
+                            }
+                            className="form-control"
+                          />
                         </td>
                         <td data-title="">
                         <button
                          
-                         // onClick={() => saveData(item)}
+                         onClick={() => saveData(item)}
                          className="btn btn-primary tbl-save-btn"
                        >
                          UPDATE
@@ -323,7 +421,7 @@ const ManageEquipmentTab = (props) => {
                 )}
                 marginPagesDisplayed={2}
                 pageRangeDisplayed={5}
-                // onPageChange={handlePageClick}
+                onPageChange={handlePageClick}
                 containerClassName={"pagination"}
                 // subContainerClassName={"pages pagination"}
                 // activeClassName={"pagination-active"}
@@ -463,7 +561,7 @@ const ManageEquipmentTab = (props) => {
             </Modal.Footer>
           </Modal> */}
 
-          {/* <CommonModal
+          <CommonModal
             showModal={validationModalData.showModal}
             onHide={() =>
               setValidationModalData({
@@ -494,7 +592,7 @@ const ManageEquipmentTab = (props) => {
               {" "}
               {validationModalData.validationMessage}
             </h4>
-          </CommonModal> */}
+          </CommonModal>
 
           {/* <NotesModal /> */}
         </>
