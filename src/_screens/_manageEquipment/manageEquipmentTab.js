@@ -323,7 +323,7 @@ const ManageEquipmentTab = (props) => {
                 )}
                 marginPagesDisplayed={2}
                 pageRangeDisplayed={5}
-                // onPageChange={handlePageClick}
+                onPageChange={handlePageClick}
                 containerClassName={"pagination"}
                 // subContainerClassName={"pages pagination"}
                 // activeClassName={"pagination-active"}
