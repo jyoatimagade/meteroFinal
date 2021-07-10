@@ -1,7 +1,5 @@
 import React,{useState} from "react";
 import styled from "styled-components";
-import { CgSun } from "react-icons/cg";
-import { HiMoon } from "react-icons/hi";
 import MeteroTab from "../../_screens/_landingPage/MeteroTab";
 import { Header, HeaderBottom, Footer } from "../../_components";
 // import {headerBg, meteroLogo,meteroSecondLogo,} from '../../_config/images';
@@ -23,20 +21,6 @@ const LightTheme = {
     light: LightTheme,
     dark: DarkTheme,
   }
-
-const Toggle = styled.button`
-    cursor: pointer;
-    height: 50px;
-    width: 50px;   
-    border-radius: 50%;
-    border: none;
-    background-color: ${props => props.theme.titleColor};
-    color: ${props => props.theme.pageBackground};
-    &:focus {
-        outline: none;
-    }
-    transition: all .5s ease;he
-`;
 
 const Page = styled.div`
   height: 100vh;
@@ -67,23 +51,11 @@ function SplashScreen(props) {
   const [selectedJob, setSelectedJob] = useState("");
   const [selectedJobId, setSelectedJobId] = useState("");
   const [selectedTab, setselectedTab] = useState(0);
-    function changeTheme() {
-        if (props.theme === "light") {
-            props.setTheme("dark");
-        } else {
-            props.setTheme("light");
-        }
-    };
-
-    const icon = props.theme === "light" ? <HiMoon size={40} /> : <CgSun size={40} />;
 
     return (
-        <Page>
+        <Page className={props.theme}>
                <Header />
-       <HeaderBottom selectedTab={selectedTab} setSelectedJob={setSelectedJob} setSelectedJobId={setSelectedJobId} />
-               {/* <Toggle onClick={changeTheme}>
-                    {icon}
-                </Toggle> */}
+       <HeaderBottom theme={props.theme} setTheme={props.setTheme} selectedTab={selectedTab} setSelectedJob={setSelectedJob} setSelectedJobId={setSelectedJobId} />
          <MeteroTab setselectedTab={setselectedTab} selectedJob={selectedJob} selectedJobId={selectedJobId} />
         <Footer />
         

@@ -1,12 +1,29 @@
 import React, { useEffect, useState, useCallback } from "react";
+import styled from "styled-components";
 import { loginError } from "../../_config/images";
 import { useDispatch, useSelector } from "react-redux";
 import { selectJob_Action, meteroTable_Action } from "../../_stores/_actions";
 import Select from "react-select";
 import CommonModal from "../../_screens/_AllModals/CommonModal";
+import { CgSun } from "react-icons/cg";
+import { HiMoon } from "react-icons/hi";
 
 const HeaderBottom = (props) => {
   // Selectors
+const Toggle = styled.button`
+cursor: pointer;
+height: 50px;
+width: 50px;   
+border-radius: 50%;
+border: none;
+background-color: ${props => props.theme.titleColor};
+color: ${props => props.theme.pageBackground};
+&:focus {
+    outline: none;
+}
+transition: all .5s ease;he
+`;
+
   const getJob = useSelector((state) => state.getJob);
   const selectJobData = useSelector((state) => state.meteroTable);
   console.log(" job list ", selectJobData);
@@ -90,6 +107,16 @@ const HeaderBottom = (props) => {
     }
   };
 
+  function changeTheme() {
+      if (props.theme === "light") {
+          props.setTheme("dark");
+      } else {
+          props.setTheme("light");
+      }
+  };
+
+  const icon = props.theme === "light" ? <HiMoon size={40} /> : <CgSun size={40} />;
+
   return (
     <>
       <div className="header-bottom py-3">
@@ -101,6 +128,10 @@ const HeaderBottom = (props) => {
                               {icon}
                           </Toggle> 
                    <img src={themeToggle} className="img-fluid" alt="logo" /> */}
+                   
+               <Toggle onClick={changeTheme}>
+                    {icon}
+                </Toggle>
               </div>
             </div>
             <div className="col-md-11">
