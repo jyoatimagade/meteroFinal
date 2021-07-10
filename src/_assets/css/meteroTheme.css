@@ -835,6 +835,9 @@ display: block;
   
 }
 
+/* toggle Theme */
+.dark .tab-div, .dark TabPanel{}
+
 /* // Medium devices (tablets, less than 992px) */
 @media (max-width: 991.98px) {
   .login-form {
