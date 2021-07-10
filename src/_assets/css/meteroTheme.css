@@ -827,6 +827,11 @@ display: block;
   Label the data
   */
   #no-more-tables td:before { content: attr(data-title); }
+  .review-sbumission-btn button {
+    margin-top: 15px;
+    width: auto;
+    
+}
   
 }
 

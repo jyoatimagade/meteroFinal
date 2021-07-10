@@ -248,7 +248,7 @@ const ManageEquipmentTab = (props) => {
             </div>
           </div>
 
-          <div className="table-div">
+          <div className="table-div" id="no-more-tables">
             <table className="table table-striped">
               <Header headers={headers} />
               <tbody>
@@ -262,7 +262,7 @@ const ManageEquipmentTab = (props) => {
                         key={key}
                       >
                         
-                        <td>
+                        <td data-title="Notes">
                           <img
                             src={notesIcon}
                             className="img-fluid notesIcon"
@@ -274,18 +274,18 @@ const ManageEquipmentTab = (props) => {
                           />
                         
                         </td>
-                        <td>{item.Equipment}</td>
-                        <td>{item.SerialNo}</td>
-                        <td>{item.Description}</td>
-                        <td>{item.LicenseNumber}</td>
+                        <td data-title="Equipment No">{item.Equipment}</td>
+                        <td data-title="Serial No">{item.SerialNo}</td>
+                        <td data-title="Description">{item.Description}</td>
+                        <td data-title="License No">{item.LicenseNumber}</td>
                        
-                        <td>
+                        <td data-title="Job Assign"> 
                           {item.JobAssign}
                         </td>
-                        <td>
+                        <td data-title="Reference No">
                          {item.udReerenceNumber}
                         </td>
-                        <td>
+                        <td data-title="">
                         <button
                          
                          // onClick={() => saveData(item)}

@@ -799,7 +799,7 @@ const MeterEntry = (props) => {
                             ? ""
                             : "GPS"}
                         </td>
-                        <td data-title="btn">
+                        <td data-title="">
                           {" "}
                           <button
                             disabled={
