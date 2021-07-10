@@ -372,7 +372,7 @@ const ManageEquipmentTab = (props) => {
                             //     : false
                             // }
                             type="text"
-                            value={item.udReferenceNumber}
+                            value={item.udReferenceNumber ? item.udReferenceNumber : ''}
                             onInput={(e) =>
                               updateInputValues(
                                 e.target.value,
