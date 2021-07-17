@@ -12,7 +12,7 @@ const LightTheme = {
   };
   
   const DarkTheme = {
-    pageBackground: "#282c36",
+    pageBackground: "#0f1f2b",
     titleColor: "lightpink",
     tagLineColor: "lavender"
   }
@@ -56,7 +56,7 @@ function SplashScreen(props) {
         <Page className={props.theme}>
                <Header />
        <HeaderBottom theme={props.theme} setTheme={props.setTheme} selectedTab={selectedTab} setSelectedJob={setSelectedJob} setSelectedJobId={setSelectedJobId} />
-         <MeteroTab setselectedTab={setselectedTab} selectedJob={selectedJob} selectedJobId={selectedJobId} />
+         <MeteroTab theme={props.theme} setselectedTab={setselectedTab} selectedJob={selectedJob} selectedJobId={selectedJobId} />
         <Footer />
         
                

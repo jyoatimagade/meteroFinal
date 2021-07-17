@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "react-tabs/style/react-tabs.css";
 import {} from "../../_components";
-import{meterEntryIcon, reviewSubmissionIcon, mangEquipmentIcon} from "../../_config/images"
+import{meterEntryIcon, reviewSubmissionIcon, mangEquipmentIcon, meterEntryDarkIcon, reviewSubmissionDarkIcon, mangEquipmentDarkIcon} from "../../_config/images"
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import { MeterEntry, ReviewSubmissionTab,ManageEquipmentTab } from '../index'
 
@@ -30,24 +30,24 @@ const MeteroTab = (props) => {
       <div className="metero-tab-section p-3">
       <Tabs onSelect={(index, lastIndex, event) => onTabActive(index, lastIndex, event)}>
         <TabList className="nav nav-tabs">
-        <Tab className="nav-item"> <span className="metero-tab-icon"><img src={meterEntryIcon} /></span><span className="metero-tab-text">Meter Entry</span></Tab>
-          <Tab className="nav-item"> <span className="metero-tab-icon"><img src={reviewSubmissionIcon} /></span><span className="metero-tab-text">Review Submission</span></Tab>
+        <Tab className="nav-item"> <span className="metero-tab-icon"><img src={props.theme=== 'dark' ? meterEntryDarkIcon : meterEntryIcon} /></span><span className="metero-tab-text">Meter Entry</span></Tab>
+          <Tab className="nav-item"> <span className="metero-tab-icon"><img src={props.theme=== 'dark' ? reviewSubmissionDarkIcon : reviewSubmissionIcon} /></span><span className="metero-tab-text">Review Submission</span></Tab>
           {
             RoleId === "1" || RoleId === "2" || RoleId === "3" 
-            ?  <Tab className="nav-item"> <span className="metero-tab-icon"><img src={mangEquipmentIcon} /></span> <span className="metero-tab-text">Manage Equipments</span></Tab> 
+            ?  <Tab className="nav-item"> <span className="metero-tab-icon"><img src={props.theme=== 'dark' ? mangEquipmentDarkIcon : mangEquipmentIcon} /></span> <span className="metero-tab-text">Manage Equipments</span></Tab> 
             : ''
           }
         </TabList>
 
         <TabPanel>
-        <MeterEntry selectedJob={props.selectedJob} />
+        <MeterEntry theme={props.theme} selectedJob={props.selectedJob} />
         </TabPanel>
         <TabPanel>
-          <ReviewSubmissionTab selectedTab={selectedTabData?.selectedTab} selectedJob={props.selectedJob} selectedJobId={props.selectedJobId} />
+          <ReviewSubmissionTab theme={props.theme} selectedTab={selectedTabData?.selectedTab} selectedJob={props.selectedJob} selectedJobId={props.selectedJobId} />
         {/* <div className="d-flex justify-content-center align-item-center no-job-selected"><p>No Job Selected</p></div> */}
         </TabPanel>
         <TabPanel>
-          <ManageEquipmentTab selectedJob={props.selectedJob} />
+          <ManageEquipmentTab theme={props.theme} selectedJob={props.selectedJob} />
         {/* <div className="d-flex justify-content-center align-item-center no-job-selected"><p>No Job Selected</p></div> */}
         </TabPanel>
       </Tabs>

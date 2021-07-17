@@ -29,7 +29,7 @@ const ReviewSubmissionTab = (props) => {
   const meteroTableList = useSelector((state) => state.meteroTable);
   const reviewSubmissionList = useSelector((state) => state.reviewSubmissionTable);
   const getJob = useSelector((state) => state.getJob);
-
+  const RoleId = sessionStorage.getItem("RoleId");
   const [dropDownArray, setdropDownArray] = useState([]);
   const [totalItems, setTotalItems] = useState(0);
 
@@ -311,7 +311,7 @@ const ReviewSubmissionTab = (props) => {
       reviewSubmissionList.reviewSubmissionTableData.length !== 0 ? (
         <>
           <div className="row meter-Header d-flex justify-content-between align-items-center py-3">
-            <div className="col-xs-6 col-sm-10 col-md-8 col-lg-10 d-flex justify-content-between align-items-center pb-1 review-tab-search">
+            <div className="col-xs-6 col-sm-10 col-md-8 col-lg-4 d-flex justify-content-between align-items-center pb-1 review-tab-search">
             
             
               <div className="search-div ">
@@ -323,6 +323,13 @@ const ReviewSubmissionTab = (props) => {
                   onBackPress={(value)=> onBackPress(value)}
                 />
               </div>
+            </div>
+            <div className="col-xs-6 col-sm-10 col-md-8 col-lg-6 justify-content-between align-items-center pb-1 review-tab-search">
+              {/* <ul className="review-list">
+                <li>Readings saved successfully for  1 / 39 equipments</li>
+                <li>Equipment with "No Change" selected</li>
+              </ul> */}
+
             </div>
             <div className="col-xs-6 col-sm-2 col-md-4 col-lg-2 d-flex justify-content-around align-items-center pb-1 header-bottom-right-div review-tab-pageItem">
               
@@ -398,11 +405,13 @@ const ReviewSubmissionTab = (props) => {
             /> */}
             </table>
           </div>
+          { RoleId === "1" || RoleId === "2" || RoleId === "3" 
+            ? 
           <div className="review-sbumission-btn d-flex justify-content-center">
             <button disabled={meteroTableList.meteroTableData === null ||
       meteroTableList.meteroTableData === undefined ||
       meteroTableList.meteroTableData.length === 0} onClick={()=>showReviewSubmissionConfirmation()} className="btn btn-primary tbl-save-btn py-3">SUBMIT</button>
-          </div>
+          </div>: ''}
           {reviewSubmissionList.reviewSubmissionTableData !== null &&
           reviewSubmissionList.reviewSubmissionTableData !== undefined &&
           reviewSubmissionList.isSuccess == true &&

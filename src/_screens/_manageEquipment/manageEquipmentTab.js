@@ -5,6 +5,7 @@ import {
   closeIcon,
   loginError,
   successIcon,
+  notesDarkIcon,
   refreshIcon,
   exportListIcon,
 } from "../../_config/images";
@@ -432,22 +433,22 @@ const ManageEquipmentTab = (props) => {
           </div>
 
           <div className="table-div" id="no-more-tables">
-            <table className="table table-striped">
+            <table className="table table-striped manage-equipment-table">
               <Header headers={headers} />
               <tbody>
                 {data &&
                   data.slice(pageRange[0], pageRange[1]).map((item, key) => {
                     return (
                       <tr
-                        className={`card-itme mb-32 ${
-                          item.Saved_MeterO === "true" ? "saved-entry" : ""
-                        }`}
-                        key={key}
+                        // className={`card-itme mb-32 ${
+                        //   item.Saved_MeterO === "true" ? "saved-entry" : ""
+                        // }`}
+                        // key={key}
                       >
                         
                         <td data-title="Notes">
                           <img
-                            src={notesIcon}
+                            src={ props.theme === 'dark' ? notesDarkIcon : notesIcon}
                             className="img-fluid notesIcon"
                             alt="notesIcon"
                             onClick={() => {
@@ -472,9 +473,7 @@ const ManageEquipmentTab = (props) => {
                         <td data-title="Job Assign"> 
                           {item.JobAssign}
                         </td>
-                        <td data-title="Reference No" style={{
-                          maxWidth:'100px'
-                        }}>
+                        <td data-title="Reference No" ><span>
                          <input
                             // disabled={
                             //   item.HourReading === 0 && item.NewHr === "0"
@@ -492,6 +491,7 @@ const ManageEquipmentTab = (props) => {
                             }
                             className="form-control"
                           />
+                          </span>
                         </td>
                         <td data-title="">
                         <button

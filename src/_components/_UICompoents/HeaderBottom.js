@@ -116,7 +116,8 @@ transition: all .5s ease;he
       }
   };
 
-  const icon = props.theme === "light" ? <HiMoon size={40} /> : <CgSun size={40} />;
+  const icon = props.theme === "light" ? <HiMoon size={30} /> : <CgSun size={25} />;
+  // const icon = props.theme === "light" ? <mg src={themeToggleDark } width={40}  /> : <img src={themeToggle} width={40} />;
 
   return (
     <>
@@ -135,16 +136,16 @@ transition: all .5s ease;he
                 </Toggle>
               </div>
             </div>
-            <div className="col-md-11">
+            <div className="col-md-11 full-search">
               <div className=" job-search-div d-flex justify-content-end">
                 <form className=" header-Search d-flex justify-content-end">
                   {ToggleSearchOn ? (
-                    <div className="col-md-10 select-job header-caption">
+                    <div className="col-md-11 select-job header-caption">
                       <h2>{getresult}</h2>
                     </div>
                   ) : (
                     <>
-                      <div className="col-md-10 select-job">
+                      <div className="col-md-11 select-job">
                         <Select
                           options={dropDownArray}
                           onChange={_getSelectdJob}

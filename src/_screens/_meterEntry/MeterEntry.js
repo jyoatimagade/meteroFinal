@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   notesIcon,
+  notesDarkIcon,
   closeIcon,
   loginError,
   successIcon,
@@ -18,6 +19,7 @@ import {
   Header,
   Search  
 } from "../../_components/_UICompoents/datatable";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.css";
 import "react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.min.css";
 import BootstrapTable, { TableHeaderColumn } from "react-bootstrap-table-next";
@@ -725,9 +727,10 @@ const MeterEntry = (props) => {
                         key={key}
                       >
                         <td data-title="Notes">
+                        
                           <img
                           data-title=""
-                            src={notesIcon}
+                            src={props.theme=== 'dark' ? notesDarkIcon : notesIcon}
                             className="img-fluid notesIcon"
                             alt="notesIcon"
                             onClick={() => {
@@ -742,7 +745,7 @@ const MeterEntry = (props) => {
                         <td data-title="License No">{item.LicenseNumber}</td>
                         <td data-title="Ref No">{item.udReferenceNumber}</td>
                         <td data-title="No Change">
-                          {" "}
+                        
                           <input
                             checked={
                               (item.NewHr === "0" ||
@@ -755,8 +758,10 @@ const MeterEntry = (props) => {
                             onChange={(e) => setNoChange(e, item)}
                             type="checkbox"
                           />
+                          
                         </td>
-                        <td data-title="New Hour">
+                        <td className="" data-title="New Hour">
+                        <span>
                           <input
                             disabled={
                               item.HourReading === 0 && item.NewHr === "0"
@@ -773,9 +778,11 @@ const MeterEntry = (props) => {
                               )
                             }
                             className="form-control"
+                            
                           />
+                           </span>
                         </td>
-                        <td data-title="New Odo">
+                        <td className="" data-title="New Odo"><span>
                           <input
                             disabled={
                               item.HourReading === 0 && item.NewHr === "0"
@@ -793,6 +800,7 @@ const MeterEntry = (props) => {
                             }
                             className="form-control"
                           />
+                          </span>
                         </td>
                         <td data-title="GPS Enable">
                           {item.IsGPSActive.toLowerCase() !== "yes"
